@@ -10,8 +10,6 @@
 | Back-end  | Dion, Han   |
 | Front-end | Lime, Zello |
 
-![image](https://user-images.githubusercontent.com/58318174/82176905-05dcb480-9913-11ea-9102-9f41008ddf45.png)
-
 ## Scrum Overall
 - [11팀 Scrum]https://github.com/codesquad-member-2020/airbnb-11/wiki/Scrum
 
