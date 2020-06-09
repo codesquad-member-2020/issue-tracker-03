@@ -7,8 +7,8 @@
 
 | 클래스    | 이름        |
 | --------- | ----------- |
-| Back-end  | Dion, Han   |
-| Front-end | Lime, Zello |
+| Back-end  | Han, Sunny   |
+| Front-end | baekCo, Zello |
 
 ## Scrum Overall
 - [3팀 Scrum]https://github.com/codesquad-member-2020/issue-tracker-03/wiki/Scrum
