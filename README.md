@@ -11,7 +11,7 @@
 | Front-end | baekCo, Zello |
 
 ## Scrum Overall
-- [3팀 Scrum]https://github.com/codesquad-member-2020/issue-tracker-03/wiki/Scrum
+- [3팀 Scrum] https://github.com/codesquad-member-2020/issue-tracker-03/wiki/Scrum
 
 ## 1. 프로젝트 관리
 ### 개발 관리 (Development Management)
