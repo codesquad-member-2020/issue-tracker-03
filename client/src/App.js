@@ -1,7 +1,13 @@
 import React from 'react';
 
-const App = () => {
-  return <div></div>;
-};
+import AppRouter from '@Routers/AppRouter';
+
+function App() {
+  return (
+    <>
+      <AppRouter />
+    </>
+  );
+}
 
 export default App;
