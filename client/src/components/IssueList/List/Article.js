@@ -1,23 +1,61 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 
-const Article = () => {
+const ArticleWrap = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  & + & {
+    border-top: 0;
+  }
+`;
+const ArticleCol = styled.div`
+  width: 5%;
+  ${props =>
+    props.type === 'title' &&
+    css`
+      flex: auto;
+    `}
+`;
+
+const Article = ({ data }) => {
+  const {
+    id,
+    title,
+    createdBy,
+    labels,
+    mileStone,
+    createdTimeAt,
+    assignee,
+    commentCount,
+  } = data;
   return (
-    <div>
-      <div>
+    <ArticleWrap>
+      <ArticleCol>
         <input type="checkbox" name="" id="" />
-      </div>
-      <div>아이콘</div>
-      <div>
+      </ArticleCol>
+      <ArticleCol>아이콘</ArticleCol>
+      <ArticleCol type="title">
         <div>
-          타이틀 <span>레이블</span>
+          {title}
+          {labels.length > 0 &&
+            labels.map((label, index) => <span key={index}>{label}</span>)}
         </div>
         <div>
-          <span>이슈번호 / 이슈상태 / 작성시간 / 작성자</span>
-          <span>마일스톤</span>
+          <span>
+            {`#${id}`} / 이슈상태 / {createdTimeAt} / {createdBy}
+          </span>
+          {mileStone && <span>{mileStone}</span>}
         </div>
-      </div>
-      <div>담당자 표기</div>
-    </div>
+      </ArticleCol>
+      <ArticleCol>
+        {assignee.length > 0 &&
+          assignee.map((name, index) => <span key={index}>{name}</span>)}
+      </ArticleCol>
+      <ArticleCol>{commentCount > 1 && <span>{commentCount}</span>}</ArticleCol>
+    </ArticleWrap>
   );
 };
 
