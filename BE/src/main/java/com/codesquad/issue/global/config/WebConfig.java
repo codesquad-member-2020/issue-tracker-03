@@ -1,4 +1,4 @@
-package com.codesquad.issue.common.config;
+package com.codesquad.issue.global.config;
 
 import com.codesquad.issue.domain.github.GithubOAuth;
 import org.springframework.beans.factory.annotation.Value;
