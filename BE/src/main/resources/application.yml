@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: local
+  flyway:
+    clean-on-validation-error: true
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,beans
+        include: "*"
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/issue?characterEncoding=UTF-8
+    username: root
+    password: root
+  flyway:
+    user: root
+    password: root
+    url: jdbc:mysql://localhost:3306/issue?characterEncoding=UTF-8
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    com.codesquad.issue: debug
+
+
