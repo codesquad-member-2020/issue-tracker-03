@@ -1,0 +1,9 @@
+github:
+  uri: https://github.com/login/oauth/authorize
+  clientId: e475671da6e0d9156c91
+  clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+
+spring:
+  h2:
+    console:
+      enabled: true
