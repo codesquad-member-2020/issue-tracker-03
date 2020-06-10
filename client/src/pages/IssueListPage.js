@@ -1,7 +1,16 @@
 import React from 'react';
+import Header from '../components/Common/Header';
+import Footer from '../components/Common/Footer';
+import IssueListContainer from '../containers/IssueListContainer';
 
-const ListPage = () => {
-  return <div>ListPage</div>;
+const IssueListPage = () => {
+  return (
+    <>
+      <Header />
+      <IssueListContainer />
+      <Footer />
+    </>
+  );
 };
 
-export default ListPage;
+export default IssueListPage;
