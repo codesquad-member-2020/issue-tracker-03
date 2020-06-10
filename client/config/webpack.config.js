@@ -305,6 +305,8 @@ module.exports = function(webpackEnv) {
         '@Pages': path.resolve(__dirname, '../src/pages/'),
         '@Routers': path.resolve(__dirname, '../src/routers/'),
         '$Utils': path.resolve(__dirname, '../src/utils/'),
+        '$Libs': path.resolve(__dirname, '../src/libs/'),
+        '$API': path.resolve(__dirname, '../src/api/'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
