@@ -1,6 +1,6 @@
 package com.codesquad.issue.common.config;
 
-import com.codesquad.issue.domain.github.GithubOauth;
+import com.codesquad.issue.domain.github.GithubOAuth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     private String clientSecret;
 
     @Bean
-    public GithubOauth githubOauth() {
-        return new GithubOauth(uri, clientId, clientSecret);
+    public GithubOAuth githubOAuth() {
+        return new GithubOAuth(uri, clientId, clientSecret);
     }
 }

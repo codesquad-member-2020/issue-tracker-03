@@ -5,13 +5,13 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class GithubOauth {
+public class GithubOAuth {
 
     private final String uri;
     private final String clientId;
     private final String clientSecret;
 
-    public GithubOauth(String uri, String clientId, String clientSecret) {
+    public GithubOAuth(String uri, String clientId, String clientSecret) {
         this.uri = uri;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
