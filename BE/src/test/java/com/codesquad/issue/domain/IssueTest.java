@@ -3,6 +3,7 @@ package com.codesquad.issue.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.codesquad.issue.AccountRepository;
 import com.codesquad.issue.IssueRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ class IssueTest {
   @Autowired
   private IssueRepository issueRepository;
 
+  @Autowired
+  private AccountRepository accountRepository;
+
   @Test
   @DisplayName("이슈 생성")
   void create_issue() {
@@ -29,7 +33,7 @@ class IssueTest {
 
     Issue saved = issueRepository.save(issue);
     log.debug("saved : {}", saved);
-    assertThat(saved.getId()).isEqualTo(1L);
+    assertThat(saved.getId()).isNotNull();
   }
 
   @Test
@@ -52,5 +56,29 @@ class IssueTest {
 
     Issue saved = issueRepository.save(issue);
     assertThat(issue).isEqualTo(saved);
+  }
+
+  @Test
+  @DisplayName("생성된 유저를 이슈와 매핑하여 저장")
+  void create_with_user() {
+    Account a1 = Account.builder()
+        .email("test@gmail.com")
+        .accountId("test")
+        .nickname("hello")
+        .password("password")
+        .build();
+
+    Account a1Saved = accountRepository.save(a1);
+    assertThat(a1).isEqualTo(a1Saved);
+
+    Issue i1 = Issue.builder()
+        .title("테스트입니다")
+        .contents("안녕하세요")
+        .created(a1)
+        .build();
+
+    Issue i1Saved = issueRepository.save(i1);
+    log.debug("Issue : {}", i1Saved);
+    assertThat(i1).isEqualTo(i1Saved);
   }
 }
