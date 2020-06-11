@@ -1,4 +1,4 @@
-package com.codesquad.issue.global;
+package com.codesquad.issue.global.config;
 
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
