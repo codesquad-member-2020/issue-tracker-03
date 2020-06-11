@@ -2,7 +2,6 @@ package com.codesquad.issue.domain;
 
 import static java.time.LocalDateTime.now;
 
-import com.codesquad.issue.Account;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

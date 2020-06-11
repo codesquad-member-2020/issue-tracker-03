@@ -1,10 +1,11 @@
-package com.codesquad.issue;
+package com.codesquad.issue.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -29,5 +30,13 @@ public class Account {
 
   @JsonIgnore
   private String password;
+
+  @Builder
+  private Account(String email, String accountId, String nickname, String password) {
+    this.email = email;
+    this.accountId = accountId;
+    this.nickname = nickname;
+    this.password = password;
+  }
 
 }
