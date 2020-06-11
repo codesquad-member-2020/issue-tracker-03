@@ -1,15 +1,19 @@
-package com.codesquad.issue.domain.user;
+package com.codesquad.issue.domain.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class UserApiRequest {
+public class AccountApiRequest {
 
-    @JsonProperty("login")
-    private String userName;
+    private String login;
 
     private String email;
+
+    @JsonProperty("avatar_url")
+    private String avatarUrl;
+
+    private String name;
 
     public void setEmail(String email) {
         this.email = email;

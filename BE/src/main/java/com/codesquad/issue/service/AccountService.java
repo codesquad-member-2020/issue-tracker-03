@@ -1,29 +1,28 @@
 package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.github.GithubAccessToken;
-import com.codesquad.issue.domain.user.UserApiRequest;
-import com.codesquad.issue.domain.user.UserResponse;
+import com.codesquad.issue.domain.account.AccountApiRequest;
+import com.codesquad.issue.domain.account.AccountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class AccountService {
 
     private final OAuthLoginService oAuthLoginService;
 
-    public UserResponse userLogin(GithubAccessToken accessToken) {
+    public AccountResponse userLogin(GithubAccessToken accessToken) {
         HttpHeaders headers = new HttpHeaders();
         String token = oAuthLoginService.makeAccessToken(accessToken);
-        UserApiRequest request = oAuthLoginService.getUserByToken(token, headers);
-        if (request.getEmail() == null) {
-            request.setEmail(oAuthLoginService.getEmailByToken(headers));
-        }
+        AccountApiRequest request = oAuthLoginService.getUserByToken(token, headers);
 
-        return UserResponse.builder()
+        return AccountResponse.builder()
                 .email(request.getEmail())
-                .userName(request.getUserName())
+                .userName(request.getLogin())
+                .avatarUrl(request.getAvatarUrl())
+                .nickname(request.getName())
                 .build();
     }
 }

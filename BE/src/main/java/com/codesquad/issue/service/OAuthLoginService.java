@@ -2,11 +2,12 @@ package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.github.GithubAccessToken;
 import com.codesquad.issue.domain.github.GithubOAuth;
-import com.codesquad.issue.domain.user.UserApiRequest;
+import com.codesquad.issue.domain.account.AccountApiRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -30,6 +31,9 @@ public class OAuthLoginService {
 
     private final GithubOAuth githubOAuth;
 
+    @Value("${host}")
+    private String mainUrl;
+
     public HttpHeaders redirectGithub() {
         HttpHeaders headers = new HttpHeaders();
         URI uri = UriComponentsBuilder.fromUriString(GITHUB_AUTHORIZE)
@@ -38,6 +42,13 @@ public class OAuthLoginService {
                 .build()
                 .toUri();
         headers.setLocation(uri);
+        return headers;
+    }
+
+    public HttpHeaders redirectMain() {
+        HttpHeaders headers = new HttpHeaders();
+        String uri = mainUrl;
+        headers.setLocation(URI.create(uri));
         return headers;
     }
 
@@ -55,6 +66,18 @@ public class OAuthLoginService {
         return response.getBody();
     }
 
+    public AccountApiRequest getUserByToken(String accessToken, HttpHeaders headers) {
+        headers.set("Authorization", accessToken);
+        ResponseEntity<AccountApiRequest> responseEntity = new RestTemplate().exchange(GITHUB_API, HttpMethod.GET,
+                new HttpEntity<>(headers), AccountApiRequest.class);
+        AccountApiRequest userApiRequest = responseEntity.getBody();
+        if (userApiRequest.getEmail() == null) {
+            userApiRequest.setEmail(getEmailByToken(headers));
+        }
+
+        return userApiRequest;
+    }
+
     private MultiValueMap<String, String> requestAccess() {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         Map<String, String> header = new HashMap<>();
@@ -63,15 +86,7 @@ public class OAuthLoginService {
         return headers;
     }
 
-    public UserApiRequest getUserByToken(String accessToken, HttpHeaders headers) {
-        headers.set("Authorization", accessToken);
-        ResponseEntity<UserApiRequest> responseEntity = new RestTemplate().exchange(GITHUB_API, HttpMethod.GET,
-                new HttpEntity<>(headers), UserApiRequest.class);
-
-        return responseEntity.getBody();
-    }
-
-    public String getEmailByToken(HttpHeaders headers) {
+    private String getEmailByToken(HttpHeaders headers) {
         ResponseEntity<String> email = new RestTemplate().exchange(GITHUB_API + "/emails", HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
 

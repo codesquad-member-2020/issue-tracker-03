@@ -1,9 +1,9 @@
 package com.codesquad.issue.controller;
 
 import com.codesquad.issue.domain.github.GithubAccessToken;
-import com.codesquad.issue.domain.user.UserResponse;
+import com.codesquad.issue.domain.account.AccountResponse;
 import com.codesquad.issue.service.OAuthLoginService;
-import com.codesquad.issue.service.UserService;
+import com.codesquad.issue.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class AccountController {
 
     private final OAuthLoginService oAuthLoginService;
-    private final UserService userService;
+    private final AccountService userService;
 
     @GetMapping("github-login")
     public ResponseEntity<HttpHeaders> githubLogin() {
@@ -26,9 +26,9 @@ public class UserController {
     }
 
     @GetMapping("login")
-    public ResponseEntity<UserResponse> login(@RequestParam("code") String code) {
+    public ResponseEntity<AccountResponse> login(@RequestParam("code") String code) {
         GithubAccessToken token = oAuthLoginService.getAccessTokenByCode(code);
 
-        return new ResponseEntity<>(userService.userLogin(token), HttpStatus.OK);
+        return new ResponseEntity<>(userService.userLogin(token), oAuthLoginService.redirectMain(), HttpStatus.FOUND);
     }
 }
