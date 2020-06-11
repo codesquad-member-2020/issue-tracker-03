@@ -8,23 +8,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountSaveDto {
     private String email;
+    private String login;
     private String name;
-    private String nickname;
     private String avatarUrl;
 
     @Builder
-    public AccountSaveDto(String email, String name, String nickname, String avatarUrl) {
+    public AccountSaveDto(String email, String login, String name, String avatarUrl) {
         this.email = email;
+        this.login = login;
         this.name = name;
-        this.nickname = nickname;
         this.avatarUrl = avatarUrl;
     }
 
     public Account toEntity() {
         return Account.builder()
                 .email(email)
+                .login(login)
                 .name(name)
-                .nickname(nickname)
                 .avatarUrl(avatarUrl)
                 .build();
     }

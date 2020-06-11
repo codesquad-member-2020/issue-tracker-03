@@ -20,12 +20,14 @@ public class AccountService {
         String token = oAuthLoginService.makeAccessToken(accessToken);
         AccountApiRequest request = oAuthLoginService.getUserByToken(token, headers);
 
-        saveAccount(AccountSaveDto.builder()
-                .email(request.getEmail())
-                .name(request.getLogin())
-                .nickname(request.getName())
-                .avatarUrl(request.getAvatarUrl())
-                .build());
+        if (accountRepository.findByEmail(request.getEmail()) == null) {
+            saveAccount(AccountSaveDto.builder()
+                    .email(request.getEmail())
+                    .login(request.getLogin())
+                    .name(request.getName())
+                    .avatarUrl(request.getAvatarUrl())
+                    .build());
+        }
     }
 
     @Transactional

@@ -18,14 +18,14 @@ class AccountRepositoryTest {
     void 유저불러오기() {
         //given
         String email = "kses1010@naver.com";
-        String name = "ssh";
-        String nickname = "haha";
+        String login = "ssh";
+        String name = "haha";
         String avatarUrl = "avatar";
 
         accountRepository.save(Account.builder()
                 .email(email)
                 .name(name)
-                .nickname(nickname)
+                .login(login)
                 .avatarUrl(avatarUrl)
                 .build());
 
@@ -34,6 +34,8 @@ class AccountRepositoryTest {
 
         //then
         Account account = accounts.get(0);
+        Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com");
         assertThat(account.getEmail()).isEqualTo(email);
+        assertThat(accountByEmail.getEmail()).isEqualTo(email);
     }
 }

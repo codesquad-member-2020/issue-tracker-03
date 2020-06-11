@@ -19,18 +19,18 @@ public class Account {
     private String email;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String login;
 
-    private String nickname;
+    private String name;
 
     private String avatarUrl;
 
     @Builder
-    public Account(long id, String email, String name, String nickname, String avatarUrl) {
+    public Account(long id, String email, String login, String name, String avatarUrl) {
         this.id = id;
         this.email = email;
+        this.login = login;
         this.name = name;
-        this.nickname = nickname;
         this.avatarUrl = avatarUrl;
     }
 }
