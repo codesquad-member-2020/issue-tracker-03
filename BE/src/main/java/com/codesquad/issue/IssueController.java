@@ -1,5 +1,6 @@
 package com.codesquad.issue;
 
+import com.codesquad.issue.domain.Issue;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

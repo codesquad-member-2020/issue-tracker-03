@@ -14,23 +14,26 @@ spring:
   profiles: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/issue?characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&characterEncoding=UTF-8
     username: root
     password: root
   flyway:
     user: root
     password: root
-    url: jdbc:mysql://localhost:3306/issue?characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&characterEncoding=UTF-8
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     open-in-view: false
     show-sql: true
+    hibernate:
+      ddl-auto: validate
+#    properties:
+#      hibernate:
+#        format_sql: true
 
 logging:
   level:
     web: debug
     sql: debug
     com.codesquad.issue: debug
-
-
