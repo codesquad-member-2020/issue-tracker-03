@@ -14,3 +14,10 @@ INSERT INTO issue(title, contents, account_id, is_open)
 VALUES ('첫번째 닫힌 이슈입니다', '이슈1', 1, false),
        ('두번째 닫힌 이슈입니다', '이슈2', 2, false),
        ('세번째 닫힌 이슈입니다', '이슈3', 3, false);
+
+INSERT INTO label(name, description, color)
+VALUES ('bug', 'Something isn''t working', '#d73a4a'),
+       ('documentation', 'Improvements or additions to documentation', '#0075ca'),
+       ('question', 'Further information is requested', '#d876e3'),
+       ('invalid', 'This doesn''t seem right', '#e4e669'),
+       ('help wanted', 'Extra attention is needed', '#008672');
