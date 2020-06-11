@@ -28,11 +28,12 @@ public class Issue {
   private Long id;
 
   @Column(nullable = false)
-  @NotNull(message = "제목은 꼭 입력해주세요")
+  @NotNull(message = "제목은 꼭 입력해 주세요")
   private String title;
 
   private String contents;
 
+  @Column(name = "is_open")
   private boolean isOpen;
 
   private LocalDateTime createdTimeAt;
