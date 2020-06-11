@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.codesquad.issue.AccountRepository;
-import com.codesquad.issue.IssueRepository;
+import com.codesquad.issue.domain.Issue.IssueRepository;
+import com.codesquad.issue.domain.Issue.Issue;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
