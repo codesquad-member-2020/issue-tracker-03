@@ -32,7 +32,7 @@ logging:
     web: debug
     sql: debug
     com.codesquad.issue: debug
-host: localhost:8080
+host: http://34.206.34.207/api/issues
 github:
   uri: https://github.com/login/oauth/access_token
   clientId: e475671da6e0d9156c91

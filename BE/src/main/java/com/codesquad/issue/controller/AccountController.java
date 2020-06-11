@@ -1,7 +1,6 @@
 package com.codesquad.issue.controller;
 
 import com.codesquad.issue.domain.github.GithubAccessToken;
-import com.codesquad.issue.domain.account.AccountResponse;
 import com.codesquad.issue.service.OAuthLoginService;
 import com.codesquad.issue.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +25,9 @@ public class AccountController {
     }
 
     @GetMapping("login")
-    public ResponseEntity<AccountResponse> login(@RequestParam("code") String code) {
+    public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code) {
         GithubAccessToken token = oAuthLoginService.getAccessTokenByCode(code);
-
-        return new ResponseEntity<>(userService.userLogin(token), oAuthLoginService.redirectMain(), HttpStatus.FOUND);
+        userService.userLogin(token);
+        return new ResponseEntity<>(oAuthLoginService.redirectMain(), HttpStatus.FOUND);
     }
 }
