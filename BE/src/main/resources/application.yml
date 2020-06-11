@@ -1,9 +1,39 @@
+spring:
+  profiles:
+    active: local
+  flyway:
+    clean-on-validation-error: true
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,beans
+        include: "*"
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
+  flyway:
+    user: root
+    password: root
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&serverTimezone=UTC&characterEncoding=UTF-8
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+logging:
+  level:
+    web: debug
+    sql: debug
+    com.codesquad.issue: debug
+host: localhost:8080
 github:
   uri: https://github.com/login/oauth/access_token
   clientId: e475671da6e0d9156c91
   clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
-
-spring:
-  h2:
-    console:
-      enabled: true
