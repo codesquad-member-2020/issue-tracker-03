@@ -49,4 +49,8 @@ public class Issue {
     this.createdTimeAt = now();
     this.createdBy = created;
   }
+
+  public void changeIsOpen(boolean isOpen) {
+    this.isOpen = isOpen;
+  }
 }
