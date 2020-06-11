@@ -20,7 +20,7 @@ const ArticleCol = styled.div`
     `}
 `;
 
-const Article = ({ data }) => {
+const Article = ({ data, label, onCheckbox }) => {
   const {
     id,
     title,
@@ -31,17 +31,28 @@ const Article = ({ data }) => {
     assignee,
     commentCount,
   } = data;
+  const onClick = () => {
+    // console.log(id);
+    onCheckbox(id);
+  };
   return (
     <ArticleWrap>
       <ArticleCol>
-        <input type="checkbox" name="" id="" />
+        <input type="checkbox" name="" id="" onClick={onClick} />
       </ArticleCol>
       <ArticleCol>아이콘</ArticleCol>
       <ArticleCol type="title">
         <div>
           {title}
           {labels.length > 0 &&
-            labels.map((label, index) => <span key={index}>{label}</span>)}
+            labels.map((item, index) => {
+              const color = label.get(item);
+              return (
+                <span key={index} style={color && { color: color.color }}>
+                  {item}
+                </span>
+              );
+            })}
         </div>
         <div>
           <span>
