@@ -2,8 +2,8 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
-import com.codesquad.issue.IssueRepository;
-import com.codesquad.issue.domain.Issue;
+import com.codesquad.issue.domain.Issue.IssueRepository;
+import com.codesquad.issue.domain.Issue.Issue;
 import com.codesquad.issue.global.api.ApiResult;
 import java.util.List;
 import java.util.Optional;
