@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class User {
+public class Account {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class User {
   private String email;
 
   @JsonIgnore
-  private String userId;
+  private String accountId;
 
   private String nickname;
 

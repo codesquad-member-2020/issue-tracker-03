@@ -2,7 +2,7 @@ package com.codesquad.issue.domain;
 
 import static java.time.LocalDateTime.now;
 
-import com.codesquad.issue.User;
+import com.codesquad.issue.Account;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,11 +38,11 @@ public class Issue {
   private LocalDateTime createdTimeAt;
 
   @OneToOne
-  @JoinColumn(name = "user_id")
-  private User createdBy;
+  @JoinColumn(name = "account_id")
+  private Account createdBy;
 
   @Builder
-  private Issue(String title, String contents, User created) {
+  private Issue(String title, String contents, Account created) {
     this.title = title;
     this.contents = contents;
     this.isOpen = true;

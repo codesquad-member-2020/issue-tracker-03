@@ -28,9 +28,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
-#    properties:
-#      hibernate:
-#        format_sql: true
 
 logging:
   level:
