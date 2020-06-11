@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import issues from './issues';
+import issueList from './issueList';
 
-const rootReducer = combineReducers({ issues });
+const rootReducer = combineReducers({ issueList });
 
 export default rootReducer;
+
