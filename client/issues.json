@@ -1,0 +1,118 @@
+{
+  "author": [
+    {
+      "id": "102092",
+      "nickName": "han"
+    },
+    {
+      "id": "kses1010",
+      "nickName": "Sosah92"
+    },
+    {
+      "id": "baekCode",
+      "nickName": "baekCode"
+    },
+    {
+      "id": "dev-angelo",
+      "nickName": "Angelo"
+    }
+  ],
+  "label": [
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "#d876e3"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "#e4e669"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "#008672"
+    },
+    {
+      "name": "be",
+      "description": null,
+      "color": "#15b510"
+    },
+    {
+      "name": "fe",
+      "description": null,
+      "color": "#f2b5f1"
+    }
+  ],
+  "mileStones": [
+    {
+      "title": "1주차"
+    },
+    {
+      "title": "1주차"
+    },
+    {
+      "title": "1주차"
+    }
+  ],
+  "assignee": [
+    {
+      "id": "102092",
+      "nickName": "han"
+    },
+    {
+      "id": "kses1010",
+      "nickName": "Sosah92"
+    },
+    {
+      "id": "baekCode",
+      "nickName": "baekCode"
+    },
+    {
+      "id": "dev-angelo",
+      "nickName": "Angelo"
+    }
+  ],
+  "issueResponses": [
+    {
+      "id": 1,
+      "title": "[BE] 개발환경 생성 및 설정",
+      "createdBy": "102092",
+      "labels": ["be"],
+      "mileStone": "1주차",
+      "createdTimeAt": "2020-06-10T13:18:30.377",
+      "assignee": ["102092", "Sunny"],
+      "commentCount": 2
+    },
+    {
+      "id": 2,
+      "title": "[FE] 개발 환경 구축",
+      "createdBy": "baekCode",
+      "labels": ["fe"],
+      "mileStone": "1주차",
+      "createdTimeAt": "2020-06-10T13:18:30.377",
+      "assignee": ["baekCode", "dev-angelo"],
+      "commentCount": 0
+    },
+    {
+      "id": 3,
+      "title": "[BE] 개념적, 논리적 DB 설계",
+      "createdBy": "102092",
+      "labels": ["be"],
+      "mileStone": "1주차",
+      "createdTimeAt": "2020-06-10T13:18:30.377",
+      "assignee": ["102092", "Sunny"],
+      "commentCount": 30
+    },
+    {
+      "id": 4,
+      "title": "[BE] Mock API 생성 및 문서 공유",
+      "createdBy": "102092",
+      "labels": ["be", "bug", "documentation", "fe"],
+      "mileStone": "1주차",
+      "createdTimeAt": "2020-06-10T13:18:30.377",
+      "assignee": ["102092"],
+      "commentCount": 0
+    }
+  ]
+}

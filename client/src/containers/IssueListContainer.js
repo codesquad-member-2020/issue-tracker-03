@@ -21,7 +21,7 @@ const IssueListContainer = () => {
     <>
       <Search />
       <Filters />
-      <List />
+      <List list={list} />
     </>
   );
 };
