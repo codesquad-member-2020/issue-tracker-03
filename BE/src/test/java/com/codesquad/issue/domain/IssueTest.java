@@ -3,9 +3,10 @@ package com.codesquad.issue.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.codesquad.issue.AccountRepository;
+import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.Issue.IssueRepository;
 import com.codesquad.issue.domain.Issue.Issue;
+import com.codesquad.issue.domain.account.Account;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -66,8 +67,9 @@ class IssueTest {
   void create_with_user() {
     Account a1 = Account.builder()
         .email("test@gmail.com")
-        .accountId("test")
-        .nickname("hello")
+        .login("test")
+        .name("닉네임")
+        .avatarUrl("hi")
         .password("password")
         .build();
 

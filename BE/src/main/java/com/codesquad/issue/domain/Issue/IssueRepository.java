@@ -1,6 +1,5 @@
 package com.codesquad.issue.domain.Issue;
 
-import com.codesquad.issue.domain.Issue.Issue;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
