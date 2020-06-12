@@ -18,3 +18,9 @@ logging:
     web: debug
     sql: debug
     com.codesquad.issue: debug
+
+github:
+  clientId: e475671da6e0d9156c91
+  clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+
+host: http://127.0.0.1

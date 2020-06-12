@@ -34,3 +34,10 @@ logging:
     web: debug
     sql: debug
     com.codesquad.issue: debug
+
+github:
+  uri: https://github.com/login/oauth/access_token
+  clientId: b8e8adfa2d70cc8d1240
+  clientSecret: b3cc119bec1adb3b95e72e4b3adea08a5d83d083
+
+host: http://127.0.0.1:8080
