@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain;
+package com.codesquad.issue.domain.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
@@ -23,19 +23,20 @@ public class Account {
 
   private String email;
 
-  @JsonIgnore
-  private String accountId;
+  private String login;
 
-  private String nickname;
+  private String name;
 
-  @JsonIgnore
+  private String avatarUrl;
+
   private String password;
 
   @Builder
-  private Account(String email, String accountId, String nickname, String password) {
+  private Account(String email, String login, String name, String avatarUrl, String password) {
     this.email = email;
-    this.accountId = accountId;
-    this.nickname = nickname;
+    this.login = login;
+    this.name = name;
+    this.avatarUrl = avatarUrl;
     this.password = password;
   }
 
