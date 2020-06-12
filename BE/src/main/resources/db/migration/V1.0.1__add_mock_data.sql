@@ -1,19 +1,17 @@
-INSERT INTO account(email, account_id, password, nickname)
-VALUES ('han@gmail.com', 'han1234', '1234', 'han'),
-       ('zello@gmail.com', 'zello1234', '1234', 'zello'),
-       ('sunny@gmail.com', 'sunny1234', '1234', 'sunny'),
-       ('baekco@gmail.com', 'baekco1234', '1234', 'baekco');
+INSERT INTO account(email, login, name, avatar_url, password)
+VALUES ('sunny@gmail.com', 'kses1010', 'Sosah92', 'url', 'sunny');
+
 
 INSERT INTO issue(title, contents, account_id)
 VALUES ('첫번째 이슈입니다', '이슈1', 1),
-       ('두번째 이슈입니다', '이슈2', 2),
-       ('세번째 이슈입니다', '이슈3', 3),
-       ('네번째 이슈입니다', '이슈4', 4);
+       ('두번째 이슈입니다', '이슈2', 1),
+       ('세번째 이슈입니다', '이슈3', 1),
+       ('네번째 이슈입니다', '이슈4', 1);
 
 INSERT INTO issue(title, contents, account_id, is_open)
 VALUES ('첫번째 닫힌 이슈입니다', '이슈1', 1, false),
-       ('두번째 닫힌 이슈입니다', '이슈2', 2, false),
-       ('세번째 닫힌 이슈입니다', '이슈3', 3, false);
+       ('두번째 닫힌 이슈입니다', '이슈2', 1, false),
+       ('세번째 닫힌 이슈입니다', '이슈3', 1, false);
 
 INSERT INTO label(name, description, color)
 VALUES ('bug', 'Something isn''t working', '#d73a4a'),

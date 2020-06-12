@@ -7,10 +7,11 @@ DROP TABLE IF EXISTS label;
 CREATE TABLE account
 (
     id         BIGINT AUTO_INCREMENT,
-    email      VARCHAR(50),
-    account_id VARCHAR(50),
-    nickname   VARCHAR(50),
-    password   VARCHAR(100),
+    email      VARCHAR(100) NOT NULL,
+    login      VARCHAR(50)  NOT NULL,
+    name       VARCHAR(50)  NULL,
+    avatar_url VARCHAR(200) NULL,
+    password   VARCHAR(100) NULL,
     PRIMARY KEY (id)
 );
 
