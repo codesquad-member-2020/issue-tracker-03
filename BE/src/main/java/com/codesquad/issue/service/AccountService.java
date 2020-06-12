@@ -27,9 +27,10 @@ public class AccountService {
                     .name(request.getName())
                     .avatarUrl(request.getAvatarUrl())
                     .build());
-            return new AccountResponse(request.getEmail());
+            return new AccountResponse(request.getName(), request.getAvatarUrl());
         }
-        return new AccountResponse(findAccountByEmail(request).getEmail());
+        return new AccountResponse(findAccountByEmail(request).getName(),
+                findAccountByEmail(request).getAvatarUrl());
     }
 
     @Transactional

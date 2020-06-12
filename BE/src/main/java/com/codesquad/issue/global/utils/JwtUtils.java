@@ -1,7 +1,6 @@
 package com.codesquad.issue.global.utils;
 
 import com.codesquad.issue.domain.account.AccountResponse;
-import com.codesquad.issue.domain.account.AccountSaveDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
@@ -10,7 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JwtUtils {
-    private static final String JWT_KEY = "user";
+    private static final String JWT_KEY_USER_ID = "userId";
+    private static final String JWT_KEY_AVATAR_URL = "avatarURL";
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private JwtUtils() {}
@@ -21,7 +21,8 @@ public class JwtUtils {
         headers.put("alg", "HS256");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("email", account.getEmail());
+        payloads.put(JWT_KEY_USER_ID, account.getUserId());
+        payloads.put(JWT_KEY_AVATAR_URL, account.getAvatarUrl());
 
         return Jwts.builder()
                 .setHeader(headers)
@@ -30,16 +31,18 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static String jwtParsing(String jwt) {
+    public static AccountResponse jwtParsing(String jwt) {
         try {
             Jws<Claims> jws = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(jwt);
-            return jws.getBody().get("email", String.class);
+            return AccountResponse.builder()
+                    .userId(jws.getBody().get(JWT_KEY_USER_ID, String.class))
+                    .avatarUrl(jws.getBody().get(JWT_KEY_AVATAR_URL, String.class))
+                    .build();
         } catch (JwtException e) {
             throw new IllegalStateException("인증되지 않은 JWT TOKEN입니다.");
         }
-
     }
 }
