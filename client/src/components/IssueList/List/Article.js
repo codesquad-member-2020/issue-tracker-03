@@ -31,9 +31,9 @@ const Article = ({ data, label, onCheckbox }) => {
     assignee,
     commentCount,
   } = data;
-  const onClick = () => {
-    // console.log(id);
-    onCheckbox(id);
+  const onClick = e => {
+    const checked = e.target.checked;
+    return onCheckbox(id, checked);
   };
   return (
     <ArticleWrap>

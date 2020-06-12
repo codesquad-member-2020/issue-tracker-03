@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIssueList } from '../modules/issueList';
-import { toggleCheckbox, setCheckbox } from '../modules/checkbox';
+import { getIssueList, clickCheckbox } from '../modules/issueList';
 import Search from '../components/IssueList/Search';
 import List from '../components/IssueList/List';
 import Filters from '../components/IssueList/Filters';
@@ -10,7 +9,6 @@ const IssueListContainer = () => {
   const { data, loading, error } = useSelector(
     state => state.issueList.issueList,
   );
-  const { issueList } = useSelector(({ checkbox }) => checkbox);
 
   const dispatch = useDispatch();
 
@@ -22,29 +20,21 @@ const IssueListContainer = () => {
   if (error) return <div>에러 발생!</div>;
   if (!data) return null;
 
-  //dispatch(setCheckbox(data.issueResponses));
-  console.log(issueList);
-
   const list = data.issueResponses.reverse();
   const label = new Map();
 
-  data.label.forEach((data, index) =>
+  data.label.forEach(data =>
     label.set(data.name, { description: data.description, color: data.color }),
   );
 
-  function onCheckboxClickHandler(id) {
-    dispatch(toggleCheckbox(id));
-  }
+  const onCheckboxClickHandler = (id, checked) =>
+    dispatch(clickCheckbox({ id, checked }));
 
   return (
     <>
       <Search />
       <Filters />
-      <List
-        list={list}
-        label={label}
-        onCheckbox={() => onCheckboxClickHandler}
-      />
+      <List list={list} label={label} onCheckbox={onCheckboxClickHandler} />
     </>
   );
 };
