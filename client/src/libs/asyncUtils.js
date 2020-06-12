@@ -17,26 +17,26 @@ export const reducerUtils = {
   initial: (initialData = null) => ({
     loading: false,
     data: initialData,
-    error: null
+    error: null,
   }),
 
   loading: (prevState = null) => ({
     loading: true,
     data: prevState,
-    error: null
+    error: null,
   }),
 
   success: payload => ({
     loading: false,
     data: payload,
-    error: null
+    error: null,
   }),
 
   error: error => ({
     loading: false,
     data: null,
-    error: error
-  })
+    error: error,
+  }),
 };
 
 export const handleAsyncActions = (type, key, keepData = false) => {
@@ -46,17 +46,17 @@ export const handleAsyncActions = (type, key, keepData = false) => {
       case type:
         return {
           ...state,
-          [key]: reducerUtils.loading(keepData ? state[key].data : null)
+          [key]: reducerUtils.loading(keepData ? state[key].data : null),
         };
       case SUCCESS:
         return {
           ...state,
-          [key]: reducerUtils.success(action.payload)
+          [key]: reducerUtils.success(action.payload),
         };
       case ERROR:
         return {
           ...state,
-          [key]: reducerUtils.error(action.error)
+          [key]: reducerUtils.error(action.error),
         };
       default:
         return state;

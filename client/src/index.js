@@ -23,7 +23,7 @@ const store = createStore(
 );
 
 window.store = store;
-console.log(store.getState());
+console.log('[index] : ', store.getState());
 
 ReactDOM.render(
   <Router history={customHistory}>
