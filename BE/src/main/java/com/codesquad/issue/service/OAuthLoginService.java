@@ -1,7 +1,7 @@
 package com.codesquad.issue.service;
 
-import com.codesquad.issue.domain.github.GithubAccessToken;
-import com.codesquad.issue.domain.github.GithubOAuth;
+import com.codesquad.issue.global.github.GithubAccessToken;
+import com.codesquad.issue.global.github.GithubOAuth;
 import com.codesquad.issue.domain.account.AccountApiRequest;
 import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;

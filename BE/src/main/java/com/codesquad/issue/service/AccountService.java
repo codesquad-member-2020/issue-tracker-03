@@ -1,7 +1,7 @@
 package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.account.*;
-import com.codesquad.issue.domain.github.GithubAccessToken;
+import com.codesquad.issue.global.github.GithubAccessToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;

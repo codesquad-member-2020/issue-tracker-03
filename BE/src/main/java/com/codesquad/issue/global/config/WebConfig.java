@@ -1,6 +1,6 @@
 package com.codesquad.issue.global.config;
 
-import com.codesquad.issue.domain.github.GithubOAuth;
+import com.codesquad.issue.global.github.GithubOAuth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

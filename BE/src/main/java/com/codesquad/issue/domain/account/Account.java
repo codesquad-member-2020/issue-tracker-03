@@ -26,8 +26,7 @@ public class Account {
     private String avatarUrl;
 
     @Builder
-    public Account(long id, String email, String login, String name, String avatarUrl) {
-        this.id = id;
+    private Account(String email, String login, String name, String avatarUrl) {
         this.email = email;
         this.login = login;
         this.name = name;
