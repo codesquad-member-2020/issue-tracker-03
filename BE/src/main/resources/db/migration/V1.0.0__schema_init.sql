@@ -1,7 +1,11 @@
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS account;
 
-CREATE TABLE IF NOT EXISTS user
+CREATE TABLE account
 (
-    id INT AUTO_INCREMENT,
+    id         BIGINT AUTO_INCREMENT,
+    email      VARCHAR(50) UNIQUE NOT NULL,
+    login      VARCHAR(50) UNIQUE NOT NULL,
+    name       VARCHAR(255),
+    avatar_url VARCHAR(255),
     PRIMARY KEY (id)
-)
+);
