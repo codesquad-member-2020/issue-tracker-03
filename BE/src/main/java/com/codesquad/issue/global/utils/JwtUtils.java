@@ -32,15 +32,18 @@ public class JwtUtils {
     }
 
     public static AccountResponse jwtParsing(String jwt) {
+
         try {
             Jws<Claims> jws = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(jwt);
+
             return AccountResponse.builder()
                     .userId(jws.getBody().get(JWT_KEY_USER_ID, String.class))
                     .avatarUrl(jws.getBody().get(JWT_KEY_AVATAR_URL, String.class))
                     .build();
+
         } catch (JwtException e) {
             throw new IllegalStateException("인증되지 않은 JWT TOKEN입니다.");
         }

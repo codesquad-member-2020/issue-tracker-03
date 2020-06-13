@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
 @RestController
-public class AccountController {
+public class LoginController {
 
     private final OAuthLoginService oAuthLoginService;
     private final AccountService userService;

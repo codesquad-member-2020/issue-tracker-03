@@ -18,7 +18,7 @@ public class AccountService {
     public AccountResponse userLogin(GithubAccessToken accessToken) {
         HttpHeaders headers = new HttpHeaders();
         String token = oAuthLoginService.makeAccessToken(accessToken);
-        AccountApiRequest request = oAuthLoginService.getUserByToken(token, headers);
+        AccountApiRequest request = oAuthLoginService.getAccountByToken(token, headers);
 
         if (findAccountByEmail(request) == null) {
             saveAccount(AccountSaveDto.builder()

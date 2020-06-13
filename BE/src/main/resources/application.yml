@@ -27,11 +27,21 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
 logging:
   level:
     web: debug
-    sql: debug
     com.codesquad.issue: debug
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+
 host: http://localhost:8080
 github:
   uri: https://github.com/login/oauth/access_token

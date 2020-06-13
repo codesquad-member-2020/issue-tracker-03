@@ -31,10 +31,10 @@ class AccountRepositoryTest {
 
         //when
         List<Account> accounts = accountRepository.findAll();
+        Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com");
 
         //then
         Account account = accounts.get(0);
-        Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com");
         assertThat(account.getEmail()).isEqualTo(email);
         assertThat(accountByEmail.getEmail()).isEqualTo(email);
     }

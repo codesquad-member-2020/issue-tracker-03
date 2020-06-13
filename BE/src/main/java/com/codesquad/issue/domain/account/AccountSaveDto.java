@@ -13,7 +13,7 @@ public class AccountSaveDto {
     private String avatarUrl;
 
     @Builder
-    public AccountSaveDto(String email, String login, String name, String avatarUrl) {
+    private AccountSaveDto(String email, String login, String name, String avatarUrl) {
         this.email = email;
         this.login = login;
         this.name = name;

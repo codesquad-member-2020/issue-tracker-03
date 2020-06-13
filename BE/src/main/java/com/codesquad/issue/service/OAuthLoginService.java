@@ -3,6 +3,7 @@ package com.codesquad.issue.service;
 import com.codesquad.issue.domain.github.GithubAccessToken;
 import com.codesquad.issue.domain.github.GithubOAuth;
 import com.codesquad.issue.domain.account.AccountApiRequest;
+import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -47,8 +49,7 @@ public class OAuthLoginService {
 
     public HttpHeaders redirectMain() {
         HttpHeaders headers = new HttpHeaders();
-        String uri = mainUrl;
-        headers.setLocation(URI.create(uri));
+        headers.setLocation(URI.create(mainUrl));
         return headers;
     }
 
@@ -66,11 +67,11 @@ public class OAuthLoginService {
         return response.getBody();
     }
 
-    public AccountApiRequest getUserByToken(String accessToken, HttpHeaders headers) {
+    public AccountApiRequest getAccountByToken(String accessToken, HttpHeaders headers) {
         headers.set("Authorization", accessToken);
-        ResponseEntity<AccountApiRequest> responseEntity = new RestTemplate().exchange(GITHUB_API, HttpMethod.GET,
-                new HttpEntity<>(headers), AccountApiRequest.class);
-        AccountApiRequest userApiRequest = responseEntity.getBody();
+        AccountApiRequest userApiRequest = Optional.ofNullable(new RestTemplate().exchange(GITHUB_API, HttpMethod.GET,
+                new HttpEntity<>(headers), AccountApiRequest.class).getBody())
+                .orElseThrow(() -> new UserNotFoundException("요청한 github user를 찾을 수 없습니다."));
         if (userApiRequest.getEmail() == null) {
             userApiRequest.setEmail(getEmailByToken(headers));
         }
