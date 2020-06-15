@@ -39,11 +39,8 @@ export default function issueList(state = initialState, action) {
         true
       )(state, action);
 
-      const increasementCount = 1;
-      data.issueList.data.response.issueResponses.forEach((data) => {
-        state.checkbox.checkboxList.set(data.id, false);
-        state.checkbox.totalCount += increasementCount;
-      });
+      state.checkbox.totalCount = data.issueList.data.response.issueResponses.length;
+      data.issueList.data.response.issueResponses.forEach((data) => state.checkbox.checkboxList.set(data.id, false));
 
       return data;
     case GET_ISSUELIST:
