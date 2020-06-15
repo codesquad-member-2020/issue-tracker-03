@@ -9,7 +9,7 @@ import rootReducer from './modules';
 import App from './App';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { GlobalStyle } from './lib/styles/GlobalStyle';
+import { GlobalStyle } from '$Libs/styles/GlobalStyle';
 
 const customHistory = createBrowserHistory();
 
