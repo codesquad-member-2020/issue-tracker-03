@@ -98,6 +98,8 @@ export const GlobalStyle = createGlobalStyle`
       url(${RobotoLight});
   }
   * {
+    padding: 0;
+    margin: 0;
     font-family:'GothicA1', 'Montserrat', 'Roboto', sans-serif;
     color: #333;
     box-sizing: border-box;
