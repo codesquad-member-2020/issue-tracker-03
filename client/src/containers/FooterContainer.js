@@ -16,7 +16,9 @@ const FooterWrap = styled.div`
 
 const FooterContainer = () => {
   return (
-    <FooterWrap>© 2020 CODESQUAD, TEAM#3 [PROJECT : ISSUE TRACKER]</FooterWrap>
+    <FooterWrap>
+      © CODESQUAD MEMBER 2020, TEAM#3 [PROJECT : ISSUE TRACKER]
+    </FooterWrap>
   );
 };
 
