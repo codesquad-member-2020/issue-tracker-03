@@ -20,6 +20,11 @@ export const ArticleCol = styled.div`
     styleProps === 'widthAuto' &&
     `width: auto; padding-right: 15px; line-height: 0;`}
 `;
+export const IssueIcon = styled.svg`
+  path {
+    ${({ bgColor }) => bgColor && `color: ${bgColor}`}
+  }
+`;
 export const IssueTitle = styled.div`
   font-weight: 500;
   font-size: 18px;
