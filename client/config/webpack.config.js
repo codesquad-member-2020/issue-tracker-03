@@ -301,7 +301,7 @@ module.exports = function(webpackEnv) {
         '@': path.resolve(__dirname, '../src/'),
         '@Components': path.resolve(__dirname, '../src/components/'),
         '@Containers': path.resolve(__dirname, '../src/containers/'),
-        '@Module': path.resolve(__dirname, '../src/module/'),
+        '@Modules': path.resolve(__dirname, '../src/modules/'),
         '@Pages': path.resolve(__dirname, '../src/pages/'),
         '@Routers': path.resolve(__dirname, '../src/routers/'),
         '$Utils': path.resolve(__dirname, '../src/utils/'),
