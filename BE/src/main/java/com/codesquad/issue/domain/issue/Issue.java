@@ -23,11 +23,12 @@ public class Issue {
     @Column(nullable = false)
     private String title;
 
+    @Column(length = 500)
     private String contents;
 
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
-    
+
     private LocalDateTime createdTimeAt;
 
     @OneToOne

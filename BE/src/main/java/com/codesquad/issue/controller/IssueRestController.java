@@ -1,33 +1,32 @@
 package com.codesquad.issue.controller;
 
-import com.codesquad.issue.domain.issue.Issue;
-import com.codesquad.issue.domain.issue.IssueRepository;
+import com.codesquad.issue.domain.issue.IssueResponse;
+import com.codesquad.issue.service.IssueService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/issues")
 public class IssueRestController {
 
-    private static final Logger log = LoggerFactory.getLogger(IssueRestController.class);
-
-    private final IssueRepository issueRepository;
+    private final IssueService issueService;
 
     @GetMapping
-    public List<Issue> main(@RequestParam(required = false) Optional<String> q) {
-        if (q.isPresent()) {
-            log.debug("query : {}", q);
-            return issueRepository.findAllByIsOpenFalse();
+    public ResponseEntity<IssueResponse> main(@RequestParam(required = false) Optional<String> q) {
+        String filter = q.orElse("open");
+        if (filter.isEmpty()) {
+            return new ResponseEntity<>(issueService.findAll(), HttpStatus.OK);
         }
-        return issueRepository.findAllByIsOpenTrue();
+        return new ResponseEntity<>(issueService.findByFilter(filter), HttpStatus.OK);
     }
 }
