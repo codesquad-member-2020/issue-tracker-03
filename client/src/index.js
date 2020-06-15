@@ -9,6 +9,7 @@ import rootReducer from './modules';
 import App from './App';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { GlobalStyle } from './lib/styles/GlobalStyle';
 
 const customHistory = createBrowserHistory();
 
@@ -28,6 +29,7 @@ console.log('[index] : ', store.getState());
 ReactDOM.render(
   <Router history={customHistory}>
     <Provider store={store}>
+      <GlobalStyle />
       <App />
     </Provider>
   </Router>,
