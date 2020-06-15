@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIssueList, clickCheckbox, resetCheckbox, allCheckbox } from '../modules/issueList';
-import Search from '../components/IssueList/Search';
-import List from '../components/IssueList/List';
-import Filters from '../components/IssueList/Filters';
+import {
+  getIssueList,
+  clickCheckbox,
+  resetCheckbox,
+  allCheckbox,
+} from '../modules/issueList';
+import Search from '@Components/IssueList/Search';
+import List from '@Components/IssueList/List';
+import Filters from '@Components/IssueList/Filters';
 
 const IssueListContainer = () => {
   const { data, loading, error } = useSelector(
     state => state.issueList.issueList,
   );
 
-  const { checkbox } = useSelector(
-    state => state.issueList,
-  );
+  const { checkbox } = useSelector(state => state.issueList);
 
   const dispatch = useDispatch();
 
@@ -27,11 +30,12 @@ const IssueListContainer = () => {
   const list = data.response.issueResponses;
   const labelColors = new Map();
 
-  data.response.label.forEach(data =>
-    {
-      labelColors.set(data.name, { description: data.description, color: data.color })
-    }
-  );
+  data.response.label.forEach(data => {
+    labelColors.set(data.name, {
+      description: data.description,
+      color: data.color,
+    });
+  });
 
   const onCheckboxClickHandler = (id, checked) =>
     dispatch(clickCheckbox({ id, checked }));
@@ -40,7 +44,12 @@ const IssueListContainer = () => {
     <>
       <Search />
       <Filters />
-      <List list={list} labelColors={labelColors} onCheckboxClick={onCheckboxClickHandler} checkbox={checkbox} />
+      <List
+        list={list}
+        labelColors={labelColors}
+        onCheckboxClick={onCheckboxClickHandler}
+        checkbox={checkbox}
+      />
     </>
   );
 };
