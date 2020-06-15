@@ -1,5 +1,9 @@
 import React from 'react';
-import { ArticleWrap, ArtcileLink, ArticleCol } from './styled';
+import {
+  ArticleWrap,
+  ArtcileLink,
+  ArticleCol,
+} from '@Components/IssueList/List/styled';
 
 const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
   const {

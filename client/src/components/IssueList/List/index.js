@@ -1,5 +1,5 @@
 import React from 'react';
-import Article from './Article';
+import Article from '@Components/IssueList/List/Article';
 
 const List = ({ list, labelColors, onCheckboxClick, checkbox }) => {
   return (
