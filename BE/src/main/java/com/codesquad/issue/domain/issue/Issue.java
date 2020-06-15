@@ -27,7 +27,7 @@ public class Issue {
 
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
-
+    
     private LocalDateTime createdTimeAt;
 
     @OneToOne
