@@ -20,7 +20,7 @@ const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
 
   return (
     <ArticleWrap>
-      <ArtcileLink to={`/issue-detail/:${id}/`}>
+      <ArtcileLink to={`/issue-detail/${id}/`}>
         <ArticleCol>
           <input
             readOnly
