@@ -1,8 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
-import NotoSansKRBold from '$Libs/fonts/NotoSansKR-Bold.woff2';
-import NotoSansKRMedium from '$Libs/fonts/NotoSansKR-Medium.woff2';
-import NotoSansKRRegular from '$Libs/fonts/NotoSansKR-Regular.woff2';
-import NotoSansKRLight from '$Libs/fonts/NotoSansKR-Light.woff2';
+import GothicA1Bold from '$Libs/fonts/GothicA1-Bold.ttf';
+import GothicA1Medium from '$Libs/fonts/GothicA1-Medium.ttf';
+import GothicA1Regular from '$Libs/fonts/GothicA1-Regular.ttf';
+import GothicA1Light from '$Libs/fonts/GothicA1-Light.ttf';
 import MontserratBold from '$Libs/fonts/Montserrat-Bold.ttf';
 import MontserratMedium from '$Libs/fonts/Montserrat-Medium.ttf';
 import MontserratRegular from '$Libs/fonts/Montserrat-Regular.ttf';
@@ -14,32 +14,32 @@ import RobotoLight from '$Libs/fonts/Roboto-Light.ttf';
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'NotoSansKR';
+    font-family: 'GothicA1';
     font-style: normal;
     font-weight: 700;
-    src: local('NotoSansKR Bold'), local('NotoSansKR-Bold'),
-      url(${NotoSansKRBold});
+    src: local('GothicA1 Bold'), local('GothicA1-Bold'),
+      url(${GothicA1Bold});
   }
   @font-face {
-    font-family: 'NotoSansKR';
+    font-family: 'GothicA1';
     font-style: normal;
     font-weight: 500;
-    src: local('NotoSansKR Medium'), local('NotoSansKR-Medium'),
-      url(${NotoSansKRMedium});
+    src: local('GothicA1 Medium'), local('GothicA1-Medium'),
+      url(${GothicA1Medium});
   }
   @font-face {
-    font-family: 'NotoSansKR';
+    font-family: 'GothicA1';
     font-style: normal;
     font-weight: 400;
-    src: local('NotoSansKR Regular'), local('NotoSansKR-Regular'),
-      url(${NotoSansKRRegular});
+    src: local('GothicA1 Regular'), local('GothicA1-Regular'),
+      url(${GothicA1Regular});
   }
   @font-face {
-    font-family: 'NotoSansKR';
+    font-family: 'GothicA1';
     font-style: normal;
     font-weight: 300;
-    src: local('NotoSansKR Light'), local('NotoSansKR-Light'),
-      url(${NotoSansKRLight});
+    src: local('GothicA1 Light'), local('GothicA1-Light'),
+      url(${GothicA1Light});
   }
   @font-face {
     font-family: 'Montserrat';
@@ -98,7 +98,7 @@ export const GlobalStyle = createGlobalStyle`
       url(${RobotoLight});
   }
   * {
-    font-family:'NotoSansKR', 'Montserrat', 'Roboto', sans-serif;
+    font-family:'GothicA1', 'Montserrat', 'Roboto', sans-serif;
     color: #333;
     box-sizing: border-box;
   }
