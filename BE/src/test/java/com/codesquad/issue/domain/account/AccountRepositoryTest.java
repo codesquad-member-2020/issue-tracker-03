@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 class AccountRepositoryTest {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Test
     void 유저불러오기() {
@@ -33,10 +33,12 @@ class AccountRepositoryTest {
         List<Account> accounts = accountRepository.findAll();
         Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com").orElseThrow(()
                 -> new IllegalStateException("해당유저는 없습니다."));
-
+        Account accountByUserId = accountRepository.findByLogin("ssh").orElseThrow(()
+                -> new IllegalStateException("해당유저는 없습니다."));
         //then
         Account account = accounts.get(0);
         assertThat(account.getEmail()).isEqualTo(email);
         assertThat(accountByEmail.getEmail()).isEqualTo(email);
+        assertThat(accountByUserId.getLogin()).isEqualTo(login);
     }
 }

@@ -33,15 +33,15 @@ public class Issue {
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account createdBy;
+    private Account author;
 
     @Builder
-    private Issue(String title, String contents, Account created) {
+    private Issue(String title, String contents, Account author) {
         this.title = title;
         this.contents = contents;
         this.isOpen = true;
         this.createdTimeAt = now();
-        this.createdBy = created;
+        this.author = author;
     }
 
     public void changeIsOpen(boolean isOpen) {

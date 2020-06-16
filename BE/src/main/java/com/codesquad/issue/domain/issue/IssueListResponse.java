@@ -7,11 +7,11 @@ import java.util.List;
 
 @Getter
 @ToString
-public class IssueResponse {
+public class IssueListResponse {
 
     private final List<Issue> issues;
 
-    public IssueResponse(List<Issue> issues) {
+    public IssueListResponse(List<Issue> issues) {
         this.issues = issues;
     }
 }
