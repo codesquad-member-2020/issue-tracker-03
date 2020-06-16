@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class IssueDetailDto {
+public class IssueDetailResponse {
 
     private final Long id;
 
@@ -23,7 +23,7 @@ public class IssueDetailDto {
     private final AccountResponse author;
 
     @Builder
-    private IssueDetailDto(Long id, String title, String contents, Boolean isOpen,
+    private IssueDetailResponse(Long id, String title, String contents, Boolean isOpen,
             LocalDateTime createdTimeAt, AccountResponse author) {
         this.id = id;
         this.title = title;

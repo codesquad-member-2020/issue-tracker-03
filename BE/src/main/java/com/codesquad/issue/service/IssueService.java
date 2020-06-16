@@ -2,7 +2,7 @@ package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.account.AccountResponse;
 import com.codesquad.issue.domain.issue.Issue;
-import com.codesquad.issue.domain.issue.IssueDetailDto;
+import com.codesquad.issue.domain.issue.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueRepository;
 import com.codesquad.issue.domain.issue.IssueResponse;
 import com.codesquad.issue.global.error.exception.IssueNotFoundException;
@@ -29,10 +29,10 @@ public class IssueService {
         return new IssueResponse(issueRepository.findAllByIsOpenTrue());
     }
 
-    public IssueDetailDto findById(Long id) {
+    public IssueDetailResponse findById(Long id) {
         Issue issue = issueRepository.findById(id)
                 .orElseThrow(() -> new IssueNotFoundException(id + "에 해당하는 이슈가 없습니다."));
-        return IssueDetailDto.builder()
+        return IssueDetailResponse.builder()
                 .id(issue.getId())
                 .title(issue.getTitle())
                 .contents(issue.getContents())

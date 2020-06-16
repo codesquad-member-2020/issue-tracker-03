@@ -2,7 +2,7 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
-import com.codesquad.issue.domain.issue.IssueDetailDto;
+import com.codesquad.issue.domain.issue.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueResponse;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.IssueService;
@@ -34,7 +34,7 @@ public class IssueRestController {
     }
 
     @GetMapping("{id}")
-    public ApiResult<IssueDetailDto> findById(@PathVariable(value = "id") Long issueId) {
+    public ApiResult<IssueDetailResponse> findById(@PathVariable(value = "id") Long issueId) {
         return OK(issueService.findById(issueId));
     }
 }
