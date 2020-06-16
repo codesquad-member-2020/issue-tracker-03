@@ -27,15 +27,7 @@ const IssueListContainer = () => {
   if (error) return <div>에러 발생!</div>;
   if (!data) return null;
 
-  const list = data.response.issueResponses;
-  const labelColors = new Map();
-
-  data.response.label.forEach(data => {
-    labelColors.set(data.name, {
-      description: data.description,
-      color: data.color,
-    });
-  });
+  const list = data.response;
 
   const onCheckboxClickHandler = (id, checked) =>
     dispatch(clickCheckbox({ id, checked }));
@@ -46,7 +38,6 @@ const IssueListContainer = () => {
       <Filters />
       <List
         list={list}
-        labelColors={labelColors}
         onCheckboxClick={onCheckboxClickHandler}
         checkbox={checkbox}
       />
