@@ -12,6 +12,7 @@ import com.codesquad.issue.service.IssueService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,4 +60,9 @@ public class IssueRestController {
         return OK(true);
     }
 
+    @DeleteMapping("{id}")
+    public ApiResult<Boolean> delete(@PathVariable(value = "id") Long issueId) {
+        issueService.delete(issueId);
+        return OK(true);
+    }
 }

@@ -73,4 +73,9 @@ public class IssueService {
         issue.modifyTitleAndContents(request);
         issueRepository.save(issue);
     }
+
+    @Transactional
+    public void delete(Long issueId) {
+        issueRepository.deleteById(issueId);
+    }
 }
