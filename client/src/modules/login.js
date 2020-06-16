@@ -18,7 +18,7 @@ export default function login(state = initialLoginState, action) {
   switch (action.type) {
     case SET_LOGIN_INFO:
       const loginStateInfo = {
-        id: action.payload.id,
+        userId: action.payload.userId,
         avatarUrl: action.payload.avatarUrl,
       };
 

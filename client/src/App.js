@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import HeaderContainer from '@Containers/HeaderContainer';
 import FooterContainer from '@Containers/FooterContainer';
 
+import * as jwtDecode from 'jwt-decode';
+
 const ContentsWrap = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -18,10 +20,16 @@ function App() {
   const dispatch = useDispatch();
 
   const cookies = new Cookies();
-  const loginInfo = cookies.get('jwt');
+  const jwtToken = cookies.get('jwt');
+  let decodedInfo = null;
+  
+  if (jwtToken) {
+    console.log("Decoded Info:", decodedInfo)
+    decodedInfo = jwtDecode(jwtToken);
+  }
 
-  if (loginInfo !== undefined) {
-    dispatch(setLoginInfo(loginInfo));
+  if (decodedInfo) {
+    dispatch(setLoginInfo(decodedInfo));
   } else {
     dispatch(resetLoginInfo());
   }
