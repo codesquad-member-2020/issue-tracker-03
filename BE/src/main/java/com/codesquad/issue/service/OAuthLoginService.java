@@ -87,6 +87,7 @@ public class OAuthLoginService {
         return headers;
     }
 
+    //공개된 이메일이 없을 때, github-api/emails에 접근하여, 유저의 이메일을 획득
     private String getEmailByToken(HttpHeaders headers) {
         ResponseEntity<String> email = restTemplate.exchange(GITHUB_API + "/emails", HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
