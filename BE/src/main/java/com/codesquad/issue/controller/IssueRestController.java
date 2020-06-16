@@ -2,8 +2,8 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
-import com.codesquad.issue.domain.issue.IssueDetailResponse;
-import com.codesquad.issue.domain.issue.IssueResponse;
+import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
+import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.IssueService;

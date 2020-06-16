@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain.issue;
+package com.codesquad.issue.domain.issue.response;
 
 import com.codesquad.issue.domain.account.AccountResponse;
 import java.time.LocalDateTime;
