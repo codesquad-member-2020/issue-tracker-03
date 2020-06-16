@@ -1,6 +1,7 @@
 package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.account.*;
+import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import com.codesquad.issue.global.github.GithubAccessToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -34,5 +35,10 @@ public class AccountService {
     @Transactional
     public Account saveAccount(AccountSaveDto accountSaveDto) {
         return accountRepository.save(accountSaveDto.toEntity());
+    }
+
+    public Account findByUserId(String userId) {
+        return accountRepository.findByLogin(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId + "해당하는 유저가 없습니다."));
     }
 }

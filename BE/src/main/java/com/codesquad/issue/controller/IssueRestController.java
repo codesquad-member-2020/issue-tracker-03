@@ -4,6 +4,7 @@ import static com.codesquad.issue.global.api.ApiResult.OK;
 
 import com.codesquad.issue.domain.issue.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueResponse;
+import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.IssueService;
 import java.util.Optional;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +39,11 @@ public class IssueRestController {
     @GetMapping("{id}")
     public ApiResult<IssueDetailResponse> findById(@PathVariable(value = "id") Long issueId) {
         return OK(issueService.findById(issueId));
+    }
+
+    @PostMapping
+    public ApiResult<Boolean> create(@RequestBody IssueCreateRequest issueCreateRequest) {
+        issueService.createIssue(issueCreateRequest);
+        return OK(true);
     }
 }

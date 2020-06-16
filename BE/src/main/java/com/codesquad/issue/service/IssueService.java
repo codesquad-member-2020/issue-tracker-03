@@ -1,14 +1,17 @@
 package com.codesquad.issue.service;
 
+import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountResponse;
 import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueRepository;
 import com.codesquad.issue.domain.issue.IssueResponse;
+import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.global.error.exception.IssueNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 public class IssueService {
 
     private final IssueRepository issueRepository;
+
+    private final AccountService accountService;
 
     public IssueResponse findAll() {
         return new IssueResponse(issueRepository.findAll());
@@ -43,5 +48,17 @@ public class IssueService {
                         .avatarUrl(issue.getCreatedBy().getAvatarUrl())
                         .build())
                 .build();
+    }
+
+    @Transactional
+    public void createIssue(IssueCreateRequest request) {
+        Account author = accountService.findByUserId(request.getUserId());
+
+        Issue issue = Issue.builder()
+                .title(request.getTitle())
+                .contents(request.getContents())
+                .created(author)
+                .build();
+        issueRepository.save(issue);
     }
 }
