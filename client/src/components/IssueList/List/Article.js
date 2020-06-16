@@ -40,18 +40,18 @@ const CloseIcon = () => {
   );
 };
 
-const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
+const Article = ({ data, onCheckboxClick, checked }) => {
   const {
     id,
     title,
-    createdBy,
+    author,
     labels,
     mileStone,
     createdTimeAt,
     assignee,
     commentCount,
+    open,
   } = data;
-  const isOpen = true;
 
   const onClick = e => {
     const checked = e.target.checked;
@@ -71,17 +71,16 @@ const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
         />
       </ArticleCol>
       <ArticleCol styleProps="widthAuto">
-        {isOpen ? <OpenIcon /> : <CloseIcon />}
+        {open ? <OpenIcon /> : <CloseIcon />}
       </ArticleCol>
       <ArticleCol styleProps="flexAuto">
         <IssueTitle>
           <Link to={`/issue-detail/${id}/`}>{title}</Link>
           {labels.length > 0 &&
             labels.map((item, index) => {
-              const color = labelColors.get(item);
               return (
-                <span key={index} style={color && { background: color.color }}>
-                  {item}
+                <span key={index} style={{ background: item.color }}>
+                  {item.name}
                 </span>
               );
             })}
@@ -89,8 +88,8 @@ const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
         <IssueDescription>
           <span>
             {`#${id} 
-            ${isOpen ? 'opend' : 'closed'} 
-            ${createdTimeAt} by ${createdBy}`}
+            ${open ? 'opend' : 'closed'} 
+            ${createdTimeAt} by ${author.userId}`}
           </span>
           {mileStone && (
             <span>
@@ -111,7 +110,9 @@ const Article = ({ data, labelColors, onCheckboxClick, checked }) => {
       <ArticleCol>
         {assignee.length > 0 &&
           assignee.map((name, index) => (
-            <IssueAssignee key={index}>{name}</IssueAssignee>
+            <IssueAssignee key={index}>
+              <img src={name.avatarURL} alt={name.userId} />
+            </IssueAssignee>
           ))}
       </ArticleCol>
       <ArticleCol styleProps="textRight">
