@@ -6,6 +6,9 @@ import Cookies from 'universal-cookie';
 import { setLoginInfo, resetLoginInfo } from './modules/login';
 import { useDispatch } from 'react-redux';
 
+import HeaderContainer from '@Containers/HeaderContainer';
+import FooterContainer from '@Containers/FooterContainer';
+
 const ContentsWrap = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -25,9 +28,11 @@ function App() {
 
   return (
     <>
+      <HeaderContainer />
       <ContentsWrap>
         <AppRouter />
       </ContentsWrap>
+      <FooterContainer />
     </>
   );
 }
