@@ -29,7 +29,8 @@ public class LoginController {
     }
 
     @GetMapping("login")
-    public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code, HttpServletResponse response) {
+    public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code,
+            HttpServletResponse response) {
         GithubAccessToken token = oAuthLoginService.getAccessTokenByCode(code);
         String jwt = JwtUtils.jwtCreate(userService.userLogin(token));
 

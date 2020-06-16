@@ -7,6 +7,7 @@ import lombok.Getter;
 public class AccountResponse {
 
     private final String userId;
+
     private final String avatarUrl;
 
     @Builder

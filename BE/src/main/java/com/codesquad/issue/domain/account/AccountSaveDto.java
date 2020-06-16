@@ -7,9 +7,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AccountSaveDto {
+
     private String email;
+
     private String login;
+
     private String name;
+
     private String avatarUrl;
 
     @Builder

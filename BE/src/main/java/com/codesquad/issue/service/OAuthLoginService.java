@@ -62,7 +62,8 @@ public class OAuthLoginService {
         requestHeader.put("code", code);
         requestHeaders.setAll(requestHeader);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestHeaders, requestAccess());
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestHeaders,
+                requestAccess());
         ResponseEntity<GithubAccessToken> response = restTemplate.
                 postForEntity(githubOAuth.getUri(), request, GithubAccessToken.class);
         return response.getBody();
@@ -70,8 +71,9 @@ public class OAuthLoginService {
 
     public GithubAccount getAccountByToken(String accessToken, HttpHeaders headers) {
         headers.set("Authorization", accessToken);
-        GithubAccount userApiRequest = Optional.ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
-                new HttpEntity<>(headers), GithubAccount.class).getBody())
+        GithubAccount userApiRequest = Optional
+                .ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
+                        new HttpEntity<>(headers), GithubAccount.class).getBody())
                 .orElseThrow(() -> new UserNotFoundException("요청한 github user를 찾을 수 없습니다."));
         if (userApiRequest.getEmail() == null) {
             userApiRequest.setEmail(getEmailByToken(headers));

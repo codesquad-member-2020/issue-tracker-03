@@ -9,7 +9,7 @@ class JwtUtilsTest {
 
     @Test
     void JWT토큰파서() {
-        AccountResponse response = new AccountResponse("kses1010","avatarurl");
+        AccountResponse response = new AccountResponse("kses1010", "avatarurl");
         String jwt = JwtUtils.jwtCreate(response);
         AccountResponse parserJwt = JwtUtils.jwtParsing(jwt);
         assertThat(parserJwt.getUserId()).isEqualTo(response.getUserId());

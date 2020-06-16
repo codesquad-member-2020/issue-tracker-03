@@ -10,12 +10,12 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 class IssueApplicationTests {
 
-  @Autowired
-  private ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-  @Test
-  void contextLoads() {
-    assertThat(applicationContext).isNotNull();
-  }
+    @Test
+    void contextLoads() {
+        assertThat(applicationContext).isNotNull();
+    }
 
 }

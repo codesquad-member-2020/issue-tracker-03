@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JwtUtils {
+
     private static final String JWT_KEY_USER_ID = "userId";
     private static final String JWT_KEY_AVATAR_URL = "avatarURL";
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private JwtUtils() {}
+    private JwtUtils() {
+    }
 
     public static String jwtCreate(AccountResponse account) {
         Map<String, Object> headers = new HashMap<>();
