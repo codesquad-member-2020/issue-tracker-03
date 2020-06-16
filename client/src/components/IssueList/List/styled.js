@@ -66,9 +66,11 @@ export const IssueAssignee = styled.span`
   display: inline-block;
   width: 20px;
   height: 20px;
-  text-indent: -999em;
   border-radius: 2px;
   background: #eee;
+  img {
+    max-width: 100%;
+  }
   & + & {
     margin-left: 2px;
   }
