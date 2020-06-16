@@ -1,7 +1,6 @@
 package com.codesquad.issue.controller;
 
-import com.codesquad.issue.domain.account.AccountResponse;
-import com.codesquad.issue.domain.github.GithubAccessToken;
+import com.codesquad.issue.global.github.GithubAccessToken;
 import com.codesquad.issue.global.utils.JwtUtils;
 import com.codesquad.issue.service.OAuthLoginService;
 import com.codesquad.issue.service.AccountService;

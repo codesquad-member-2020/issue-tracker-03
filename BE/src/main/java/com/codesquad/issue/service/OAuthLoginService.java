@@ -1,8 +1,8 @@
 package com.codesquad.issue.service;
 
-import com.codesquad.issue.domain.github.GithubAccessToken;
-import com.codesquad.issue.domain.github.GithubOAuth;
-import com.codesquad.issue.domain.account.AccountApiRequest;
+import com.codesquad.issue.global.github.GithubAccessToken;
+import com.codesquad.issue.global.github.GithubOAuth;
+import com.codesquad.issue.domain.account.GithubAccount;
 import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -32,6 +32,7 @@ public class OAuthLoginService {
     private final String GITHUB_API = "https://api.github.com/user";
 
     private final GithubOAuth githubOAuth;
+    private final RestTemplate restTemplate;
 
     @Value("${host}")
     private String mainUrl;
@@ -62,20 +63,19 @@ public class OAuthLoginService {
         requestHeaders.setAll(requestHeader);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestHeaders, requestAccess());
-        ResponseEntity<GithubAccessToken> response = new RestTemplate().
+        ResponseEntity<GithubAccessToken> response = restTemplate.
                 postForEntity(githubOAuth.getUri(), request, GithubAccessToken.class);
         return response.getBody();
     }
 
-    public AccountApiRequest getAccountByToken(String accessToken, HttpHeaders headers) {
+    public GithubAccount getAccountByToken(String accessToken, HttpHeaders headers) {
         headers.set("Authorization", accessToken);
-        AccountApiRequest userApiRequest = Optional.ofNullable(new RestTemplate().exchange(GITHUB_API, HttpMethod.GET,
-                new HttpEntity<>(headers), AccountApiRequest.class).getBody())
+        GithubAccount userApiRequest = Optional.ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
+                new HttpEntity<>(headers), GithubAccount.class).getBody())
                 .orElseThrow(() -> new UserNotFoundException("요청한 github user를 찾을 수 없습니다."));
         if (userApiRequest.getEmail() == null) {
             userApiRequest.setEmail(getEmailByToken(headers));
         }
-
         return userApiRequest;
     }
 
@@ -88,7 +88,7 @@ public class OAuthLoginService {
     }
 
     private String getEmailByToken(HttpHeaders headers) {
-        ResponseEntity<String> email = new RestTemplate().exchange(GITHUB_API + "/emails", HttpMethod.GET,
+        ResponseEntity<String> email = restTemplate.exchange(GITHUB_API + "/emails", HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
 
         return jsonParser(email.getBody());

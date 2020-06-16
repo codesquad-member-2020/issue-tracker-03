@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain.github;
+package com.codesquad.issue.global.github;
 
 import lombok.Getter;
 import lombok.ToString;

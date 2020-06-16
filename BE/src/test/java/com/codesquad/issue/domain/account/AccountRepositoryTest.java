@@ -31,7 +31,8 @@ class AccountRepositoryTest {
 
         //when
         List<Account> accounts = accountRepository.findAll();
-        Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com");
+        Account accountByEmail = accountRepository.findByEmail("kses1010@naver.com").orElseThrow(()
+                -> new IllegalStateException("해당유저는 없습니다."));
 
         //then
         Account account = accounts.get(0);
