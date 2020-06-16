@@ -3,11 +3,11 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/be/
+    destination: /home/ubuntu/be
     overwrite: yes
 
 permissions:
-  - object: /home/ubuntu/myapp
+  - object: /home/ubuntu/be
     owner: ubuntu
     group: ubuntu
     mode: 755
