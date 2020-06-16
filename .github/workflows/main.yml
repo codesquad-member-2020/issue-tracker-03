@@ -1,0 +1,53 @@
+name: CD with Node.JS
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  backend:
+    name: CD with Node
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: client
+
+    strategy:
+      matrix:
+        node-version: [12.16.x]
+    
+    steps:
+      - name: 체크아웃 Github-Action
+        uses: actions/checkout@v2
+        
+      - name: pwd 확인
+        run: pwd
+        
+      - name: node.js 12 설치 ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm 설치
+        run: npm install
+      
+      - name: npm 빌드
+        run: npm run build
+     
+      - name: zip 생성
+        run: zip -qq -r ./build-fe.zip .
+        shell: bash
+
+      - name: AWS 설정
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: S3 업로드
+        run: aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://codesquad-deploy/client/build-fe.zip
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name EC2-S3-Deploy-FE --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name dev-FE --s3-location bucket=codesquad-deploy,bundleType=zip,key=client/build-fe.zip
