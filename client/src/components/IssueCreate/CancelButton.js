@@ -12,12 +12,16 @@ const StyledCancelButton = styled.button`
   color: gray;
 
   &:hover {
-    color: #000;
+    color: #555;
     cursor: pointer;
   }
 
-  &:active {
+  &:focus {
     outline: none;
+  }
+
+  &:active {
+    color: #000;
   }
 `;
 

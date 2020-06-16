@@ -1,7 +1,12 @@
 import React from 'react';
+import LabelListContainer from '../containers/LabelListContainer';
 
 const LabelListPage = () => {
-  return <div>LabelListPage</div>;
+  return (
+    <>
+      <LabelListContainer />
+    </>
+  );
 };
 
 export default LabelListPage;

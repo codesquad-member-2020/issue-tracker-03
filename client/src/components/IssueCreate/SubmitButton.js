@@ -24,6 +24,11 @@ const StyledSubmitButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &:active {
+    background-color: #279f43;
+    background-image: none;
+  }
 `;
 
 const SubmitButton = ({ onButtonClick }) => {
