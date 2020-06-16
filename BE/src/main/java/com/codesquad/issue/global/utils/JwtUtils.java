@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class JwtUtils {
     private static final String JWT_KEY_USER_ID = "userId";
-    private static final String JWT_KEY_AVATAR_URL = "avatarURL";
+    private static final String JWT_KEY_AVATAR_URL = "avatarUrl";
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private JwtUtils() {}
@@ -31,7 +31,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static AccountResponse jwtParsing(String jwt) {
+    public static String jwtParsing(String jwt) {
 
         try {
             Jws<Claims> jws = Jwts.parserBuilder()
@@ -39,11 +39,7 @@ public class JwtUtils {
                     .build()
                     .parseClaimsJws(jwt);
 
-            return AccountResponse.builder()
-                    .userId(jws.getBody().get(JWT_KEY_USER_ID, String.class))
-                    .avatarUrl(jws.getBody().get(JWT_KEY_AVATAR_URL, String.class))
-                    .build();
-
+            return (jws.getBody().get(JWT_KEY_USER_ID, String.class));
         } catch (JwtException e) {
             throw new IllegalStateException("인증되지 않은 JWT TOKEN입니다.");
         }

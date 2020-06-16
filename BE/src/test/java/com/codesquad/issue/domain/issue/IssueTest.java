@@ -77,7 +77,7 @@ class IssueTest {
         Issue i1 = Issue.builder()
                 .title("테스트입니다")
                 .contents("안녕하세요")
-                .created(a1)
+                .author(a1)
                 .build();
 
         Issue i1Saved = issueRepository.save(i1);
@@ -143,5 +143,31 @@ class IssueTest {
         List<Issue> issueList = issueRepository.findAllByIsOpenFalse();
         log.debug("issueList : {}", issueList);
         assertThat(issueList.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void 이슈저장하기() {
+        //given
+        Account account = Account.builder()
+                .email("test@gmail.com")
+                .login("test")
+                .name("hello")
+                .build();
+        accountRepository.save(account);
+
+        IssueSaveRequestDto issueDto = IssueSaveRequestDto.builder()
+                .title("테스트입니다")
+                .contents("안녕하세요")
+                .author(account)
+                .build();
+
+        //when
+        Long id = issueRepository.save(issueDto.toEntity()).getId();
+        Issue issue = issueRepository.findById(id).orElseThrow(() -> new IllegalStateException("해당 이슈는 없습니다."));
+
+        //then
+        assertThat(issue.getTitle()).isEqualTo(issueDto.getTitle());
+        assertThat(issue.getContents()).isEqualTo(issueDto.getContents());
+        assertThat(issue.getAuthor()).isEqualTo(issueDto.getAuthor());
     }
 }

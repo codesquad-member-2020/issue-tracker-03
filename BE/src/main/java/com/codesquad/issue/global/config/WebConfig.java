@@ -1,5 +1,6 @@
 package com.codesquad.issue.global.config;
 
+import com.codesquad.issue.global.utils.LoginInterceptor;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.format.DateTimeFormatter;
@@ -43,5 +45,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
+    }
+
+    @Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor())
+                .addPathPatterns("/**");
     }
 }
