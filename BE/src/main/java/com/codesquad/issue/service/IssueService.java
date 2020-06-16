@@ -3,6 +3,8 @@ package com.codesquad.issue.service;
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountResponse;
 import com.codesquad.issue.domain.issue.Issue;
+import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
+import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
 import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueRepository;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
@@ -51,7 +53,7 @@ public class IssueService {
     }
 
     @Transactional
-    public void createIssue(IssueCreateRequest request) {
+    public IssueCreateResponse create(IssueCreateRequest request) {
         Account author = accountService.findByUserId(request.getUserId());
 
         Issue issue = Issue.builder()
@@ -59,6 +61,16 @@ public class IssueService {
                 .contents(request.getContents())
                 .created(author)
                 .build();
+        Issue saved = issueRepository.save(issue);
+        return new IssueCreateResponse(saved.getId());
+    }
+
+    @Transactional
+    public void modify(IssueModifyRequest request) {
+        Issue issue = issueRepository.findById(request.getIssueId())
+                .orElseThrow(() -> new IssueNotFoundException(
+                        request.getIssueId() + " 해당하는 이슈가 없습니다."));
+        issue.modifyTitleAndContents(request);
         issueRepository.save(issue);
     }
 }

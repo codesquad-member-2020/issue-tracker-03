@@ -1,6 +1,7 @@
 package com.codesquad.issue.domain.issue;
 
 import com.codesquad.issue.domain.account.Account;
+import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,5 +47,10 @@ public class Issue {
 
     public void changeIsOpen(boolean isOpen) {
         this.isOpen = isOpen;
+    }
+
+    public void modifyTitleAndContents(IssueModifyRequest request) {
+        this.title = request.getTitle();
+        this.contents = request.getContents();
     }
 }

@@ -2,6 +2,8 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
+import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
+import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
 import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
@@ -13,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,8 +45,18 @@ public class IssueRestController {
     }
 
     @PostMapping
-    public ApiResult<Boolean> create(@RequestBody IssueCreateRequest issueCreateRequest) {
-        issueService.createIssue(issueCreateRequest);
+    public ApiResult<IssueCreateResponse> create(
+            @RequestBody IssueCreateRequest issueCreateRequest) {
+        return OK(issueService.create(issueCreateRequest));
+    }
+
+    @PutMapping("{id}")
+    public ApiResult<Boolean> modify(
+            @PathVariable(value = "id") Long issueId,
+            @RequestBody IssueModifyRequest issueModifyRequest) {
+        issueModifyRequest.setIssueId(issueId);
+        issueService.modify(issueModifyRequest);
         return OK(true);
     }
+
 }
