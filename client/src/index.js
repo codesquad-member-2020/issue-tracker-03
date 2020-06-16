@@ -7,7 +7,7 @@ import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 import rootReducer from './modules';
 import App from './App';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { GlobalStyle } from '$Libs/styles/GlobalStyle';
 
