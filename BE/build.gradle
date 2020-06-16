@@ -23,11 +23,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.2.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-autoconfigure', version: '2.2.2.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'io.springfox:springfox-swagger2:2.9.2'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.1'
     implementation 'org.flywaydb:flyway-core'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1',
             // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
             // 'org.bouncycastle:bcprov-jdk15on:1.60',

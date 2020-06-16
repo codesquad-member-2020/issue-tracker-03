@@ -40,10 +40,19 @@ logging:
         type:
           descriptor:
             sql: trace
-
-
 host: http://localhost:8080
 github:
   uri: https://github.com/login/oauth/access_token
   clientId: e475671da6e0d9156c91
   clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+cloud:
+  aws:
+    s3:
+      bucket: issue-003
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    credentials:
+      use-default-aws-credentials-chain: true
+      instance-profile: false
