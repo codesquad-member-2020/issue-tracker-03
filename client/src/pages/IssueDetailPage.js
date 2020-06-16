@@ -1,7 +1,16 @@
 import React from 'react';
+import IssueDetailsContainer from '../containers/IssueDetailsContainer';
 
 const IssueDetailPage = ({ match }) => {
-  return <div>IssueDetailPage {match.params.issueId}</div>;
+  const { issueId } = match.params;
+  const id = parseInt(issueId, 10);
+
+  return (
+    <>
+      <div>IssueDetailPage {id}</div>
+      <IssueDetailsContainer issueId={id} />
+    </>
+  );
 };
 
 export default IssueDetailPage;
