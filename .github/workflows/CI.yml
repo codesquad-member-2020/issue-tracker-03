@@ -54,3 +54,6 @@ jobs:
       
       - name: npm 빌드
         run: npm run build
+
+      - name: log 확인
+        run: cat /home/runner/.npm/*.log
