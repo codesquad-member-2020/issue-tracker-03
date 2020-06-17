@@ -59,6 +59,15 @@ spring:
     url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8
     user: sunny
     password: sunny127
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
 
 logging:
   level:
