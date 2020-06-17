@@ -36,7 +36,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: S3 업로드
-        run: aws deploy push --application-name EC2-S3-Deploy --description $GITHUB_SHA" issue-tracker" --s3-location s3://codesquad-deploy/server/build.zip --source
+        run: aws deploy push --application-name EC2-S3-Deploy --s3-location s3://codesquad-deploy/server/build.zip --source .
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name EC2-S3-Deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name dev --s3-location bucket=codesquad-deploy,bundleType=zip,key=server/build.zip
