@@ -22,13 +22,13 @@ public class LoginController {
     private final OAuthLoginService oAuthLoginService;
     private final AccountService userService;
 
-    @GetMapping("github-login")
+    @GetMapping("/github-login")
     public ResponseEntity<HttpHeaders> githubLogin() {
         HttpHeaders headers = oAuthLoginService.redirectGithub();
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code, HttpServletResponse response) {
         GithubAccessToken token = oAuthLoginService.getAccessTokenByCode(code);
         String jwt = JwtUtils.jwtCreate(userService.userLogin(token));
