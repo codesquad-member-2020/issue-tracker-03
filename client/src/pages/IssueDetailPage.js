@@ -5,12 +5,7 @@ const IssueDetailPage = ({ match }) => {
   const { issueId } = match.params;
   const id = parseInt(issueId, 10);
 
-  return (
-    <>
-      <div>IssueDetailPage {id}</div>
-      <IssueDetailsContainer issueId={id} />
-    </>
-  );
+  return <IssueDetailsContainer issueId={id} />;
 };
 
 export default IssueDetailPage;
