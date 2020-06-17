@@ -47,3 +47,26 @@ github:
   uri: https://github.com/login/oauth/access_token
   clientId: e475671da6e0d9156c91
   clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8mb4
+    username: sunny
+    password: sunny127
+  flyway:
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8mb4
+    user: sunny
+    password: sunny127
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
+
+host: 15.164.138.255
+github:
+  client-id: 4946b46078dcaa5adfa6
+  client-secret: 144c1939474d892d8b6f74c06304139d616dcf99
