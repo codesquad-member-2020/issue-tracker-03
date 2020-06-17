@@ -47,6 +47,7 @@ github:
   uri: https://github.com/login/oauth/access_token
   clientId: e475671da6e0d9156c91
   clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+
 ---
 spring:
   profiles: prod
@@ -78,5 +79,5 @@ logging:
 host: http://15.164.138.255
 github:
   uri: https://github.com/login/oauth/access_token
-  client-id: 4946b46078dcaa5adfa6
-  client-secret: 144c1939474d892d8b6f74c06304139d616dcf99
+  clientId: 4946b46078dcaa5adfa6
+  clientSecret: 144c1939474d892d8b6f74c06304139d616dcf99
