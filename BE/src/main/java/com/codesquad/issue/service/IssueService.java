@@ -44,10 +44,9 @@ public class IssueService {
                 .title(issue.getTitle())
                 .contents(issue.getContents())
                 .isOpen(issue.isOpen())
-                .createdTimeAt(issue.getCreatedTimeAt())
                 .author(AccountResponse.builder()
-                        .userId(issue.getCreatedBy().getLogin())
-                        .avatarUrl(issue.getCreatedBy().getAvatarUrl())
+                        .userId(issue.getAuthor().getLogin())
+                        .avatarUrl(issue.getAuthor().getAvatarUrl())
                         .build())
                 .build();
     }
@@ -59,7 +58,7 @@ public class IssueService {
         Issue issue = Issue.builder()
                 .title(request.getTitle())
                 .contents(request.getContents())
-                .created(author)
+                .author(author)
                 .build();
         Issue saved = issueRepository.save(issue);
         return new IssueCreateResponse(saved.getId());
