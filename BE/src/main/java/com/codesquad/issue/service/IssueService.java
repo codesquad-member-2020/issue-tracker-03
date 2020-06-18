@@ -1,7 +1,10 @@
 package com.codesquad.issue.service;
 
 import com.codesquad.issue.domain.account.Account;
-import com.codesquad.issue.domain.account.AccountResponse;
+import com.codesquad.issue.domain.account.response.AccountResponse;
+import com.codesquad.issue.domain.comment.Comment;
+import com.codesquad.issue.domain.comment.CommentRepository;
+import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
@@ -10,6 +13,8 @@ import com.codesquad.issue.domain.issue.IssueRepository;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.global.error.exception.IssueNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +28,8 @@ public class IssueService {
     private final IssueRepository issueRepository;
 
     private final AccountService accountService;
+
+    private final CommentRepository commentRepository;
 
     public IssueResponse findAll() {
         return new IssueResponse(issueRepository.findAll());
@@ -39,6 +46,11 @@ public class IssueService {
     public IssueDetailResponse findById(Long id) {
         Issue issue = issueRepository.findById(id)
                 .orElseThrow(() -> new IssueNotFoundException(id + "에 해당하는 이슈가 없습니다."));
+
+        List<Comment> comments = commentRepository.findAllByIssue(issue);
+        List<CommentResponse> responses = comments.stream().map(comment -> comment.toResponse())
+                .collect(Collectors.toList());
+
         return IssueDetailResponse.builder()
                 .id(issue.getId())
                 .title(issue.getTitle())
@@ -48,6 +60,7 @@ public class IssueService {
                         .userId(issue.getAuthor().getLogin())
                         .avatarUrl(issue.getAuthor().getAvatarUrl())
                         .build())
+                .comments(responses)
                 .build();
     }
 

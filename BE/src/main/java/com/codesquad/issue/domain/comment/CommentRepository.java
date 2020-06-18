@@ -13,4 +13,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Modifying
     @Query("UPDATE Comment c SET c.contents = ?2 WHERE c.id = ?1")
     int updateContents(Long commentId, String contents);
+
+    void deleteById(Long id);
 }

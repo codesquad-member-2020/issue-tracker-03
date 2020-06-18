@@ -1,6 +1,8 @@
 package com.codesquad.issue.domain.comment;
 
 import com.codesquad.issue.domain.account.Account;
+import com.codesquad.issue.domain.account.response.AccountResponse;
+import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.Issue;
 import javax.persistence.Entity;
@@ -43,5 +45,19 @@ public class Comment extends BaseTimeEntity {
 
     public void changeContents(String contents) {
         this.contents = contents;
+    }
+
+    public CommentResponse toResponse() {
+        return CommentResponse.builder()
+                .id(id)
+                .contents(contents)
+                .author(AccountResponse.builder()
+                        .userId(author.getLogin())
+                        .avatarUrl(author.getAvatarUrl())
+                        .build()
+                )
+                .createdTimeAt(getCreatedTimeAt())
+                .modifiedTimeAt(getModifiedTimeAt())
+                .build();
     }
 }

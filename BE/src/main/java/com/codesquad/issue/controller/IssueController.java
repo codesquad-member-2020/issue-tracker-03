@@ -2,12 +2,15 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
+import com.codesquad.issue.domain.comment.request.CommentSaveRequest;
+import com.codesquad.issue.domain.comment.response.CommentResponse;
+import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
 import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
-import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.global.api.ApiResult;
+import com.codesquad.issue.service.CommentService;
 import com.codesquad.issue.service.IssueService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/issues")
-public class IssueRestController {
+public class IssueController {
 
     private final IssueService issueService;
+
+    private final CommentService commentService;
 
     @GetMapping
     public ApiResult<IssueResponse> main(@RequestParam(required = false) Optional<String> q) {
@@ -64,5 +69,13 @@ public class IssueRestController {
     public ApiResult<Boolean> delete(@PathVariable(value = "id") Long issueId) {
         issueService.delete(issueId);
         return OK(true);
+    }
+
+    @PostMapping("{id}/comments")
+    public ApiResult<CommentResponse> saveComment(
+            @PathVariable(value = "id") Long issueId,
+            @RequestBody CommentSaveRequest commentSaveRequest) {
+        commentSaveRequest.setIssueId(issueId);
+        return OK(commentService.save(commentSaveRequest));
     }
 }
