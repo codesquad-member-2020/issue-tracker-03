@@ -14,12 +14,13 @@ CREATE TABLE account
 
 CREATE TABLE issue
 (
-    id              BIGINT AUTO_INCREMENT,
-    title           VARCHAR(50),
-    contents        VARCHAR(500),
-    is_open         BOOLEAN   DEFAULT TRUE,
-    created_time_at TIMESTAMP DEFAULT NOW(),
-    account_id      BIGINT,
+    id               BIGINT AUTO_INCREMENT,
+    title            VARCHAR(50),
+    contents         VARCHAR(500),
+    is_open          TINYINT   DEFAULT TRUE,
+    created_time_at  TIMESTAMP DEFAULT NOW(),
+    modified_time_at TIMESTAMP DEFAULT NOW(),
+    account_id       BIGINT,
     PRIMARY KEY (id),
     CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id)
 );
