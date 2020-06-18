@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const ArticleWrap = styled.div`
   width: 1200px;
@@ -8,10 +8,7 @@ const ArticleWrap = styled.div`
   justify-content: space-between;
   padding: 10px 15px;
   border: 1px solid #d1d5da;
-
-  * {
-    color: #000;
-  }
+  margin-top: -1px;
 `;
 
 const NameWrap = styled.div`
@@ -27,7 +24,7 @@ const Name = styled.div`
   color: #fff;
   padding: 2px 5px;
   border-radius: 6px;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
 `;
 
 const DescriptionWrap = styled.div`
@@ -65,17 +62,36 @@ const Button = styled.button`
   }
 `;
 
+const ArticleNormal = ({
+  index,
+  labelName,
+  labelDescription,
+  labelColor,
+  onEditButtonClick,
+  onDeleteButtonClick
+}) => {
+  const onEditButtonClickHandler = (e) => {
+    if (onEditButtonClick) onEditButtonClick(index);
+  };
 
-const Article = ({ id, name, description, color }) => {
+  const onDeleteButtonClickHandler = (e) => {
+    if (onDeleteButtonClick) onDeleteButtonClick(index);
+  };
+
   return (
     <ArticleWrap>
       <NameWrap>
-        <Name color={color}>{name}</Name>
+        <Name color={labelColor}>{labelName}</Name>
       </NameWrap>
-      <DescriptionWrap><Description>{description}</Description></DescriptionWrap>
-      <ButtonsWrap><Button>Edit</Button><Button>Delete</Button></ButtonsWrap>
+      <DescriptionWrap>
+        <Description>{labelDescription}</Description>
+      </DescriptionWrap>
+      <ButtonsWrap>
+        <Button onClick={onEditButtonClickHandler}>Edit</Button>
+        <Button onClick={onDeleteButtonClickHandler}>Delete</Button>
+      </ButtonsWrap>
     </ArticleWrap>
   );
 };
 
-export default Article;
+export default ArticleNormal;

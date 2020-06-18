@@ -8,6 +8,7 @@ const StyledSubmitButton = styled.button`
   font-size: 14px;
   font-weight: bold;
   color: #fff;
+  user-select: none;
 
   ${(props) =>
     props.enabled &&
@@ -39,6 +40,7 @@ const StyledSubmitButton = styled.button`
       background-color: #28a745;
       background-image: linear-gradient(-180deg, #34d058, #28a745 90%);
       opacity: 0.5;
+      pointer-events: none;
 
       &:focus {
         outline: none;
