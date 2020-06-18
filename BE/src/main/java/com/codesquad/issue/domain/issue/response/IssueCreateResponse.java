@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class IssueCreateResponse {
 
-    private final Long IssueId;
+    private final Long id;
 
-    public IssueCreateResponse(Long issueId) {
-        IssueId = issueId;
+    public IssueCreateResponse(Long id) {
+        this.id = id;
     }
 }
