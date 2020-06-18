@@ -11,7 +11,8 @@ const IssueDetails = ({ issue }) => {
 
   return (
     <Wrap>
-      <Comment contents={contents} />
+      <Comment contents={contents} author={author} createdAt={createdAt} />
+      <Comment contents={contents} author={author} createdAt={createdAt} />
       <CommentForm />
     </Wrap>
   );
