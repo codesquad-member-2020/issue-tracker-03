@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class OAuthLoginService {
@@ -33,6 +35,7 @@ public class OAuthLoginService {
 
     private final GithubOAuth githubOAuth;
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Value("${host}")
     private String mainUrl;
@@ -71,14 +74,16 @@ public class OAuthLoginService {
 
     public GithubAccount getAccountByToken(String accessToken, HttpHeaders headers) {
         headers.set("Authorization", accessToken);
-        GithubAccount userApiRequest = Optional
+        GithubAccount githubAccount = Optional
                 .ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
                         new HttpEntity<>(headers), GithubAccount.class).getBody())
                 .orElseThrow(() -> new UserNotFoundException("요청한 github user를 찾을 수 없습니다."));
-        if (userApiRequest.getEmail() == null) {
-            userApiRequest.setEmail(getEmailByToken(headers));
+        log.debug("github before: {}", githubAccount);
+        if (githubAccount.getEmail() == null) {
+            githubAccount.setEmail(getEmailByToken(headers));
         }
-        return userApiRequest;
+        log.debug("github after: {}", githubAccount);
+        return githubAccount;
     }
 
     private MultiValueMap<String, String> requestAccess() {
@@ -94,25 +99,22 @@ public class OAuthLoginService {
         ResponseEntity<String> email = restTemplate.exchange(GITHUB_API + "/emails", HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
 
-        return jsonParser(email.getBody());
+        try {
+            JsonNode emailNode = objectMapper.readTree(email.getBody());
+            for (JsonNode jsonNode : emailNode) {
+                if (jsonNode.get("primary").asBoolean()) {
+                    return jsonNode.get("email").textValue();
+                }
+            }
+        } catch (JsonProcessingException e) {
+            log.error("Json 형식이 잘못 되었어요.", e);
+        }
+        return null;
     }
 
     public String makeAccessToken(GithubAccessToken token) {
         return token.getTokenType() +
                 " " +
                 token.getAccessToken();
-    }
-
-    private String jsonParser(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            JsonNode jsonNode = objectMapper.readTree(json);
-            if (jsonNode.get("primary").asBoolean()) {
-                return jsonNode.get("email").textValue();
-            }
-        } catch (JsonProcessingException e) {
-            throw new IllegalStateException("JSON형식이 아닙니다.");
-        }
-        throw new IllegalStateException("해당 유저를 찾을 수 없습니다.");
     }
 }

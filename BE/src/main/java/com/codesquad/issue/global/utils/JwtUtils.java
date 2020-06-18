@@ -1,6 +1,6 @@
 package com.codesquad.issue.global.utils;
 
-import com.codesquad.issue.domain.account.AccountResponse;
+import com.codesquad.issue.domain.account.response.AccountResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
