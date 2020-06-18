@@ -18,3 +18,8 @@ VALUES ('bug', 'Something isn''t working', '#d73a4a'),
        ('question', 'Further information is requested', '#d876e3'),
        ('invalid', 'This doesn''t seem right', '#e4e669'),
        ('help wanted', 'Extra attention is needed', '#008672');
+
+INSERT INTO comment(contents, issue_id, account_id)
+VALUES ('댓글1', 1, 1),
+       ('댓글2', 1, 1),
+       ('댓글3', 1, 1);
