@@ -1,5 +1,6 @@
-package com.codesquad.issue.domain.account;
+package com.codesquad.issue.domain.account.request;
 
+import com.codesquad.issue.domain.account.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

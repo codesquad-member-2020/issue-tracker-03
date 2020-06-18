@@ -1,6 +1,6 @@
 package com.codesquad.issue.global.utils;
 
-import com.codesquad.issue.domain.account.AccountResponse;
+import com.codesquad.issue.domain.account.response.AccountResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;

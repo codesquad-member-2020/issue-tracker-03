@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain.account;
+package com.codesquad.issue.domain.account.response;
 
 import lombok.Builder;
 import lombok.Getter;
