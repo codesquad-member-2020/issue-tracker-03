@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.16.x]
+        node-version: '12'
     
     steps:
       - name: 체크아웃 Github-Action
@@ -34,6 +34,7 @@ jobs:
       
       - name: npm 빌드
         run: npm run build
+        run: cat /home/runner/.npm/_logs/*.log
      
       - name: zip 생성
         run: zip -qq -r ./build-fe.zip .

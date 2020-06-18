@@ -21,18 +21,18 @@ public class AccountService {
         GithubAccount request = oAuthLoginService.getAccountByToken(token, headers);
 
         Account findAccount = accountRepository.findByEmail(request.getEmail())
-                .orElse(saveAccount(AccountSaveDto.builder()
-                .email(request.getEmail())
-                .login(request.getLogin())
-                .name(request.getName())
-                .avatarUrl(request.getAvatarUrl())
-                .build()));
+                .orElseGet(() -> saveAccount(AccountSaveDto.builder()
+                        .email(request.getEmail())
+                        .login(request.getLogin())
+                        .name(request.getName())
+                        .avatarUrl(request.getAvatarUrl())
+                        .build()));
 
         return new AccountResponse(findAccount.getName(), findAccount.getAvatarUrl());
     }
 
     @Transactional
     public Account saveAccount(AccountSaveDto accountSaveDto) {
-       return accountRepository.save(accountSaveDto.toEntity());
+        return accountRepository.save(accountSaveDto.toEntity());
     }
 }
