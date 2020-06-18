@@ -1,55 +1,47 @@
-package com.codesquad.issue.domain.issue;
+package com.codesquad.issue.domain.comment;
 
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
-import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
-import javax.persistence.Column;
+import com.codesquad.issue.domain.issue.Issue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+
 @NoArgsConstructor
 @Getter
-public class Issue extends BaseTimeEntity {
+@Entity
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
-
-    @Column(length = 500)
     private String contents;
-
-    @Column(name = "is_open", nullable = false)
-    private boolean isOpen;
 
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account author;
 
+    @ManyToOne
+    @JoinColumn(name = "issue_id")
+    private Issue issue;
+
     @Builder
-    private Issue(String title, String contents, Account author) {
-        this.title = title;
+    private Comment(String contents, Account author, Issue issue) {
         this.contents = contents;
-        this.isOpen = true;
         this.author = author;
+        this.issue = issue;
     }
 
-    public void changeIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
-    }
-
-    public void modifyTitleAndContents(IssueModifyRequest request) {
-        this.title = request.getTitle();
-        this.contents = request.getContents();
+    public void changeContents(String contents) {
+        this.contents = contents;
     }
 }
