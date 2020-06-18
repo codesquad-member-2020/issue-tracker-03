@@ -51,9 +51,6 @@ jobs:
 
       - name: npm 설치
         run: npm install
-      
-      - name: npm 테스트
-        run: npm test
 
       - name: npm 빌드
         run: npm run build --if-present
