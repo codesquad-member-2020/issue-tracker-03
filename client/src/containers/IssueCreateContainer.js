@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import IssueCreate from '@Components/IssueCreate/index'
 
@@ -22,6 +23,8 @@ const SideBarWrap = styled.div`
 `;
 
 const IssueCreatecontainer = () => {
+  const { loginStateInfo } = useSelector(({ login }) => login);
+
   let title = '';
   let contents = '';
 
@@ -57,6 +60,7 @@ const IssueCreatecontainer = () => {
           onContentsChange={onContentsChangeHandler}
           onCancelButtonClick={onCancelButtonClickHandler}
           onSubmitButtonClick={onSubmitButtonClickHandler}
+          submitButtnEnabled={loginStateInfo}
         />
       </ContentsWrap>
       <SideBarWrap></SideBarWrap>
