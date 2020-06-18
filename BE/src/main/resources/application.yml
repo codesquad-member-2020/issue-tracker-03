@@ -52,11 +52,11 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8mb4
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8
     username: sunny
     password: sunny127
   flyway:
-    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8mb4
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8
     user: sunny
     password: sunny127
 
