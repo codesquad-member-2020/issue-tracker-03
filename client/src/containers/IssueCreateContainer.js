@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -60,7 +60,7 @@ const IssueCreatecontainer = () => {
           onContentsChange={onContentsChangeHandler}
           onCancelButtonClick={onCancelButtonClickHandler}
           onSubmitButtonClick={onSubmitButtonClickHandler}
-          submitButtnEnabled={loginStateInfo}
+          submitButtonEnabled={loginStateInfo}
         />
       </ContentsWrap>
       <SideBarWrap></SideBarWrap>
