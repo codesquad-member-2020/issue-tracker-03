@@ -29,7 +29,7 @@ const IssueCreate = ({
         <SubmitButton
           onButtonClick={onSubmitButtonClick}
           buttonText="Submit new issue"
-          submitButtonEnabled={submitButtonEnabled}
+          buttonEnabled={submitButtonEnabled}
         />
       </IssueCreateWrap>
     </>

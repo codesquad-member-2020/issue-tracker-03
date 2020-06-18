@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import IssueCreate from '@Components/IssueCreate/index'
+import * as issueCreateAPI from '$API/issueCreate';
 
 const IssueCreateContainerWrap = styled.div`
   width: 1200px;
@@ -23,6 +25,7 @@ const SideBarWrap = styled.div`
 `;
 
 const IssueCreatecontainer = () => {
+  const history = useHistory();
   const { loginStateInfo } = useSelector(({ login }) => login);
 
   let title = '';
@@ -45,11 +48,21 @@ const IssueCreatecontainer = () => {
   }
 
   const onCancelButtonClickHandler = () => {
-    console.log(title);
+    history.push("/");
   }
 
   const onSubmitButtonClickHandler = () => {
-    console.log(contents);
+    (async () => {
+      const body = {
+        title: title,
+        contents: contents,
+      };
+
+      let response = await issueCreateAPI.createIssue(body);
+      const issueId = response.response.issueId;
+      
+      history.push("/issue-detail/" + issueId);
+    })();
   }
 
   return (
@@ -60,7 +73,7 @@ const IssueCreatecontainer = () => {
           onContentsChange={onContentsChangeHandler}
           onCancelButtonClick={onCancelButtonClickHandler}
           onSubmitButtonClick={onSubmitButtonClickHandler}
-          submitButtnEnabled={loginStateInfo}
+          submitButtonEnabled={loginStateInfo}
         />
       </ContentsWrap>
       <SideBarWrap></SideBarWrap>
