@@ -11,15 +11,15 @@ const CommentWrap = styled.div`
   position: relative;
   flex-grow: 1;
   margin-left: 20px;
-  border: 1px solid #eee;
-  border-radius: 5px;
+  border: 1px solid #c0d3eb;
+  border-radius: 3px;
 `;
 const CommentHead = styled.div`
   position: relative;
   padding: 10px;
   font-size: 13px;
   color: #666;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #c0d3eb;
   background: #f1f8ff;
   strong {
     margin-right: 5px;
@@ -30,10 +30,10 @@ const CommentHead = styled.div`
     content: '';
     position: absolute;
     top: 12px;
-    left: -6px;
+    left: -5px;
     width: 8px;
     height: 8px;
-    border: 1px solid #eee;
+    border: 1px solid #c0d3eb;
     border-top: 0;
     border-right: 0;
     background: #f6f8fa;
@@ -52,8 +52,17 @@ const Wrap = styled.article`
   display: flex;
   margin-bottom: 25px;
   & + & {
+    ${CommentWrap} {
+      border: 1px solid #eee;
+    }
     ${CommentHead} {
+      border-bottom: 1px solid #eee;
       background: #f6f8fa;
+      &::before {
+        border: 1px solid #eee;
+        border-top: 0;
+        border-right: 0;
+      }
     }
   }
 `;
