@@ -37,9 +37,6 @@ logging:
     org:
       hibernate:
         SQL: debug
-        type:
-          descriptor:
-            sql: trace
 
 
 host: http://localhost:8080

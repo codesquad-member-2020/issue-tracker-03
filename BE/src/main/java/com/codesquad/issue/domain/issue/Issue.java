@@ -1,6 +1,7 @@
 package com.codesquad.issue.domain.issue;
 
 import com.codesquad.issue.domain.account.Account;
+import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,13 +10,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
 
 import static java.time.LocalDateTime.now;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class Issue {
+public class Issue extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,19 +32,16 @@ public class Issue {
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
 
-    private LocalDateTime createdTimeAt;
-
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account createdBy;
+    private Account author;
 
     @Builder
-    private Issue(String title, String contents, Account created) {
+    private Issue(String title, String contents, Account author) {
         this.title = title;
         this.contents = contents;
         this.isOpen = true;
-        this.createdTimeAt = now();
-        this.createdBy = created;
+        this.author = author;
     }
 
     public void changeIsOpen(boolean isOpen) {
