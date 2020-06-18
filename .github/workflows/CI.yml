@@ -38,7 +38,7 @@ jobs:
         
     strategy:
       matrix:
-        node-version: '12'
+        node-version: [12.x]
     
     steps:
       - name: 체크아웃 Github-Action
