@@ -6,7 +6,10 @@ import styled from 'styled-components';
 
 const mdParser = new MarkdownIt();
 
-const Avatar = styled.div``;
+const Avatar = styled.div`
+  width: 40px;
+  height: 40px;
+`;
 const CommentWrap = styled.div`
   position: relative;
   flex-grow: 1;
@@ -41,6 +44,8 @@ const CommentHead = styled.div`
   }
 `;
 const CommentBody = styled.div`
+  min-height: 150px;
+  background: #fff;
   .rc-md-editor {
     border: 0;
   }

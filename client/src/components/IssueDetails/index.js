@@ -3,17 +3,29 @@ import styled from 'styled-components';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80px;
+    width: 1px;
+    height: 100%;
+    background: #eee;
+    z-index: -1;
+  }
+`;
 
 const IssueDetails = ({ issue }) => {
-  const { id, title, contents, createdAt, author, open } = issue;
+  const { contents, createdAt, author } = issue;
   console.log(issue);
 
   return (
     <Wrap>
       <Comment contents={contents} author={author} createdAt={createdAt} />
       <Comment contents={contents} author={author} createdAt={createdAt} />
-      <CommentForm />
+      <CommentForm author={author} />
     </Wrap>
   );
 };
