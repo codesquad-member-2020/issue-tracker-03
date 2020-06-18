@@ -6,7 +6,7 @@ const Wrap = styled.div`
   position: relative;
   padding-top: 20px;
   margin-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 2px solid #eee;
   background: #fff;
 `;
 const Avatar = styled.div`
