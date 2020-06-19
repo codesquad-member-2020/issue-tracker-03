@@ -1,19 +1,18 @@
 package com.codesquad.issue.domain.issue;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class IssueTest {
@@ -25,7 +24,6 @@ class IssueTest {
 
     @Autowired
     private AccountRepository accountRepository;
-
 
     @Test
     @DisplayName("기본 이슈 생성")

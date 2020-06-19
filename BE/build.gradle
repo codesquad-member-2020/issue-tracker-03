@@ -29,6 +29,7 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.1'
     implementation 'org.flywaydb:flyway-core'
+
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1',
             // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
             // 'org.bouncycastle:bcprov-jdk15on:1.60',
