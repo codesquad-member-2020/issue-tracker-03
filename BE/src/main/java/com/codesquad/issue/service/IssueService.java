@@ -87,7 +87,9 @@ public class IssueService {
     }
 
     @Transactional
-    public void delete(Long issueId) {
-        issueRepository.deleteById(issueId);
+    public void close(Long issueId) {
+        Issue issue = issueRepository.findById(issueId).orElseThrow(IssueNotFoundException::new);
+        issue.changeIsOpen(false);
+        issueRepository.save(issue);
     }
 }
