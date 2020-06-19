@@ -54,11 +54,15 @@ const FormBody = styled.form`
   padding: 10px;
   textarea {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #eee;
     border-radius: 3px;
     outline: none;
     resize: none;
+    background: #fafbfc;
+    &:focus {
+      background: #fff;
+    }
   }
 `;
 
