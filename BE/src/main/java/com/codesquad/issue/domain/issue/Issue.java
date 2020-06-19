@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,7 @@ public class Issue extends BaseTimeEntity {
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account author;
 
