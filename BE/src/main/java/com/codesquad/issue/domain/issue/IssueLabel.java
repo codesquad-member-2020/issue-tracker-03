@@ -34,5 +34,4 @@ public class IssueLabel {
         this.issue = issue;
         this.label = label;
     }
-
 }
