@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain.label.response;
+package com.codesquad.issue.domain.label.request;
 
 import lombok.Getter;
 import lombok.Setter;

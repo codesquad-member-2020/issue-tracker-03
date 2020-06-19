@@ -3,8 +3,11 @@ package com.codesquad.issue.service;
 import com.codesquad.issue.domain.issue.IssueLabelRepository;
 import com.codesquad.issue.domain.label.Label;
 import com.codesquad.issue.domain.label.LabelRepository;
-import com.codesquad.issue.domain.label.response.LabelCreateRequest;
+import com.codesquad.issue.domain.label.request.LabelCreateRequest;
+import com.codesquad.issue.domain.label.request.LabelModifyRequest;
+import com.codesquad.issue.domain.label.response.LabelCreateResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
+import com.codesquad.issue.global.error.exception.LabelNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +29,27 @@ public class LabelService {
         return labelList.stream().map(label -> label.toResponse()).collect(Collectors.toList());
     }
 
+    public LabelResponse findById(Long labelId) {
+        Label label = labelRepository.findById(labelId).orElseThrow(LabelNotFoundException::new);
+        return label.toResponse();
+    }
+
     @Transactional
-    public void create(LabelCreateRequest request) {
+    public LabelCreateResponse create(LabelCreateRequest request) {
         Label label = Label.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .color(request.getColor())
                 .build();
+        Label after = labelRepository.save(label);
+        return new LabelCreateResponse(after.getId());
+    }
+
+    @Transactional
+    public void modify(LabelModifyRequest request) {
+        Label label = labelRepository.findById(request.getLabelId()).orElseThrow(
+                LabelNotFoundException::new);
+        label.change(request);
         labelRepository.save(label);
     }
 }

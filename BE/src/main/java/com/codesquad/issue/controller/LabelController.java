@@ -2,7 +2,9 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
-import com.codesquad.issue.domain.label.response.LabelCreateRequest;
+import com.codesquad.issue.domain.label.request.LabelCreateRequest;
+import com.codesquad.issue.domain.label.request.LabelModifyRequest;
+import com.codesquad.issue.domain.label.response.LabelCreateResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.LabelService;
@@ -10,7 +12,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +32,23 @@ public class LabelController {
         return OK(labelService.findAll());
     }
 
+    @GetMapping("{id}")
+    public ApiResult<LabelResponse> findById(
+            @PathVariable(name = "id") Long labelId) {
+        return OK(labelService.findById(labelId));
+    }
+
     @PostMapping
-    public ApiResult<Boolean> create(@RequestBody LabelCreateRequest request) {
-        labelService.create(request);
+    public ApiResult<LabelCreateResponse> create(@RequestBody LabelCreateRequest request) {
+        return OK(labelService.create(request));
+    }
+
+    @PutMapping("{id}")
+    public ApiResult<Boolean> modify(
+            @PathVariable(name = "id") Long labelId,
+            @RequestBody LabelModifyRequest request) {
+        request.setLabelId(labelId);
+        labelService.modify(request);
         return OK(true);
     }
 }
