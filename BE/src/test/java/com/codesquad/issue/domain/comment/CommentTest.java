@@ -1,7 +1,6 @@
 package com.codesquad.issue.domain.comment;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
@@ -9,7 +8,6 @@ import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.IssueRepository;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

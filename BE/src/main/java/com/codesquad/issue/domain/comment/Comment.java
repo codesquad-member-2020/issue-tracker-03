@@ -28,7 +28,7 @@ public class Comment extends BaseTimeEntity {
 
     private String contents;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account author;
 
