@@ -17,7 +17,6 @@ CREATE TABLE issue
 (
     id               BIGINT AUTO_INCREMENT,
     title            VARCHAR(50),
-    contents         VARCHAR(500),
     is_open          BOOLEAN   DEFAULT TRUE,
     created_time_at  TIMESTAMP DEFAULT NOW(),
     modified_time_at TIMESTAMP DEFAULT NOW(),

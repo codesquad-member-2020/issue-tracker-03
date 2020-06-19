@@ -16,8 +16,6 @@ public class IssueDetailResponse {
 
     private final String title;
 
-    private final String contents;
-
     private final Boolean isOpen;
 
     private final LocalDateTime createdTimeAt;
@@ -27,11 +25,10 @@ public class IssueDetailResponse {
     private final List<CommentResponse> comments;
 
     @Builder
-    private IssueDetailResponse(Long id, String title, String contents, Boolean isOpen,
-            LocalDateTime createdTimeAt, AccountResponse author, List<CommentResponse> comments) {
+    private IssueDetailResponse(Long id, String title, Boolean isOpen, LocalDateTime createdTimeAt,
+            AccountResponse author, List<CommentResponse> comments) {
         this.id = id;
         this.title = title;
-        this.contents = contents;
         this.isOpen = isOpen;
         this.createdTimeAt = createdTimeAt;
         this.author = author;

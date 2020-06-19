@@ -26,9 +26,6 @@ public class Issue extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(length = 500)
-    private String contents;
-
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
 
@@ -39,7 +36,6 @@ public class Issue extends BaseTimeEntity {
     @Builder
     private Issue(String title, String contents, Account author) {
         this.title = title;
-        this.contents = contents;
         this.isOpen = true;
         this.author = author;
     }
@@ -48,8 +44,7 @@ public class Issue extends BaseTimeEntity {
         this.isOpen = isOpen;
     }
 
-    public void modifyTitleAndContents(IssueModifyRequest request) {
+    public void modifyTitle(IssueModifyRequest request) {
         this.title = request.getTitle();
-        this.contents = request.getContents();
     }
 }

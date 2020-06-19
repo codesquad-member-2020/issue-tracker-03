@@ -11,8 +11,6 @@ public class IssueModifyRequest {
 
     private String title;
 
-    private String contents;
-
     @JsonInclude(Include.NON_NULL)
     private Long issueId;
 }

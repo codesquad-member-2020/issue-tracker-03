@@ -54,7 +54,6 @@ public class IssueService {
         return IssueDetailResponse.builder()
                 .id(issue.getId())
                 .title(issue.getTitle())
-                .contents(issue.getContents())
                 .isOpen(issue.isOpen())
                 .author(AccountResponse.builder()
                         .userId(issue.getAuthor().getLogin())
@@ -74,6 +73,15 @@ public class IssueService {
                 .author(author)
                 .build();
         Issue saved = issueRepository.save(issue);
+
+        Comment comment = Comment.builder()
+                .contents(request.getContents())
+                .issue(saved)
+                .author(author)
+                .build();
+
+        commentRepository.save(comment);
+
         return new IssueCreateResponse(saved.getId());
     }
 
@@ -82,7 +90,7 @@ public class IssueService {
         Issue issue = issueRepository.findById(request.getIssueId())
                 .orElseThrow(() -> new IssueNotFoundException(
                         request.getIssueId() + " 해당하는 이슈가 없습니다."));
-        issue.modifyTitleAndContents(request);
+        issue.modifyTitle(request);
         issueRepository.save(issue);
     }
 
