@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LabelController {
 
-    private final LabelRepository labelRepository;
-
+  private final LabelRepository labelRepository;
 
 }

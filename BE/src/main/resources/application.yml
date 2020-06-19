@@ -9,6 +9,7 @@ management:
       exposure:
         exclude: env,beans
         include: "*"
+        
 ---
 spring:
   profiles: local
@@ -30,17 +31,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 logging:
   level:
     web: debug
     com.codesquad.issue: debug
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql: trace
-
 
 host: http://localhost:8080
 github:
@@ -73,8 +68,7 @@ spring:
 logging:
   level:
     web: debug
-    sql: debug
-    kr.codesquad.airbnb11: debug
+    com.codesquad.issue: debug
 
 host: http://15.164.138.255
 github:

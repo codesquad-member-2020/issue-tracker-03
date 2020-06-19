@@ -1,5 +1,6 @@
-package com.codesquad.issue.domain.account;
+package com.codesquad.issue.domain.account.request;
 
+import com.codesquad.issue.domain.account.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AccountSaveDto {
+
     private String email;
+
     private String login;
+
     private String name;
+
     private String avatarUrl;
 
     @Builder
