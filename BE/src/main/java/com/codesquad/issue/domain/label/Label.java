@@ -1,10 +1,12 @@
 package com.codesquad.issue.domain.label;
 
-import com.codesquad.issue.domain.issue.Issue;
+import com.codesquad.issue.domain.label.response.LabelResponse;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
@@ -25,5 +27,14 @@ public class Label {
         this.name = name;
         this.description = description;
         this.color = color;
+    }
+
+    public LabelResponse toResponse() {
+        return LabelResponse.builder()
+                .id(id)
+                .name(name)
+                .description(description)
+                .color(color)
+                .build();
     }
 }

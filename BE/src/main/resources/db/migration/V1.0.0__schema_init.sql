@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS issue;
 DROP TABLE IF EXISTS label;
 DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS issue_label;
 
 CREATE TABLE account
 (
@@ -53,6 +54,6 @@ CREATE TABLE issue_label
     issue_id BIGINT,
     label_id BIGINT,
     PRIMARY KEY (id),
-    CONSTRAINT comment_has_label_id FOREIGN KEY (label_id) REFERENCES label (id),
-    CONSTRAINT comment_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
+    CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
+    CONSTRAINT issue_label_has_label_id FOREIGN KEY (label_id) REFERENCES label (id)
 );
