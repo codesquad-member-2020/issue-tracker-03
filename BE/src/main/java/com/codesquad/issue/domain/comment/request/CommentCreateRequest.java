@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentSaveRequest {
+public class CommentCreateRequest {
 
     private String contents;
 
