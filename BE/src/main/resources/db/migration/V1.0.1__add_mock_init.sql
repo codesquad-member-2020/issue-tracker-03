@@ -23,3 +23,7 @@ INSERT INTO comment(contents, issue_id, account_id)
 VALUES ('댓글1', 1, 1),
        ('댓글2', 1, 1),
        ('댓글3', 1, 1);
+
+INSERT INTO issue_label(issue_id, label_id)
+VALUES (1, 1),
+       (1, 2);

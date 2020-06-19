@@ -46,3 +46,13 @@ CREATE TABLE comment
     CONSTRAINT comment_has_account_id FOREIGN KEY (account_id) REFERENCES account (id),
     CONSTRAINT comment_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
 );
+
+CREATE TABLE issue_label
+(
+    id       BIGINT AUTO_INCREMENT,
+    issue_id BIGINT,
+    label_id BIGINT,
+    PRIMARY KEY (id),
+    CONSTRAINT comment_has_label_id FOREIGN KEY (label_id) REFERENCES label (id),
+    CONSTRAINT comment_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
+);
