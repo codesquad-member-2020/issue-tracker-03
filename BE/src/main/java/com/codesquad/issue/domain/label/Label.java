@@ -2,6 +2,7 @@ package com.codesquad.issue.domain.label;
 
 import com.codesquad.issue.domain.label.request.LabelModifyRequest;
 import com.codesquad.issue.domain.label.response.LabelResponse;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,10 +20,12 @@ public class Label {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
 
+    @Column(nullable = false)
     private String color;
 
     @Builder

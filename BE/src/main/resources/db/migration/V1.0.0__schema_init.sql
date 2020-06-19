@@ -29,9 +29,9 @@ CREATE TABLE issue
 CREATE TABLE label
 (
     id          BIGINT AUTO_INCREMENT,
-    name        VARCHAR(50),
+    name        VARCHAR(50) NOT NULL,
     description VARCHAR(500),
-    color       VARCHAR(50),
+    color       VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 

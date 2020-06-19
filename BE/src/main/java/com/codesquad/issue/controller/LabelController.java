@@ -9,6 +9,7 @@ import com.codesquad.issue.domain.label.response.LabelResponse;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.LabelService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,8 @@ public class LabelController {
     }
 
     @PostMapping
-    public ApiResult<LabelCreateResponse> create(@RequestBody LabelCreateRequest request) {
+    public ApiResult<LabelCreateResponse> create(
+          @RequestBody @Valid LabelCreateRequest request) {
         return OK(labelService.create(request));
     }
 
