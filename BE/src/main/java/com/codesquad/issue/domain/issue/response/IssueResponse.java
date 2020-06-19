@@ -1,5 +1,6 @@
-package com.codesquad.issue.domain.issue;
+package com.codesquad.issue.domain.issue.response;
 
+import com.codesquad.issue.domain.issue.Issue;
 import lombok.Getter;
 import lombok.ToString;
 

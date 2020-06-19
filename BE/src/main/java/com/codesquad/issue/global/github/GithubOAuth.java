@@ -8,7 +8,9 @@ import lombok.ToString;
 public class GithubOAuth {
 
     private final String uri;
+
     private final String clientId;
+
     private final String clientSecret;
 
     public GithubOAuth(String uri, String clientId, String clientSecret) {

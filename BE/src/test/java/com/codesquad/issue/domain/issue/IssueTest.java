@@ -77,7 +77,7 @@ class IssueTest {
         Issue i1 = Issue.builder()
                 .title("테스트입니다")
                 .contents("안녕하세요")
-                .created(a1)
+                .author(a1)
                 .build();
 
         Issue i1Saved = issueRepository.save(i1);

@@ -1,4 +1,4 @@
-package com.codesquad.issue.domain.account;
+package com.codesquad.issue.domain.account.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Getter;
 public class AccountResponse {
 
     private final String userId;
+
     private final String avatarUrl;
 
     @Builder

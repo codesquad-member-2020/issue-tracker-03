@@ -22,16 +22,17 @@ public class LoginController {
     private final OAuthLoginService oAuthLoginService;
     private final AccountService userService;
 
-    @GetMapping("/github-login")
+    @GetMapping("github-login")
     public ResponseEntity<HttpHeaders> githubLogin() {
         HttpHeaders headers = oAuthLoginService.redirectGithub();
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code, HttpServletResponse response) {
+    @GetMapping("login")
+    public ResponseEntity<HttpHeaders> login(@RequestParam("code") String code,
+            HttpServletResponse response) {
         GithubAccessToken token = oAuthLoginService.getAccessTokenByCode(code);
-        String jwt = JwtUtils.jwtCreate(userService.userLogin(token));
+        String jwt = JwtUtils.jwtCreate(userService.login(token));
 
         Cookie cookie = new Cookie("jwt", jwt);
         cookie.setMaxAge(24 * 60 * 60);
