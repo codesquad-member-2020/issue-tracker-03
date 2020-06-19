@@ -12,6 +12,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +42,7 @@ public class LabelController {
 
     @PostMapping
     public ApiResult<LabelCreateResponse> create(
-          @RequestBody @Valid LabelCreateRequest request) {
+            @RequestBody @Valid LabelCreateRequest request) {
         return OK(labelService.create(request));
     }
 
@@ -51,6 +52,12 @@ public class LabelController {
             @RequestBody LabelModifyRequest request) {
         request.setLabelId(labelId);
         labelService.modify(request);
+        return OK(true);
+    }
+
+    @DeleteMapping("{id}")
+    public ApiResult<Boolean> delete(@PathVariable(name = "id") Long labelId) {
+        labelService.delete(labelId);
         return OK(true);
     }
 }

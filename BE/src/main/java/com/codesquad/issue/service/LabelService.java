@@ -52,4 +52,9 @@ public class LabelService {
         label.change(request);
         labelRepository.save(label);
     }
+
+    @Transactional
+    public void delete(Long labelId) {
+        labelRepository.deleteById(labelId);
+    }
 }
