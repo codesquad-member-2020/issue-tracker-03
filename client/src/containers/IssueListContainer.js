@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getIssueList,
@@ -9,8 +10,10 @@ import {
 import Search from '@Components/IssueList/Search';
 import List from '@Components/IssueList/List';
 import Filters from '@Components/IssueList/Filters';
+import ButtonPanel from '@Components/Common/ButtonPanel'
 
 const IssueListContainer = () => {
+  const history = useHistory();
   const { data, loading, error } = useSelector(
     state => state.issueList.issueList,
   );
@@ -32,8 +35,27 @@ const IssueListContainer = () => {
   const onCheckboxClickHandler = (id, checked) =>
     dispatch(clickCheckbox({ id, checked }));
 
+  const onNewIssueButtonClickHandler = () => {
+    history.push('/issue-create')
+  }
+
+  const onMilestoneButtonClickHandler = () => {
+    history.push('/milestone-list')
+  }
+
+  const onLabelButtonClickHandler = () => {
+    history.push('/label-list')
+  }
+
   return (
     <>
+        <ButtonPanel
+          onSubmitButtonClick={onNewIssueButtonClickHandler}
+          submitButtonText="New issue"
+          submitButtonEnabled={true}
+          onMilestoneButtonClick={onMilestoneButtonClickHandler}
+          onLabelButtonClick={onLabelButtonClickHandler}
+        />
       <Search />
       <Filters />
       <List
