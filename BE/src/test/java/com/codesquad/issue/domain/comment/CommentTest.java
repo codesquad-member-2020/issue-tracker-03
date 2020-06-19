@@ -82,21 +82,6 @@ class CommentTest {
     }
 
     @Test
-    @DisplayName("댓글 삭제")
-    void delete() {
-        Comment comment = Comment.builder()
-                .contents("첫번째 댓글입니다")
-                .issue(i1)
-                .author(a1)
-                .build();
-        Comment savedComment = repository.save(comment);
-        repository.delete(savedComment);
-
-        assertThrows(NoSuchElementException.class,
-                () -> repository.findById(comment.getId()).get());
-    }
-
-    @Test
     @DisplayName("이슈에 해당하는 댓글 반환")
     void find_all_by_issue() {
         Comment c1 = Comment.builder()
