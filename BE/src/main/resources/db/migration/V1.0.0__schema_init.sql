@@ -51,9 +51,9 @@ CREATE TABLE comment
 CREATE TABLE milestone
 (
     id          BIGINT AUTO_INCREMENT,
-    name        VARCHAR(500),
+    name        VARCHAR(500) NOT NULL,
     description VARCHAR(500),
-    due_time    TIMESTAMP DEFAULT NOW(),
+    due_date    Date,
     issue_id    BIGINT,
     PRIMARY KEY (id),
     CONSTRAINT milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
@@ -61,8 +61,8 @@ CREATE TABLE milestone
 
 CREATE TABLE issue_milestone
 (
-    id       BIGINT AUTO_INCREMENT,
-    issue_id BIGINT,
+    id           BIGINT AUTO_INCREMENT,
+    issue_id     BIGINT,
     milestone_id BIGINT,
     PRIMARY KEY (id),
     CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),

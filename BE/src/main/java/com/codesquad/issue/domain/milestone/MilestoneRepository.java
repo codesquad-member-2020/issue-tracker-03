@@ -1,4 +1,6 @@
 package com.codesquad.issue.domain.milestone;
 
-public interface MilestoneRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
 }
