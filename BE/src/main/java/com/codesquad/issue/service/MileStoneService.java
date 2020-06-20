@@ -4,6 +4,7 @@ import com.codesquad.issue.domain.milestone.Milestone;
 import com.codesquad.issue.domain.milestone.MilestoneRepository;
 import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
 import com.codesquad.issue.domain.milestone.response.MilestoneCreateResponse;
+import com.codesquad.issue.domain.milestone.response.MilestoneListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,5 +20,10 @@ public class MileStoneService {
 
 
         return new MilestoneCreateResponse(milestoneRepository.save(request.toEntity()).getId());
+    }
+
+    @Transactional
+    public MilestoneListResponse findAllMilestone() {
+        return new MilestoneListResponse(milestoneRepository.findAll());
     }
 }
