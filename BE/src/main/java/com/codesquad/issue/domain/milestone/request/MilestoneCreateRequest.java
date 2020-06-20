@@ -1,5 +1,6 @@
 package com.codesquad.issue.domain.milestone.request;
 
+import com.codesquad.issue.domain.milestone.Milestone;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,9 +16,17 @@ public class MilestoneCreateRequest {
     private final LocalDate dueDate;
 
     @Builder
-    public MilestoneCreateRequest(String name, String description, LocalDate dueDate) {
+    private MilestoneCreateRequest(String name, String description, LocalDate dueDate) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
+    }
+
+    public Milestone toEntity() {
+        return Milestone.builder()
+                .name(name)
+                .description(description)
+                .dueDate(dueDate)
+                .build();
     }
 }

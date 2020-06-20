@@ -1,5 +1,6 @@
 package com.codesquad.issue.domain.milestone;
 
+import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

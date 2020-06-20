@@ -16,12 +16,8 @@ public class MileStoneService {
 
     @Transactional
     public MilestoneCreateResponse create(MilestoneCreateRequest request) {
-        Milestone milestone = Milestone.builder()
-                .name(request.getName())
-                .description(request.getDescription())
-                .dueDate(request.getDueDate())
-                .build();
 
-        return new MilestoneCreateResponse(milestoneRepository.save(milestone).getId());
+
+        return new MilestoneCreateResponse(milestoneRepository.save(request.toEntity()).getId());
     }
 }
