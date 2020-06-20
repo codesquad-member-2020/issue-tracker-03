@@ -6,6 +6,7 @@ import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
 import com.codesquad.issue.domain.milestone.request.MilestoneModifyRequest;
 import com.codesquad.issue.domain.milestone.response.MilestoneCreateResponse;
 import com.codesquad.issue.domain.milestone.response.MilestoneListResponse;
+import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +29,7 @@ public class MilestoneService {
 
     @Transactional
     public void modify(Long id, MilestoneModifyRequest request) {
-        Milestone savedMilestone = milestoneRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 마일스톤은 없습니다."));
+        Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
         savedMilestone.change(request);
         milestoneRepository.save(savedMilestone);
     }
