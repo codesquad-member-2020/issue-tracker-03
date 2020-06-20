@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: process.env.CI 설정
+        run: unset CI
+
       - name: npm 설치
         run: npm install
       
