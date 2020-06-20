@@ -3,6 +3,7 @@ package com.codesquad.issue.global.error;
 import static com.codesquad.issue.global.api.ApiResult.ERROR;
 
 import com.codesquad.issue.global.api.ApiResult;
+import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,5 +26,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleException(Exception e) {
         log.error("Unexpected exception occurred: {}", e.getMessage(), e);
         return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MilestoneNotFoundException.class)
+    public ResponseEntity<String> mileStoneNotFoundExceptionHandler(MilestoneNotFoundException e) {
+        log.error("Handle MilestoneNotFoundException: ", e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

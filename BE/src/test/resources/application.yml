@@ -24,3 +24,9 @@ github:
 logging:
   level:
     com.codesquad.issue: debug
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace

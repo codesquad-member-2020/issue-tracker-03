@@ -36,6 +36,12 @@ logging:
   level:
     web: debug
     com.codesquad.issue: debug
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
 
 host: http://localhost:8080
 github:

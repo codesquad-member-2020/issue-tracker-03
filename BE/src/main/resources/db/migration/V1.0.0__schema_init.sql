@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS issue;
 DROP TABLE IF EXISTS label;
 DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS milestone;
 
 CREATE TABLE account
 (
@@ -45,4 +46,25 @@ CREATE TABLE comment
     PRIMARY KEY (id),
     CONSTRAINT comment_has_account_id FOREIGN KEY (account_id) REFERENCES account (id),
     CONSTRAINT comment_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
+);
+
+CREATE TABLE milestone
+(
+    id          BIGINT AUTO_INCREMENT,
+    name        VARCHAR(500) NOT NULL,
+    description VARCHAR(500),
+    due_date    Date,
+    issue_id    BIGINT,
+    PRIMARY KEY (id),
+    CONSTRAINT milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
+);
+
+CREATE TABLE issue_milestone
+(
+    id           BIGINT AUTO_INCREMENT,
+    issue_id     BIGINT,
+    milestone_id BIGINT,
+    PRIMARY KEY (id),
+    CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
+    CONSTRAINT issue_label_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES label (id)
 );
