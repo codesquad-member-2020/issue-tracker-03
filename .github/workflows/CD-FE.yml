@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [12.16.x]
     
     steps:
       - name: 체크아웃 Github-Action
@@ -33,7 +33,7 @@ jobs:
         run: npm install
       
       - name: npm 빌드
-        run: npm run build
+        run: unset CI && npm run build
      
       - name: zip 생성
         run: zip -qq -r ./build-fe.zip .
@@ -44,7 +44,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ap-northeast-2
 
       - name: S3 업로드
         run: aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://codesquad-deploy/client/build-fe.zip

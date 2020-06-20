@@ -38,7 +38,7 @@ jobs:
         
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [12.16.x]
     
     steps:
       - name: 체크아웃 Github-Action
@@ -53,4 +53,4 @@ jobs:
         run: npm install
 
       - name: npm 빌드
-        run: npm run build --if-present
+        run: unset CI && npm run build
