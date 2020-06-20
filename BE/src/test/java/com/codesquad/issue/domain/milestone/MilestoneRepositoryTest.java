@@ -51,4 +51,17 @@ class MilestoneRepositoryTest {
         assertThat(savedMileStone.getDescription()).isNull();
         assertThat(savedMileStoneNotDate.getDueDate()).isNull();
     }
+
+    @Test
+    @DisplayName("마일스톤 id로 찾기")
+    void findById() {
+        Milestone milestone = Milestone.builder()
+                .name("마일스톤")
+                .dueDate(LocalDate.now())
+                .build();
+        milestoneRepository.save(milestone);
+        Milestone savedMilestone = milestoneRepository.findById(1L)
+                .orElseThrow(() -> new IllegalStateException("해당 마일스톤은 없습니다."));
+        assertThat(savedMilestone.getName()).isEqualTo(milestone.getName());
+    }
 }
