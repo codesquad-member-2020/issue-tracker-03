@@ -4,8 +4,8 @@ REPOSITORY=/home/ubuntu/be
 cd $REPOSITORY
 
 APP_NAME=issue-tracker
-# shellcheck disable=SC2125
-JAR_PATH=$REPOSITORY/build/libs/*.jar
+JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep '.jar' | tail -n 1)
+JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
 CURRENT_PID=$(pgrep -f $APP_NAME)
 
