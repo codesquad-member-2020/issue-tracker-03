@@ -1,9 +1,7 @@
 package com.codesquad.issue.domain.issue;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.label.Label;
 import com.codesquad.issue.domain.label.LabelRepository;
 import java.util.Arrays;
@@ -25,7 +23,6 @@ class IssueLabelTest {
 
     @Autowired
     private LabelRepository labelRepository;
-
 
     @Test
     @DisplayName("이슈에 라벨 추가")

@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "issue_label")
 public class IssueLabel {
@@ -25,9 +27,6 @@ public class IssueLabel {
     @ManyToOne
     @JoinColumn(name = "label_id")
     private Label label;
-
-    public IssueLabel() {
-    }
 
     @Builder
     private IssueLabel(Issue issue, Label label) {
