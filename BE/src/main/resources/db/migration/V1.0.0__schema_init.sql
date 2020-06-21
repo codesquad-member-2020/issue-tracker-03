@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS label;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS issue_label;
 DROP TABLE IF EXISTS milestone;
+DROP TABLE IF EXISTS issue_milestone;
 
 CREATE TABLE account
 (
