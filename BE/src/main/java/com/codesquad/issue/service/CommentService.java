@@ -32,10 +32,10 @@ public class CommentService {
     @Transactional
     public CommentResponse save(CommentSaveRequest request) {
         Issue issue = issueRepository.findById(request.getIssueId())
-                .orElseThrow(() -> new IssueNotFoundException("올바르지 않은 이슈 입니다"));
+                .orElseThrow(IssueNotFoundException::new);
 
         Account author = accountRepository.findByLogin(request.getAuthorId())
-                .orElseThrow(() -> new UserNotFoundException("올바르지 않은 유저입니다."));
+                .orElseThrow(UserNotFoundException::new);
 
         Comment comment = Comment.builder()
                 .contents(request.getContents())

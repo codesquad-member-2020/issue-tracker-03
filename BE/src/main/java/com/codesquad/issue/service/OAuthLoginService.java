@@ -77,7 +77,7 @@ public class OAuthLoginService {
         GithubAccount githubAccount = Optional
                 .ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
                         new HttpEntity<>(headers), GithubAccount.class).getBody())
-                .orElseThrow(() -> new UserNotFoundException("요청한 github user를 찾을 수 없습니다."));
+                .orElseThrow(UserNotFoundException::new);
         log.debug("github before: {}", githubAccount);
         if (githubAccount.getEmail() == null) {
             githubAccount.setEmail(getEmailByToken(headers));

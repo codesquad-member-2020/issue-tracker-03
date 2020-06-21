@@ -3,7 +3,10 @@ package com.codesquad.issue.global.error;
 import static com.codesquad.issue.global.api.ApiResult.ERROR;
 
 import com.codesquad.issue.global.api.ApiResult;
+import com.codesquad.issue.global.error.exception.CommentNotFoundException;
+import com.codesquad.issue.global.error.exception.IssueNotFoundException;
 import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
+import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,24 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleException(Exception e) {
         log.error("Unexpected exception occurred: {}", e.getMessage(), e);
         return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> userNotFoundExceptionHandler(UserNotFoundException e) {
+        log.error("Handle UserNotFoundException: ", e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IssueNotFoundException.class)
+    public ResponseEntity<String> issueNotFoundExceptionHandler(IssueNotFoundException e) {
+        log.error("Handle IssueNotFoundException: ", e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<String> commentNotFoundExceptionHandler(CommentNotFoundException e) {
+        log.error("Handle CommentNotFoundException: ", e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MilestoneNotFoundException.class)

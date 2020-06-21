@@ -3,9 +3,6 @@ package com.codesquad.issue.global.error.exception;
 public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException() {
-    }
-
-    public UserNotFoundException(String s) {
-        super(s);
+        super("지정하신 유저는 없습니다.");
     }
 }
