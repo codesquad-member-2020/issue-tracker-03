@@ -24,9 +24,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PutMapping("{id}")
-    private ApiResult<CommentResponse> update(@PathVariable(value = "id") Long issueId,
+    private ApiResult<CommentResponse> update(@PathVariable(value = "id") Long commentId,
             @RequestBody CommentModifyRequest commentModifyRequest) {
-        commentModifyRequest.setCommentId(issueId);
+        commentModifyRequest.setCommentId(commentId);
         return OK(commentService.modify(commentModifyRequest));
     }
 
