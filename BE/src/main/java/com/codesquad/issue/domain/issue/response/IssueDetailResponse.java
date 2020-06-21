@@ -21,6 +21,8 @@ public class IssueDetailResponse {
 
     private final LocalDateTime createdTimeAt;
 
+    private final LocalDateTime modifiedTimeAt;
+
     private final AccountResponse author;
 
     private final List<CommentResponse> comments;
@@ -29,12 +31,14 @@ public class IssueDetailResponse {
 
     @Builder
     private IssueDetailResponse(Long id, String title, Boolean isOpen, LocalDateTime createdTimeAt,
-            AccountResponse author, List<CommentResponse> comments,
+            LocalDateTime modifiedTimeAt, AccountResponse author,
+            List<CommentResponse> comments,
             List<LabelResponse> labels) {
         this.id = id;
         this.title = title;
         this.isOpen = isOpen;
         this.createdTimeAt = createdTimeAt;
+        this.modifiedTimeAt = modifiedTimeAt;
         this.author = author;
         this.comments = comments;
         this.labels = labels;
