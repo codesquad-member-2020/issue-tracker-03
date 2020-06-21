@@ -63,7 +63,6 @@ class MilestoneRepositoryTest {
         milestoneRepository.save(milestone);
         Milestone savedMilestone = milestoneRepository.findById(1L)
                 .orElseThrow(MilestoneNotFoundException::new);
-        Milestone savedMilestone = milestoneRepository.findAll().get(0);
         assertThat(savedMilestone.getName()).isEqualTo(milestone.getName());
     }
 
