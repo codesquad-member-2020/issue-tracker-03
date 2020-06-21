@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IssueRepository extends JpaRepository<Issue, Long> {
 
+    List<Issue> findAllByIsOpenTrueOrderByCreatedTimeAtDesc();
+
     List<Issue> findAllByIsOpenTrue();
 
-    List<Issue> findAllByIsOpenFalse();
+    List<Issue> findAllByIsOpenFalseOrderByCreatedTimeAtDesc();
 }
