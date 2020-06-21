@@ -127,7 +127,7 @@ class IssueTest {
 
         issueRepository.saveAll(Arrays.asList(i1, i2, i3));
 
-        List<Issue> issueList = issueRepository.findAllByIsOpenFalse();
+        List<Issue> issueList = issueRepository.findAllByIsOpenFalseOrderByCreatedTimeAtDesc();
         log.debug("issueList : {}", issueList);
         assertThat(issueList.size()).isEqualTo(2);
     }

@@ -51,17 +51,20 @@ public class IssueService {
                 .orElseThrow(() -> new LabelNotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
     }
 
-
-    public IssueResponse findAll() {
-        return new IssueResponse(issueRepository.findAll());
+    public List<IssueResponse> findAll() {
+        List<Issue> issues = issueRepository.findAllByIsOpenTrueOrderByCreatedTimeAtDesc();
+        return issues.stream().map(issue -> issue.toResponse()).collect(
+                Collectors.toList());
     }
 
-    public IssueResponse findByFilter(String filter) {
+    public List<IssueResponse> findByFilter(String filter) {
         log.debug("filter : {}", filter);
         if (filter.equals("is:closed")) {
-            return new IssueResponse(issueRepository.findAllByIsOpenFalse());
+            List<Issue> issues = issueRepository.findAllByIsOpenFalseOrderByCreatedTimeAtDesc();
+            return issues.stream().map(issue -> issue.toResponse()).collect(
+                    Collectors.toList());
         }
-        return new IssueResponse(issueRepository.findAllByIsOpenTrue());
+        return findAll();
     }
 
     public IssueDetailResponse findById(Long id) {
@@ -84,6 +87,8 @@ public class IssueService {
                         .userId(issue.getAuthor().getLogin())
                         .avatarUrl(issue.getAuthor().getAvatarUrl())
                         .build())
+                .createdTimeAt(issue.getCreatedTimeAt())
+                .modifiedTimeAt(issue.getModifiedTimeAt())
                 .comments(responses)
                 .labels(labels)
                 .build();
