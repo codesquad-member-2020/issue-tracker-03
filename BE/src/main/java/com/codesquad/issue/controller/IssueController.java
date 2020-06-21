@@ -83,8 +83,16 @@ public class IssueController {
     public ApiResult<Boolean> saveLabelFromIssue(
             @PathVariable(value = "issueId") Long issueId,
             @RequestParam(value = "label") Long labelId) {
-        log.debug("labelId : {}", labelId);
         issueService.addLabelToIssue(issueId, labelId);
         return OK(true);
     }
+
+    @DeleteMapping("{issueId}/labels/{labelId}")
+    public ApiResult<Boolean> deleteLabelFromIssue(
+            @PathVariable(value = "issueId") Long issueId,
+            @PathVariable(value = "labelId") Long labelId) {
+        issueService.deleteLabelFromIssue(issueId, labelId);
+        return OK(true);
+    }
+
 }

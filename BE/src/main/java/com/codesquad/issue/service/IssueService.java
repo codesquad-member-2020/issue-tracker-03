@@ -41,6 +41,17 @@ public class IssueService {
 
     private final AccountService accountService;
 
+    private Issue findIssueById(Long issueId) {
+        return issueRepository.findById(issueId)
+                .orElseThrow(() -> new IssueNotFoundException(issueId + "에 해당하는 이슈가 없습니다."));
+    }
+
+    private Label findLabelById(Long labelId) {
+        return labelRepository.findById(labelId)
+                .orElseThrow(() -> new LabelNotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
+    }
+
+
     public IssueResponse findAll() {
         return new IssueResponse(issueRepository.findAll());
     }
@@ -126,13 +137,10 @@ public class IssueService {
         issueLabelRepository.save(issueLabel);
     }
 
-    private Issue findIssueById(Long issueId) {
-        return issueRepository.findById(issueId)
-                .orElseThrow(() -> new IssueNotFoundException(issueId + "에 해당하는 이슈가 없습니다."));
-    }
-
-    private Label findLabelById(Long labelId) {
-        return labelRepository.findById(labelId)
-                .orElseThrow(() -> new LabelNotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
+    @Transactional
+    public void deleteLabelFromIssue(Long issueId, Long labelId) {
+        Issue issue = findIssueById(issueId);
+        Label label = findLabelById(labelId);
+        issueLabelRepository.deleteByIssueAndLabel(issue, label);
     }
 }
