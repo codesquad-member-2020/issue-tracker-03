@@ -56,6 +56,7 @@ CREATE TABLE issue_label
     issue_id BIGINT,
     label_id BIGINT,
     PRIMARY KEY (id),
+    UNIQUE (issue_id, label_id),
     CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
     CONSTRAINT issue_label_has_label_id FOREIGN KEY (label_id) REFERENCES label (id)
 );

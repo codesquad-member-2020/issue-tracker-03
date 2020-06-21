@@ -78,4 +78,13 @@ public class IssueController {
         commentCreateRequest.setIssueId(issueId);
         return OK(commentService.save(commentCreateRequest));
     }
+
+    @PostMapping("{issueId}")
+    public ApiResult<Boolean> saveLabelFromIssue(
+            @PathVariable(value = "issueId") Long issueId,
+            @RequestParam(value = "label") Long labelId) {
+        log.debug("labelId : {}", labelId);
+        issueService.addLabelToIssue(issueId, labelId);
+        return OK(true);
+    }
 }

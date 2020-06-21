@@ -3,13 +3,17 @@ package com.codesquad.issue.domain.issue;
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +38,7 @@ public class Issue extends BaseTimeEntity {
     private Account author;
 
     @Builder
-    private Issue(String title, String contents, Account author) {
+    private Issue(String title, Account author) {
         this.title = title;
         this.isOpen = true;
         this.author = author;
