@@ -29,7 +29,6 @@ class IssueMileStoneTest {
     void attachMilestone() {
         Issue i1 = Issue.builder()
                 .title("1")
-                .contents("1")
                 .build();
 
         issueRepository.save(i1);

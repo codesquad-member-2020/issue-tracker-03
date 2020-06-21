@@ -30,7 +30,6 @@ class IssueTest {
     void create_issue() {
         Issue issue = Issue.builder()
                 .title("테스트입니다")
-                .contents("안녕하세요")
                 .build();
 
         Issue saved = issueRepository.save(issue);
@@ -42,7 +41,6 @@ class IssueTest {
     @DisplayName("제목 없이 이슈 생성")
     void create_issue_without_title() {
         Issue issue = Issue.builder()
-                .contents("안녕하세요")
                 .build();
 
         assertThrows(Exception.class, () -> issueRepository.save(issue));
@@ -53,7 +51,6 @@ class IssueTest {
     void create_save() {
         Issue issue = Issue.builder()
                 .title("테스트입니다")
-                .contents("안녕하세요")
                 .build();
 
         Issue saved = issueRepository.save(issue);
@@ -74,7 +71,6 @@ class IssueTest {
 
         Issue i1 = Issue.builder()
                 .title("테스트입니다")
-                .contents("안녕하세요")
                 .author(a1)
                 .build();
 
@@ -88,22 +84,18 @@ class IssueTest {
     void search_by_is_open_true() {
         Issue i1 = Issue.builder()
                 .title("1")
-                .contents("1")
                 .build();
 
         Issue i2 = Issue.builder()
                 .title("2")
-                .contents("2")
                 .build();
 
         Issue i3 = Issue.builder()
                 .title("3")
-                .contents("3")
                 .build();
 
         Issue i4 = Issue.builder()
                 .title("4")
-                .contents("4")
                 .build();
 
         i4.changeIsOpen(false);
@@ -120,17 +112,14 @@ class IssueTest {
     void search_by_is_open_false() {
         Issue i1 = Issue.builder()
                 .title("1")
-                .contents("1")
                 .build();
 
         Issue i2 = Issue.builder()
                 .title("2")
-                .contents("2")
                 .build();
 
         Issue i3 = Issue.builder()
                 .title("3")
-                .contents("3")
                 .build();
 
         i1.changeIsOpen(false);
