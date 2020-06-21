@@ -37,4 +37,11 @@ public class MilestoneController {
         mileStoneService.modify(id, request);
         return OK(true);
     }
+
+    @DeleteMapping("/{id}")
+    public ApiResult<Boolean> delete(@PathVariable Long id) {
+        mileStoneService.delete(id);
+        return OK(true);
+    }
+
 }
