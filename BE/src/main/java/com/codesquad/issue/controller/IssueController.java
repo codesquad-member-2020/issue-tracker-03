@@ -2,7 +2,7 @@ package com.codesquad.issue.controller;
 
 import static com.codesquad.issue.global.api.ApiResult.OK;
 
-import com.codesquad.issue.domain.comment.request.CommentSaveRequest;
+import com.codesquad.issue.domain.comment.request.CommentCreateRequest;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
@@ -74,8 +74,8 @@ public class IssueController {
     @PostMapping("{id}/comments")
     public ApiResult<CommentResponse> saveComment(
             @PathVariable(value = "id") Long issueId,
-            @RequestBody CommentSaveRequest commentSaveRequest) {
-        commentSaveRequest.setIssueId(issueId);
-        return OK(commentService.save(commentSaveRequest));
+            @RequestBody CommentCreateRequest commentCreateRequest) {
+        commentCreateRequest.setIssueId(issueId);
+        return OK(commentService.save(commentCreateRequest));
     }
 }

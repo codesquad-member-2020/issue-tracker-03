@@ -11,7 +11,7 @@ CURRENT_PID=$(pgrep -f $APP_NAME)
 
 if [ -z $CURRENT_PID ]
 then
-  echo "> 종료할것 없음."
+  echo "> 종료할 것 없음."
 else
   echo "> kill -15 $CURRENT_PID"
   kill -15 $CURRENT_PID
@@ -19,4 +19,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포"
-nohup java -jar -Dspring.profiles.active=prod $JAR_PATH 2>&1 &
+nohup java -jar -Dspring.profiles.active=prod $JAR_PATH > /dev/null 2> /dev/null < /dev/null &

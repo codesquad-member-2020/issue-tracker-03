@@ -1,6 +1,5 @@
 package com.codesquad.issue.global.api;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
@@ -9,13 +8,10 @@ import org.springframework.http.HttpStatus;
 @ToString
 public class ApiResult<T> {
 
-    @ApiModelProperty(value = "API 요청 처리 결과", required = true)
     private final boolean success;
 
-    @ApiModelProperty(value = "success가 true라면, API 요청 처리 응답값")
     private final T response;
 
-    @ApiModelProperty(value = "success가 false라면, API 요청 처리 응답값")
     private final ApiError error;
 
     private ApiResult(boolean success, T response, ApiError error) {

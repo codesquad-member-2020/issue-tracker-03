@@ -1,23 +1,31 @@
 package com.codesquad.issue.domain.label;
 
-import com.codesquad.issue.domain.issue.Issue;
+import com.codesquad.issue.domain.label.request.LabelModifyRequest;
+import com.codesquad.issue.domain.label.response.LabelResponse;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
+@Getter
 public class Label {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
 
+    @Column(nullable = false)
     private String color;
 
     @Builder
@@ -25,5 +33,20 @@ public class Label {
         this.name = name;
         this.description = description;
         this.color = color;
+    }
+
+    public void change(LabelModifyRequest request) {
+        this.name = request.getName();
+        this.description = request.getDescription();
+        this.color = request.getColor();
+    }
+
+    public LabelResponse toResponse() {
+        return LabelResponse.builder()
+                .id(id)
+                .name(name)
+                .description(description)
+                .color(color)
+                .build();
     }
 }

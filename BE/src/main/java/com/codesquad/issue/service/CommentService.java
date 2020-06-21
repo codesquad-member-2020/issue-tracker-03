@@ -6,7 +6,7 @@ import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.comment.Comment;
 import com.codesquad.issue.domain.comment.CommentRepository;
 import com.codesquad.issue.domain.comment.request.CommentModifyRequest;
-import com.codesquad.issue.domain.comment.request.CommentSaveRequest;
+import com.codesquad.issue.domain.comment.request.CommentCreateRequest;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.IssueRepository;
@@ -30,7 +30,7 @@ public class CommentService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public CommentResponse save(CommentSaveRequest request) {
+    public CommentResponse save(CommentCreateRequest request) {
         Issue issue = issueRepository.findById(request.getIssueId())
                 .orElseThrow(() -> new IssueNotFoundException("올바르지 않은 이슈 입니다"));
 
