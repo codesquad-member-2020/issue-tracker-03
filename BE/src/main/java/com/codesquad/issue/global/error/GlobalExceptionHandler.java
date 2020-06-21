@@ -3,11 +3,13 @@ package com.codesquad.issue.global.error;
 import static com.codesquad.issue.global.api.ApiResult.ERROR;
 
 import com.codesquad.issue.global.api.ApiResult;
+import java.util.Arrays;
 import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +21,22 @@ public class GlobalExceptionHandler {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         return new ResponseEntity<>(ERROR(exception, status), headers, status);
+    }
+
+    private ResponseEntity<ApiResult> newResponseWithString(String message, HttpStatus status) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        return new ResponseEntity<>(ERROR(message, status), headers, status);
+    }
+
+    //@Validation Exception handler
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleConstraintViolationException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException occurred: {}", e.getMessage(), e);
+        return newResponseWithString(Arrays.toString(
+                e.getBindingResult().getAllErrors().stream()
+                        .map(error -> error.getDefaultMessage()).toArray()),
+                HttpStatus.BAD_REQUEST);
     }
 
     //예상하지 못했던 오류
