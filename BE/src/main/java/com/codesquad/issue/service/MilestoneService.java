@@ -17,12 +17,11 @@ public class MilestoneService {
 
     private final MilestoneRepository milestoneRepository;
 
-    @Transactional
     public MilestoneCreateResponse create(MilestoneCreateRequest request) {
         return new MilestoneCreateResponse(milestoneRepository.save(request.toEntity()).getId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public MilestoneListResponse findAllMilestone() {
         return new MilestoneListResponse(milestoneRepository.findAll());
     }
@@ -32,5 +31,10 @@ public class MilestoneService {
         Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
         savedMilestone.change(request);
         milestoneRepository.save(savedMilestone);
+    }
+
+    public void delete(Long id) {
+        Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
+        milestoneRepository.delete(savedMilestone);
     }
 }

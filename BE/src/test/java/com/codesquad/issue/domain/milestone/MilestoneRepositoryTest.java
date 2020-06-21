@@ -4,11 +4,13 @@ import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.IssueRepository;
+import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDate;
 
@@ -61,7 +63,21 @@ class MilestoneRepositoryTest {
                 .build();
         milestoneRepository.save(milestone);
         Milestone savedMilestone = milestoneRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("해당 마일스톤은 없습니다."));
+                .orElseThrow(MilestoneNotFoundException::new);
         assertThat(savedMilestone.getName()).isEqualTo(milestone.getName());
+    }
+
+    @Test
+    @Rollback(value = false)
+    @DisplayName("마일스톤 삭제")
+    void deleteById() {
+        Milestone milestone = Milestone.builder()
+                .name("마일스톤")
+                .dueDate(LocalDate.now())
+                .build();
+
+        Milestone savedMilestone = milestoneRepository.save(milestone);
+        milestoneRepository.delete(savedMilestone);
+        assertThat(milestoneRepository.findAll()).isEmpty();
     }
 }

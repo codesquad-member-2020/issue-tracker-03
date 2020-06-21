@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS issue;
 DROP TABLE IF EXISTS label;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS milestone;
+DROP TABLE IF EXISTS issue_milestone;
 
 CREATE TABLE account
 (
@@ -65,6 +66,6 @@ CREATE TABLE issue_milestone
     issue_id     BIGINT,
     milestone_id BIGINT,
     PRIMARY KEY (id),
-    CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
-    CONSTRAINT issue_label_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES label (id)
+    CONSTRAINT issue_milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
+    CONSTRAINT issue_milestone_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)
 );
