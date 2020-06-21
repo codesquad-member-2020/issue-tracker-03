@@ -47,6 +47,6 @@ public class AccountService {
 
     public Account findByUserId(String login) {
         return accountRepository.findByLogin(login)
-                .orElseThrow(() -> new UserNotFoundException(login + "해당하는 유저가 없습니다."));
+                .orElseThrow(UserNotFoundException::new);
     }
 }

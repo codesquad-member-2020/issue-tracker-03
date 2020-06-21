@@ -117,9 +117,7 @@ public class IssueService {
 
     @Transactional
     public void modify(IssueModifyRequest request) {
-        Issue issue = issueRepository.findById(request.getIssueId())
-                .orElseThrow(() -> new IssueNotFoundException(
-                        request.getIssueId() + " 해당하는 이슈가 없습니다."));
+        Issue issue = findIssueById(request.getIssueId());
         issue.modifyTitle(request);
         issueRepository.save(issue);
     }
