@@ -45,7 +45,7 @@ public class IssueService {
 
     public IssueDetailResponse findById(Long id) {
         Issue issue = issueRepository.findById(id)
-                .orElseThrow(() -> new IssueNotFoundException(id + "에 해당하는 이슈가 없습니다."));
+                .orElseThrow(IssueNotFoundException::new);
 
         List<Comment> comments = commentRepository.findAllByIssue(issue);
         List<CommentResponse> responses = comments.stream().map(comment -> comment.toResponse())
@@ -88,8 +88,7 @@ public class IssueService {
     @Transactional
     public void modify(IssueModifyRequest request) {
         Issue issue = issueRepository.findById(request.getIssueId())
-                .orElseThrow(() -> new IssueNotFoundException(
-                        request.getIssueId() + " 해당하는 이슈가 없습니다."));
+                .orElseThrow(IssueNotFoundException::new);
         issue.modifyTitle(request);
         issueRepository.save(issue);
     }
