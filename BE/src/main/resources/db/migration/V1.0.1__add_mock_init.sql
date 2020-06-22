@@ -27,3 +27,8 @@ VALUES ('댓글1', 1, 1),
 INSERT INTO issue_label(issue_id, label_id)
 VALUES (1, 1),
        (1, 2);
+
+INSERT INTO milestone (name, description, due_date)
+VALUES ('1주차', 'scrum', '2020-06-27'),
+       ('2주차', 'coding', '2020-07-01'),
+       ('3주차', 'deploy', '2020-07-31');
