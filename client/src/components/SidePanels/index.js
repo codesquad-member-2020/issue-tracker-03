@@ -3,7 +3,6 @@ import Panel from './Panel';
 import { getAssignees, getLabels, getMilestones } from '../../modules/sidePanels';
 
 const SidePanels = ({ data }) => {
-  console.log(data);
   const onClickHandler = (value, type) => {
     console.log('[click] ', value, type);
   };

@@ -59,12 +59,7 @@ const TitleEdit = ({ title = '', onClickSave, onClickClose }) => {
   return (
     <TitleEditWrap>
       <form onSubmit={onClickTest}>
-        <input
-          type="text"
-          defaultValue={inputTitle}
-          autoFocus
-          onChange={onChange}
-        />
+        <input type="text" defaultValue={inputTitle} autoFocus onChange={onChange} />
         <div>
           <button type="submit">Save</button>
           <button onClick={onClickClose}>Cancel</button>
@@ -74,22 +69,12 @@ const TitleEdit = ({ title = '', onClickSave, onClickClose }) => {
   );
 };
 
-const IssueDetailesTitle = ({
-  issue,
-  onClickEdit,
-  onClickSave,
-  onClickClose,
-  isEdit,
-}) => {
+const IssueDetailesTitle = ({ issue, onClickEdit, onClickSave, onClickClose, isEdit }) => {
   const { id, title, open, author, createdAt } = issue;
   return (
     <Wrap>
       {isEdit ? (
-        <TitleEdit
-          title={title}
-          onClickClose={onClickClose}
-          onClickSave={onClickSave}
-        />
+        <TitleEdit title={title} onClickClose={onClickClose} onClickSave={onClickSave} />
       ) : (
         <Title id={id} title={title} onClickEdit={onClickEdit} />
       )}
