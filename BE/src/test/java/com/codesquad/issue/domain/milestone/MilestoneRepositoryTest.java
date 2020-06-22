@@ -61,7 +61,7 @@ class MilestoneRepositoryTest {
                 .dueDate(LocalDate.now())
                 .build();
         milestoneRepository.save(milestone);
-        Milestone savedMilestone = milestoneRepository.findById(1L)
+        Milestone savedMilestone = milestoneRepository.findById(milestone.getId())
                 .orElseThrow(MilestoneNotFoundException::new);
         assertThat(savedMilestone.getName()).isEqualTo(milestone.getName());
     }

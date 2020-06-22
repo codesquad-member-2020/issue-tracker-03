@@ -46,7 +46,6 @@ class CommentTest {
 
         i1 = Issue.builder()
                 .title("테스트입니다")
-                .contents("안녕하세요")
                 .author(a1)
                 .build();
 

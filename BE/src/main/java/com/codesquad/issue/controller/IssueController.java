@@ -12,6 +12,7 @@ import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.CommentService;
 import com.codesquad.issue.service.IssueService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class IssueController {
     private final CommentService commentService;
 
     @GetMapping
-    public ApiResult<IssueResponse> main(@RequestParam(required = false) Optional<String> q) {
+    public ApiResult<List<IssueResponse>> main(@RequestParam(required = false) Optional<String> q) {
         String filter = q.orElse("is:open");
         log.debug("filter : {}", filter);
         if (filter.isEmpty()) {
@@ -77,5 +78,21 @@ public class IssueController {
             @RequestBody CommentCreateRequest commentCreateRequest) {
         commentCreateRequest.setIssueId(issueId);
         return OK(commentService.save(commentCreateRequest));
+    }
+
+    @PostMapping("{issueId}")
+    public ApiResult<Boolean> saveLabelFromIssue(
+            @PathVariable(value = "issueId") Long issueId,
+            @RequestParam(value = "label") Long labelId) {
+        issueService.addLabelToIssue(issueId, labelId);
+        return OK(true);
+    }
+
+    @DeleteMapping("{issueId}/labels/{labelId}")
+    public ApiResult<Boolean> deleteLabelFromIssue(
+            @PathVariable(value = "issueId") Long issueId,
+            @PathVariable(value = "labelId") Long labelId) {
+        issueService.deleteLabelFromIssue(issueId, labelId);
+        return OK(true);
     }
 }
