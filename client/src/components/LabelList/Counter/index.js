@@ -5,7 +5,7 @@ const CounterWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 0px 15px;
   background-color: #f6f8fa;
   border: 1px solid #d1d5da;
 `;
