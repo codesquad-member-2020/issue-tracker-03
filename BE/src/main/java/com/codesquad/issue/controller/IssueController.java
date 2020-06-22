@@ -84,7 +84,7 @@ public class IssueController {
     @PostMapping("{issueId}")
     public ApiResult<IssueLabelResponse> saveLabelFromIssue(
             @PathVariable(value = "issueId") Long issueId,
-            @RequestParam(value = "label") Long labelId) {
+            @RequestParam(value = "labels") Long labelId) {
         return OK(issueService.addLabelToIssue(issueId, labelId));
     }
 
