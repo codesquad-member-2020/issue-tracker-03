@@ -1,5 +1,6 @@
 package com.codesquad.issue.domain.milestone;
 
+import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.milestone.request.MilestoneModifyRequest;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Milestone {
+public class Milestone extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
