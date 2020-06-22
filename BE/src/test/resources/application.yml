@@ -30,3 +30,15 @@ logging:
         type:
           descriptor:
             sql: trace
+
+cloud:
+  aws:
+    s3:
+      bucket: issue-003
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    credentials:
+      use-default-aws-credentials-chain: true
+      instance-profile: false
