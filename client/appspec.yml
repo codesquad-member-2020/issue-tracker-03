@@ -4,6 +4,7 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/fe
+    overwrite: yes
 
 permissions:
   - object: /home/ubuntu/fe
