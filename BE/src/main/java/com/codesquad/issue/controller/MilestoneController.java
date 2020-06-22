@@ -32,8 +32,9 @@ public class MilestoneController {
     }
 
     @PutMapping("/{id}")
-    public ApiResult<Boolean> modify(@PathVariable Long id,
-                                     @RequestBody MilestoneModifyRequest request) {
+    public ApiResult<Boolean> modify(
+            @PathVariable Long id,
+            @RequestBody MilestoneModifyRequest request) {
         mileStoneService.modify(id, request);
         return OK(true);
     }

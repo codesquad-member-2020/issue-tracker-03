@@ -12,6 +12,7 @@ import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
 import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
 import com.codesquad.issue.domain.issue.IssueRepository;
+import com.codesquad.issue.domain.issue.response.IssueLabelResponse;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.domain.label.Label;
@@ -130,14 +131,15 @@ public class IssueService {
     }
 
     @Transactional
-    public void addLabelToIssue(Long issueId, Long labelId) {
+    public IssueLabelResponse addLabelToIssue(Long issueId, Long labelId) {
         Issue issue = findIssueById(issueId);
         Label label = findLabelById(labelId);
         IssueLabel issueLabel = IssueLabel.builder()
                 .issue(issue)
                 .label(label)
                 .build();
-        issueLabelRepository.save(issueLabel);
+        IssueLabel saved = issueLabelRepository.save(issueLabel);
+        return saved.toIssueLabelResponse();
     }
 
     @Transactional
