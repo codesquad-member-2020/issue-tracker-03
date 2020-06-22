@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS issue_label;
 DROP TABLE IF EXISTS milestone;
 DROP TABLE IF EXISTS issue_milestone;
-DROP TABLE IF EXISTS image;
 
 CREATE TABLE account
 (
@@ -82,11 +81,4 @@ CREATE TABLE issue_milestone
     PRIMARY KEY (id),
     CONSTRAINT issue_milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
     CONSTRAINT issue_milestone_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)
-);
-
-CREATE TABLE image
-(
-    id  BIGINT AUTO_INCREMENT,
-    url VARCHAR(500) UNIQUE NOT NULL,
-    PRIMARY KEY (id)
 );
