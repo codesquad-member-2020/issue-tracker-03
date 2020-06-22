@@ -5,6 +5,7 @@ import { getIssue } from '../modules/issueList';
 import { reducerUtils } from '../libs/asyncUtils';
 import IssueDetails from '../components/IssueDetails';
 import IssueDetailesTitle from '../components/IssueDetails/IssueDetailesTitle';
+import SidePanels from '../components/SidePanels';
 
 const Wrap = styled.div``;
 const ContentsWrap = styled.div`
@@ -21,9 +22,7 @@ const SideSection = styled.section`
 const IssueDetailsContainer = ({ issueId }) => {
   const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
-  const { data, loading, error } = useSelector(
-    state => state.issueList.issue[issueId] || reducerUtils.initial(),
-  );
+  const { data, loading, error } = useSelector(state => state.issueList.issue[issueId] || reducerUtils.initial());
 
   useEffect(() => {
     if (data) return;
@@ -53,7 +52,9 @@ const IssueDetailsContainer = ({ issueId }) => {
         <ContentsSection>
           <IssueDetails issue={data} />
         </ContentsSection>
-        <SideSection></SideSection>
+        <SideSection>
+          <SidePanels data={data} />
+        </SideSection>
       </ContentsWrap>
     </Wrap>
   );
