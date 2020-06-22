@@ -49,11 +49,11 @@ const ButtonsWrap = styled.div`
 const Button = styled.button`
   font-size: 14px;
   border: none;
+  color: #0366d6;
   background-color: transparent;
 
   &:hover {
     cursor: pointer;
-    color: blue;
     text-decoration: underline;
   }
 
