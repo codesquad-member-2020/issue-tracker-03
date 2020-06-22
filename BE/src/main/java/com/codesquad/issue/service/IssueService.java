@@ -123,9 +123,9 @@ public class IssueService {
     }
 
     @Transactional
-    public void close(Long issueId) {
+    public void changeOpenOrClose(Long issueId) {
         Issue issue = findIssueById(issueId);
-        issue.changeIsOpen(false);
+        issue.changeOpenOrClose();
         issueRepository.save(issue);
     }
 
