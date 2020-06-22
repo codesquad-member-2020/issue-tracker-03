@@ -36,9 +36,13 @@ public class Milestone {
         this.isOpen = true;
     }
 
-    public void change(MilestoneModifyRequest request) {
+    public void modify(MilestoneModifyRequest request) {
         this.name = request.getName();
         this.description = request.getDescription();
         this.dueDate = request.getDueDate();
+    }
+
+    public void changeOpenOrClose() {
+        this.isOpen = !isOpen;
     }
 }

@@ -44,4 +44,10 @@ public class MilestoneController {
         return OK(true);
     }
 
+    @PatchMapping("/{id}")
+    public ApiResult<Boolean> requestClosed(@PathVariable Long id) {
+        mileStoneService.changeIsOpen(id);
+        return OK(true);
+    }
+
 }
