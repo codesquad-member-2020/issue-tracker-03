@@ -1,6 +1,5 @@
 package com.codesquad.issue.domain.milestone;
 
-import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
 import com.codesquad.issue.domain.milestone.request.MilestoneModifyRequest;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,11 +25,15 @@ public class Milestone {
     @Column(columnDefinition = "DATE")
     private LocalDate dueDate;
 
+    @Column(nullable = false)
+    private boolean isOpen;
+
     @Builder
     private Milestone(String name, String description, LocalDate dueDate) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
+        this.isOpen = true;
     }
 
     public void change(MilestoneModifyRequest request) {

@@ -64,11 +64,14 @@ CREATE TABLE issue_label
 
 CREATE TABLE milestone
 (
-    id          BIGINT AUTO_INCREMENT,
-    name        VARCHAR(500) NOT NULL,
-    description VARCHAR(500),
-    due_date    Date,
-    issue_id    BIGINT,
+    id               BIGINT AUTO_INCREMENT,
+    name             VARCHAR(500) NOT NULL,
+    description      VARCHAR(500),
+    due_date         Date,
+    created_time_at  TIMESTAMP DEFAULT NOW(),
+    modified_time_at TIMESTAMP DEFAULT NOW(),
+    is_open          BOOLEAN   DEFAULT TRUE,
+    issue_id         BIGINT,
     PRIMARY KEY (id),
     CONSTRAINT milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
 );
