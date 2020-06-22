@@ -28,15 +28,6 @@ CREATE TABLE issue
     CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id)
 );
 
-CREATE TABLE label
-(
-    id          BIGINT AUTO_INCREMENT,
-    name        VARCHAR(50) NOT NULL,
-    description VARCHAR(500),
-    color       VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE comment
 (
     id               BIGINT AUTO_INCREMENT,
@@ -50,12 +41,23 @@ CREATE TABLE comment
     CONSTRAINT comment_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
 );
 
+CREATE TABLE label
+(
+    id          BIGINT AUTO_INCREMENT,
+    name        VARCHAR(50) NOT NULL,
+    description VARCHAR(500),
+    color       VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE issue_label
 (
-    id       BIGINT AUTO_INCREMENT,
-    issue_id BIGINT,
-    label_id BIGINT,
+    id              BIGINT AUTO_INCREMENT,
+    issue_id        BIGINT,
+    label_id        BIGINT,
+    created_time_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
+    UNIQUE (issue_id, label_id),
     CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
     CONSTRAINT issue_label_has_label_id FOREIGN KEY (label_id) REFERENCES label (id)
 );

@@ -1,18 +1,30 @@
 package com.codesquad.issue.domain.issue.response;
 
-import com.codesquad.issue.domain.issue.Issue;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.codesquad.issue.domain.account.response.AccountResponse;
+import com.codesquad.issue.domain.label.response.LabelResponse;
+import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@ToString
+@RequiredArgsConstructor
+@Builder
 public class IssueResponse {
 
-    private final List<Issue> issues;
+    private final Long id;
 
-    public IssueResponse(List<Issue> issues) {
-        this.issues = issues;
-    }
+    private final String title;
+
+    private final Boolean isOpen;
+
+    private final AccountResponse author;
+
+    private final List<LabelResponse> labels;
+
+    private final LocalDateTime createdTimeAt;
+
+    private final LocalDateTime modifiedTimeAt;
+
 }
