@@ -33,7 +33,7 @@ public class MilestoneController {
 
     @PutMapping("/{id}")
     public ApiResult<Boolean> modify(@PathVariable Long id,
-                                     @RequestBody MilestoneModifyRequest request) {
+                                     @RequestBody @Valid MilestoneModifyRequest request) {
         mileStoneService.modify(id, request);
         return OK(true);
     }
@@ -49,5 +49,4 @@ public class MilestoneController {
         mileStoneService.changeIsOpen(id);
         return OK(true);
     }
-
 }
