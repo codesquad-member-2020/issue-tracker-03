@@ -8,6 +8,7 @@ import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
 import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
+import com.codesquad.issue.domain.issue.response.IssueLabelResponse;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.CommentService;
@@ -80,12 +81,11 @@ public class IssueController {
         return OK(commentService.save(commentCreateRequest));
     }
 
-    @PostMapping("{issueId}")
-    public ApiResult<Boolean> saveLabelFromIssue(
+    @PostMapping("{issueId}/labels/{labelId}")
+    public ApiResult<IssueLabelResponse> saveLabelFromIssue(
             @PathVariable(value = "issueId") Long issueId,
-            @RequestParam(value = "label") Long labelId) {
-        issueService.addLabelToIssue(issueId, labelId);
-        return OK(true);
+            @PathVariable(value = "labelId") Long labelId) {
+        return OK(issueService.addLabelToIssue(issueId, labelId));
     }
 
     @DeleteMapping("{issueId}/labels/{labelId}")
