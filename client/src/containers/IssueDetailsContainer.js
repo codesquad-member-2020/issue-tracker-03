@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -35,7 +36,13 @@ const IssueDetailsContainer = ({ issueId }) => {
 
   const onClickEdit = () => setEdit(true);
   const onClickClose = () => setEdit(false);
-  const onClickSave = value => console.log('[Save] : ', value);
+  const onClickSave = value =>
+    axios
+      .put(`http://15.164.138.255/api/issues/${data.id}`, {
+        title: value,
+      })
+      .then(() => dispatch(getIssue(issueId)))
+      .catch(e => console.log(`[error] : ${e}`));
 
   return (
     <Wrap>
