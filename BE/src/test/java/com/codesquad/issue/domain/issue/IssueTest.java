@@ -98,7 +98,7 @@ class IssueTest {
                 .title("4")
                 .build();
 
-        i4.changeIsOpen(false);
+        i4.changeOpenOrClose();
 
         issueRepository.saveAll(Arrays.asList(i1, i2, i3, i4));
 
@@ -122,8 +122,8 @@ class IssueTest {
                 .title("3")
                 .build();
 
-        i1.changeIsOpen(false);
-        i2.changeIsOpen(false);
+        i1.changeOpenOrClose();
+        i2.changeOpenOrClose();
 
         issueRepository.saveAll(Arrays.asList(i1, i2, i3));
 

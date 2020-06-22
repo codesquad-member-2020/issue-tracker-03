@@ -69,7 +69,7 @@ public class IssueController {
 
     @DeleteMapping("{id}")
     public ApiResult<Boolean> delete(@PathVariable(value = "id") Long issueId) {
-        issueService.close(issueId);
+        issueService.changeOpenOrClose(issueId);
         return OK(true);
     }
 
