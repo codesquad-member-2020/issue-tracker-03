@@ -3,11 +3,14 @@ import styled from 'styled-components'
 
 const CounterWrap = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0px 15px;
   background-color: #f6f8fa;
   border: 1px solid #d1d5da;
+  
+  div + div {
+    padding-left: 10px;
+  }
 `;
 
 const Count = styled.div`
@@ -16,10 +19,11 @@ const Count = styled.div`
   padding: 10px 0px;
 `;
 
-const Counter = ({ count }) => {
+const Counter = ({ openCount, closeCount }) => {
   return (
     <CounterWrap>
-      <Count>{count} {count > 1 ? "Labels" : "Label"}</Count>
+      <Count>{openCount} Open</Count>
+      <Count>{closeCount} Close</Count>
     </CounterWrap>
   );
 };

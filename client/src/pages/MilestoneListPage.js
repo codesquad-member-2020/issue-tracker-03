@@ -1,7 +1,12 @@
 import React from 'react';
+import MilestoneListContainer from '../containers/MilestoneListContainer';
 
 const MilestoneListPage = () => {
-  return <div>MilestoneListPage</div>;
+  return (
+    <>
+      <MilestoneListContainer />
+    </>
+  );
 };
 
 export default MilestoneListPage;
