@@ -9,4 +9,6 @@ public interface IssueLabelRepository extends JpaRepository<IssueLabel, Long> {
     List<IssueLabel> findAllByIssue(Issue issue);
 
     void deleteByIssueAndLabel(Issue issue, Label label);
+
+    void deleteAllByLabelId(Long labelId);
 }
