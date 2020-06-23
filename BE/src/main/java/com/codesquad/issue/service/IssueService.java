@@ -14,6 +14,7 @@ import com.codesquad.issue.domain.label.LabelRepository;
 import com.codesquad.issue.domain.label.response.LabelResponse;
 import com.codesquad.issue.domain.milestone.Milestone;
 import com.codesquad.issue.domain.milestone.MilestoneRepository;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import com.codesquad.issue.global.error.exception.IssueNotFoundException;
 import com.codesquad.issue.global.error.exception.LabelNotFoundException;
 
@@ -76,7 +77,7 @@ public class IssueService {
 
     public IssueDetailResponse findById(Long id) {
         Issue issue = findIssueById(id);
-
+        Milestone milestone = issue.getMilestone();
         List<IssueLabel> issueLabels = issueLabelRepository.findAllByIssue(issue);
         List<LabelResponse> labels = issueLabels.stream()
                 .map(issueLabel -> issueLabel.toLabelResponse()).collect(
@@ -85,6 +86,23 @@ public class IssueService {
         List<Comment> comments = commentRepository.findAllByIssue(issue);
         List<CommentResponse> responses = comments.stream().map(comment -> comment.toResponse())
                 .collect(Collectors.toList());
+
+        // 마일스톤 null처리를 위한 분기점 처리
+        if (milestone == null) {
+            return IssueDetailResponse.builder()
+                    .id(issue.getId())
+                    .title(issue.getTitle())
+                    .isOpen(issue.isOpen())
+                    .author(AccountResponse.builder()
+                            .userId(issue.getAuthor().getLogin())
+                            .avatarUrl(issue.getAuthor().getAvatarUrl())
+                            .build())
+                    .createdTimeAt(issue.getCreatedTimeAt())
+                    .modifiedTimeAt(issue.getModifiedTimeAt())
+                    .comments(responses)
+                    .labels(labels)
+                    .build();
+        }
 
         return IssueDetailResponse.builder()
                 .id(issue.getId())
@@ -98,6 +116,11 @@ public class IssueService {
                 .modifiedTimeAt(issue.getModifiedTimeAt())
                 .comments(responses)
                 .labels(labels)
+                .milestone(MilestoneResponse.builder()
+                        .id(milestone.getId())
+                        .name(milestone.getName())
+                        .dueDate(milestone.getDueDate())
+                        .build())
                 .build();
     }
 
