@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS label;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS issue_label;
 DROP TABLE IF EXISTS milestone;
-DROP TABLE IF EXISTS issue_milestone;
 
 CREATE TABLE account
 (
@@ -16,6 +15,18 @@ CREATE TABLE account
     PRIMARY KEY (id)
 );
 
+CREATE TABLE milestone
+(
+    id               BIGINT AUTO_INCREMENT,
+    name             VARCHAR(500) NOT NULL,
+    description      VARCHAR(500),
+    due_date         Date,
+    created_time_at  TIMESTAMP DEFAULT NOW(),
+    modified_time_at TIMESTAMP DEFAULT NOW(),
+    is_open          BOOLEAN   DEFAULT TRUE,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE issue
 (
     id               BIGINT AUTO_INCREMENT,
@@ -24,8 +35,10 @@ CREATE TABLE issue
     created_time_at  TIMESTAMP DEFAULT NOW(),
     modified_time_at TIMESTAMP DEFAULT NOW(),
     account_id       BIGINT,
+    milestone_id     BIGINT,
     PRIMARY KEY (id),
-    CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id)
+    CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id),
+    CONSTRAINT issue_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)
 );
 
 CREATE TABLE comment
@@ -60,28 +73,4 @@ CREATE TABLE issue_label
     UNIQUE (issue_id, label_id),
     CONSTRAINT issue_label_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
     CONSTRAINT issue_label_has_label_id FOREIGN KEY (label_id) REFERENCES label (id)
-);
-
-CREATE TABLE milestone
-(
-    id               BIGINT AUTO_INCREMENT,
-    name             VARCHAR(500) NOT NULL,
-    description      VARCHAR(500),
-    due_date         Date,
-    created_time_at  TIMESTAMP DEFAULT NOW(),
-    modified_time_at TIMESTAMP DEFAULT NOW(),
-    is_open          BOOLEAN   DEFAULT TRUE,
-    issue_id         BIGINT,
-    PRIMARY KEY (id),
-    CONSTRAINT milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id)
-);
-
-CREATE TABLE issue_milestone
-(
-    id           BIGINT AUTO_INCREMENT,
-    issue_id     BIGINT,
-    milestone_id BIGINT,
-    PRIMARY KEY (id),
-    CONSTRAINT issue_milestone_has_issue_id FOREIGN KEY (issue_id) REFERENCES issue (id),
-    CONSTRAINT issue_milestone_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)
 );
