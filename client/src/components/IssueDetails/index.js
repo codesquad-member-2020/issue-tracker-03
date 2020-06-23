@@ -18,13 +18,13 @@ const Wrap = styled.div`
 `;
 
 const IssueDetails = ({ issue }) => {
-  const { contents, createdAt, author } = issue;
-  console.log(issue);
+  const { author, comments } = issue;
 
   return (
     <Wrap>
-      <Comment contents={contents} author={author} createdAt={createdAt} />
-      <Comment contents={contents} author={author} createdAt={createdAt} />
+      {comments.map(item => (
+        <Comment key={item.id} contents={item.contents} author={item.author} createdAt={item.createdAt} />
+      ))}
       <CommentForm author={author} />
     </Wrap>
   );

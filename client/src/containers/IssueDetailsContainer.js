@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -5,6 +6,7 @@ import { getIssue } from '../modules/issueList';
 import { reducerUtils } from '../libs/asyncUtils';
 import IssueDetails from '../components/IssueDetails';
 import IssueDetailesTitle from '../components/IssueDetails/IssueDetailesTitle';
+import SidePanels from '../components/SidePanels';
 
 const Wrap = styled.div``;
 const ContentsWrap = styled.div`
@@ -21,9 +23,7 @@ const SideSection = styled.section`
 const IssueDetailsContainer = ({ issueId }) => {
   const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
-  const { data, loading, error } = useSelector(
-    state => state.issueList.issue[issueId] || reducerUtils.initial(),
-  );
+  const { data, loading, error } = useSelector(state => state.issueList.issue[issueId] || reducerUtils.initial());
 
   useEffect(() => {
     if (data) return;
@@ -36,7 +36,13 @@ const IssueDetailsContainer = ({ issueId }) => {
 
   const onClickEdit = () => setEdit(true);
   const onClickClose = () => setEdit(false);
-  const onClickSave = value => console.log('[Save] : ', value);
+  const onClickSave = value =>
+    axios
+      .put(`http://15.164.138.255/api/issues/${data.id}`, {
+        title: value,
+      })
+      .then(() => dispatch(getIssue(issueId)))
+      .catch(e => console.log(`[error] : ${e}`));
 
   return (
     <Wrap>
@@ -53,7 +59,9 @@ const IssueDetailsContainer = ({ issueId }) => {
         <ContentsSection>
           <IssueDetails issue={data} />
         </ContentsSection>
-        <SideSection></SideSection>
+        <SideSection>
+          <SidePanels data={data} />
+        </SideSection>
       </ContentsWrap>
     </Wrap>
   );
