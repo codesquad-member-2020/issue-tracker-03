@@ -107,6 +107,7 @@ public class Issue extends BaseTimeEntity {
                 .milestone(MilestoneResponse.builder()
                         .id(milestone.getId())
                         .name(milestone.getName())
+                        .dueDate(milestone.getDueDate())
                         .build())
                 .createdTimeAt(getCreatedTimeAt())
                 .modifiedTimeAt(getModifiedTimeAt())
