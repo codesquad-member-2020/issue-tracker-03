@@ -1,9 +1,9 @@
 package com.codesquad.issue.domain.issue;
 
+import com.codesquad.issue.domain.issue.response.IssueLabelResponse;
 import com.codesquad.issue.domain.label.Label;
 import com.codesquad.issue.domain.label.response.LabelResponse;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +41,14 @@ public class IssueLabel {
     private IssueLabel(Issue issue, Label label) {
         this.issue = issue;
         this.label = label;
+    }
+
+    public IssueLabelResponse toIssueLabelResponse() {
+        return IssueLabelResponse.builder()
+                .issueLabelId(id)
+                .issueId(issue.getId())
+                .labelId(label.getId())
+                .build();
     }
 
     public LabelResponse toLabelResponse() {

@@ -2,7 +2,7 @@ name: CD with Gradle
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ deploy-be ]
 
 jobs:
   backend:

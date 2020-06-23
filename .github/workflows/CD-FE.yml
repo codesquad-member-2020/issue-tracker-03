@@ -2,7 +2,7 @@ name: CD with Node.JS
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ deploy-fe ]
 
 jobs:
   backend:

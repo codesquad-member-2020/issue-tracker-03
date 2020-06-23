@@ -29,12 +29,19 @@ public class MilestoneService {
     @Transactional
     public void modify(Long id, MilestoneModifyRequest request) {
         Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
-        savedMilestone.change(request);
+        savedMilestone.modify(request);
         milestoneRepository.save(savedMilestone);
     }
 
     public void delete(Long id) {
         Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
         milestoneRepository.delete(savedMilestone);
+    }
+
+    @Transactional
+    public void changeIsOpen(Long id) {
+        Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
+        savedMilestone.changeOpenOrClose();
+        milestoneRepository.save(savedMilestone);
     }
 }

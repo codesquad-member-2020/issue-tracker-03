@@ -1,10 +1,7 @@
 package com.codesquad.issue.domain.milestone.request;
 
-import com.codesquad.issue.domain.milestone.Milestone;
-import lombok.Builder;
-import lombok.Getter;
-
 import java.time.LocalDate;
+import lombok.Getter;
 
 @Getter
 public class MilestoneModifyRequest {
