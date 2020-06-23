@@ -148,7 +148,7 @@ public class IssueService {
     }
 
     @Transactional
-    public void deleteLabelFromIssue(Long issueId, Long labelId) {
+    public void deleteLabelToIssue(Long issueId, Long labelId) {
         Issue issue = findIssueById(issueId);
         Label label = findLabelById(labelId);
         issueLabelRepository.deleteByIssueAndLabel(issue, label);
@@ -159,6 +159,13 @@ public class IssueService {
         Issue issue = findIssueById(issueId);
         Milestone milestone = findMilestoneById(milestoneId);
         issue.addMilestone(milestone);
+        issueRepository.save(issue);
+    }
+
+    @Transactional
+    public void clearMilestoneToIssue(Long issueId) {
+        Issue issue = findIssueById(issueId);
+        issue.deleteMilestone();
         issueRepository.save(issue);
     }
 }

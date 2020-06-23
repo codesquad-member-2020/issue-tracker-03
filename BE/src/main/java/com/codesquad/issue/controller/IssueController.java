@@ -88,10 +88,10 @@ public class IssueController {
     }
 
     @DeleteMapping("{issueId}/labels/{labelId}")
-    public ApiResult<Boolean> deleteLabelFromIssue(
+    public ApiResult<Boolean> deleteLabelToIssue(
             @PathVariable(value = "issueId") Long issueId,
             @PathVariable(value = "labelId") Long labelId) {
-        issueService.deleteLabelFromIssue(issueId, labelId);
+        issueService.deleteLabelToIssue(issueId, labelId);
         return OK(true);
     }
 
@@ -100,6 +100,12 @@ public class IssueController {
             @PathVariable Long issueId,
             @PathVariable Long milestoneId) {
         issueService.addMilestoneToIssue(issueId, milestoneId);
+        return OK(true);
+    }
+
+    @DeleteMapping("{issueId}/milestones")
+    public ApiResult<Boolean> clearMilestoneToIssue(@PathVariable Long issueId) {
+        issueService.clearMilestoneToIssue(issueId);
         return OK(true);
     }
 }

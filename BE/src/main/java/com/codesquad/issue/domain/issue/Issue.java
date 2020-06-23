@@ -70,6 +70,10 @@ public class Issue extends BaseTimeEntity {
         this.milestone = milestone;
     }
 
+    public void deleteMilestone() {
+        this.milestone = null;
+    }
+
     // 마일스톤 null처리를 위한 분기점 처리
     public IssueResponse toResponse() {
         if (milestone == null) {

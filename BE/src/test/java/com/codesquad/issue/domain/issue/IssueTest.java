@@ -159,4 +159,26 @@ class IssueTest {
 
         assertThat(savedIssue.getMilestone()).isEqualTo(savedMilestone);
     }
+
+    @Test
+    @DisplayName("마일스톤 clear")
+    void clearMilestoneToIssue() {
+        Issue i1 = Issue.builder()
+                .title("1")
+                .build();
+
+        Milestone milestone = Milestone.builder()
+                .name("마일스톤")
+                .description("마일스톤입니다.")
+                .dueDate(LocalDate.now())
+                .build();
+
+        Issue savedIssue = issueRepository.save(i1);
+        Milestone savedMilestone = milestoneRepository.save(milestone);
+        savedIssue.addMilestone(savedMilestone);
+
+        savedIssue.deleteMilestone();
+
+        assertThat(savedIssue.getMilestone()).isNull();
+    }
 }
