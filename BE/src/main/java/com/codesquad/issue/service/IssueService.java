@@ -16,6 +16,7 @@ import com.codesquad.issue.domain.milestone.Milestone;
 import com.codesquad.issue.domain.milestone.MilestoneRepository;
 import com.codesquad.issue.global.error.exception.IssueNotFoundException;
 import com.codesquad.issue.global.error.exception.LabelNotFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -155,9 +156,10 @@ public class IssueService {
     }
 
     @Transactional
-    public void addMilestoneToIssue(Long issueId, Long milestoneId) {
+    public void changeMilestoneToIssue(Long issueId, Long milestoneId) {
         Issue issue = findIssueById(issueId);
         Milestone milestone = findMilestoneById(milestoneId);
+        issue.deleteMilestone();
         issue.addMilestone(milestone);
         issueRepository.save(issue);
     }

@@ -35,7 +35,7 @@ CREATE TABLE issue
     created_time_at  TIMESTAMP DEFAULT NOW(),
     modified_time_at TIMESTAMP DEFAULT NOW(),
     account_id       BIGINT,
-    milestone_id     BIGINT,
+    milestone_id     BIGINT UNIQUE,
     PRIMARY KEY (id),
     CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id),
     CONSTRAINT issue_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)

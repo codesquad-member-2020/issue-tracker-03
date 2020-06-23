@@ -99,7 +99,7 @@ public class IssueController {
     public ApiResult<Boolean> saveMilestoneToIssue(
             @PathVariable Long issueId,
             @PathVariable Long milestoneId) {
-        issueService.addMilestoneToIssue(issueId, milestoneId);
+        issueService.changeMilestoneToIssue(issueId, milestoneId);
         return OK(true);
     }
 
