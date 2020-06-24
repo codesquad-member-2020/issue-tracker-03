@@ -5,6 +5,8 @@ import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -29,11 +31,14 @@ public class IssueDetailResponse {
 
     private final List<LabelResponse> labels;
 
+    private final MilestoneResponse milestone;
+
     @Builder
     private IssueDetailResponse(Long id, String title, Boolean isOpen, LocalDateTime createdTimeAt,
             LocalDateTime modifiedTimeAt, AccountResponse author,
             List<CommentResponse> comments,
-            List<LabelResponse> labels) {
+            List<LabelResponse> labels,
+            MilestoneResponse milestone) {
         this.id = id;
         this.title = title;
         this.isOpen = isOpen;
@@ -42,5 +47,6 @@ public class IssueDetailResponse {
         this.author = author;
         this.comments = comments;
         this.labels = labels;
+        this.milestone = milestone;
     }
 }

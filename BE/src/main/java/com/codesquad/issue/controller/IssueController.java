@@ -6,15 +6,14 @@ import com.codesquad.issue.domain.comment.request.CommentCreateRequest;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
-import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
-import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
-import com.codesquad.issue.domain.issue.response.IssueLabelResponse;
-import com.codesquad.issue.domain.issue.response.IssueResponse;
+import com.codesquad.issue.domain.issue.response.*;
 import com.codesquad.issue.global.api.ApiResult;
 import com.codesquad.issue.service.CommentService;
 import com.codesquad.issue.service.IssueService;
+
 import java.util.List;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -82,17 +81,31 @@ public class IssueController {
     }
 
     @PostMapping("{issueId}/labels/{labelId}")
-    public ApiResult<IssueLabelResponse> saveLabelFromIssue(
+    public ApiResult<IssueLabelResponse> attachLabel(
             @PathVariable(value = "issueId") Long issueId,
             @PathVariable(value = "labelId") Long labelId) {
-        return OK(issueService.addLabelToIssue(issueId, labelId));
+        return OK(issueService.attachLabel(issueId, labelId));
     }
 
     @DeleteMapping("{issueId}/labels/{labelId}")
-    public ApiResult<Boolean> deleteLabelFromIssue(
+    public ApiResult<Boolean> detachLabel(
             @PathVariable(value = "issueId") Long issueId,
             @PathVariable(value = "labelId") Long labelId) {
-        issueService.deleteLabelFromIssue(issueId, labelId);
+        issueService.detachLabel(issueId, labelId);
+        return OK(true);
+    }
+
+    @PostMapping("{issueId}/milestones/{milestoneId}")
+    public ApiResult<Boolean> attachMilestone(
+            @PathVariable Long issueId,
+            @PathVariable Long milestoneId) {
+        issueService.attachMilestone(issueId, milestoneId);
+        return OK(true);
+    }
+
+    @DeleteMapping("{issueId}/milestones")
+    public ApiResult<Boolean> detachMilestone(@PathVariable Long issueId) {
+        issueService.detachMilestone(issueId);
         return OK(true);
     }
 }
