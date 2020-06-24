@@ -50,8 +50,8 @@ public class Issue extends BaseTimeEntity {
         this.author = author;
     }
 
-    public void changeIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
+    public void changeOpenOrClose() {
+        this.isOpen = !isOpen;
     }
 
     public void modifyTitle(IssueModifyRequest request) {
