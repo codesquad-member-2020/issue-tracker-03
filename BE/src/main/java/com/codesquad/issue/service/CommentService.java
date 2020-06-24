@@ -5,14 +5,12 @@ import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.comment.Comment;
 import com.codesquad.issue.domain.comment.CommentRepository;
-import com.codesquad.issue.domain.comment.request.CommentModifyRequest;
 import com.codesquad.issue.domain.comment.request.CommentCreateRequest;
+import com.codesquad.issue.domain.comment.request.CommentModifyRequest;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.issue.Issue;
 import com.codesquad.issue.domain.issue.IssueRepository;
-import com.codesquad.issue.global.error.exception.CommentNotFoundException;
-import com.codesquad.issue.global.error.exception.IssueNotFoundException;
-import com.codesquad.issue.global.error.exception.UserNotFoundException;
+import com.codesquad.issue.global.error.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,11 +29,11 @@ public class CommentService {
 
     @Transactional
     public CommentResponse save(CommentCreateRequest request) {
-        Issue issue = issueRepository.findById(request.getIssueId())
-                .orElseThrow(IssueNotFoundException::new);
+        Issue issue = issueRepository.findById(request.getIssueId()).orElseThrow(
+                () -> new NotFoundException(request.getAuthorId() + "에 해당하는 이슈가 없습니다."));
 
-        Account author = accountRepository.findByLogin(request.getAuthorId())
-                .orElseThrow(UserNotFoundException::new);
+        Account author = accountRepository.findByLogin(request.getAuthorId()).orElseThrow(
+                () -> new NotFoundException(request.getAuthorId() + "에 해당하는 이슈가 없습니다."));
 
         Comment comment = Comment.builder()
                 .contents(request.getContents())
@@ -63,7 +61,7 @@ public class CommentService {
         String modifiedContent = commentModifyRequest.getContents();
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(CommentNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException(commentId+ "해당하는 댓글을 찾을 수 없습니다."));
         comment.changeContents(modifiedContent);
 
         commentRepository.save(comment);

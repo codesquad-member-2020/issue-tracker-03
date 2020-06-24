@@ -7,7 +7,7 @@ import com.codesquad.issue.domain.label.request.LabelCreateRequest;
 import com.codesquad.issue.domain.label.request.LabelModifyRequest;
 import com.codesquad.issue.domain.label.response.LabelCreateResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
-import com.codesquad.issue.global.error.exception.LabelNotFoundException;
+import com.codesquad.issue.global.error.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,8 @@ public class LabelService {
     }
 
     public LabelResponse findById(Long labelId) {
-        Label label = labelRepository.findById(labelId).orElseThrow(LabelNotFoundException::new);
+        Label label = labelRepository.findById(labelId)
+                .orElseThrow(() -> new NotFoundException(labelId + " 에 해당하는 라벨이 없습니다."));
         return label.toResponse();
     }
 
@@ -48,7 +49,7 @@ public class LabelService {
     @Transactional
     public void modify(LabelModifyRequest request) {
         Label label = labelRepository.findById(request.getLabelId()).orElseThrow(
-                LabelNotFoundException::new);
+                () -> new NotFoundException(request.getLabelId() + " 에 해당하는 라벨이 없습니다."));
         label.change(request);
         labelRepository.save(label);
     }

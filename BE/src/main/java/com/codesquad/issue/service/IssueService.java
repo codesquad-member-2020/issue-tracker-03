@@ -5,23 +5,25 @@ import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.comment.Comment;
 import com.codesquad.issue.domain.comment.CommentRepository;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
-import com.codesquad.issue.domain.issue.*;
-import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
-import com.codesquad.issue.domain.issue.response.*;
+import com.codesquad.issue.domain.issue.Issue;
+import com.codesquad.issue.domain.issue.IssueLabel;
+import com.codesquad.issue.domain.issue.IssueLabelRepository;
+import com.codesquad.issue.domain.issue.IssueRepository;
 import com.codesquad.issue.domain.issue.request.IssueCreateRequest;
+import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
+import com.codesquad.issue.domain.issue.response.IssueCreateResponse;
+import com.codesquad.issue.domain.issue.response.IssueDetailResponse;
+import com.codesquad.issue.domain.issue.response.IssueLabelResponse;
+import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.label.Label;
 import com.codesquad.issue.domain.label.LabelRepository;
 import com.codesquad.issue.domain.label.response.LabelResponse;
 import com.codesquad.issue.domain.milestone.Milestone;
 import com.codesquad.issue.domain.milestone.MilestoneRepository;
 import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
-import com.codesquad.issue.global.error.exception.IssueNotFoundException;
-import com.codesquad.issue.global.error.exception.LabelNotFoundException;
-
+import com.codesquad.issue.global.error.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -46,17 +48,17 @@ public class IssueService {
 
     private Issue findIssueById(Long issueId) {
         return issueRepository.findById(issueId)
-                .orElseThrow(() -> new IssueNotFoundException(issueId + "에 해당하는 이슈가 없습니다."));
+                .orElseThrow(() -> new NotFoundException(issueId + "에 해당하는 이슈가 없습니다."));
     }
 
     private Label findLabelById(Long labelId) {
         return labelRepository.findById(labelId)
-                .orElseThrow(() -> new LabelNotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
+                .orElseThrow(() -> new NotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
     }
 
     private Milestone findMilestoneById(Long milestoneId) {
         return milestoneRepository.findById(milestoneId)
-                .orElseThrow(MilestoneNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException(milestoneId + "해당하는 마일스톤을 찾을 수 없습니다."));
     }
 
     public List<IssueResponse> findAll() {
