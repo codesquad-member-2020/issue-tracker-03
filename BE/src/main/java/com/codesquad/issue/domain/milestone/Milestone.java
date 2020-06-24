@@ -13,19 +13,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Milestone extends BaseTimeEntity implements AbstractMilestone {
+public class Milestone extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String name;
 
     private String description;
 
     @Column(columnDefinition = "DATE")
     private LocalDate dueDate;
-    
+
     private boolean isOpen;
 
     @Builder
@@ -54,10 +54,5 @@ public class Milestone extends BaseTimeEntity implements AbstractMilestone {
                 .dueDate(dueDate)
                 .isOpen(isOpen)
                 .build();
-    }
-
-    @Override
-    public boolean isNil() {
-        return false;
     }
 }

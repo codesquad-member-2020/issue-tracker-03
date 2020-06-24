@@ -6,7 +6,6 @@ import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
 import com.codesquad.issue.domain.milestone.Milestone;
-import com.codesquad.issue.domain.milestone.NullMilestone;
 import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import java.util.HashSet;
 import java.util.Optional;
@@ -53,11 +52,10 @@ public class Issue extends BaseTimeEntity {
     private Milestone milestone;
 
     @Builder
-    private Issue(String title, Account author, Milestone milestone) {
+    private Issue(String title, Account author) {
         this.title = title;
         this.isOpen = true;
         this.author = author;
-        this.milestone = Optional.ofNullable(milestone).orElse(NullMilestone.of());
     }
 
     public void changeOpenOrClose() {
@@ -77,7 +75,10 @@ public class Issue extends BaseTimeEntity {
     }
 
     public IssueResponse toResponse() {
-        if (milestone == null) {
+
+        Optional<Milestone> optionalMilestone = Optional.ofNullable(milestone);
+
+        if (!optionalMilestone.isPresent()) {
             return issueResponseBuild(MilestoneResponse.nilMilestoneResponse());
         }
         return issueResponseBuild(milestone.toResponse());
