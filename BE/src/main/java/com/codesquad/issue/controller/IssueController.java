@@ -81,31 +81,31 @@ public class IssueController {
     }
 
     @PostMapping("{issueId}/labels/{labelId}")
-    public ApiResult<IssueLabelResponse> saveLabelToIssue(
+    public ApiResult<IssueLabelResponse> attachLabel(
             @PathVariable(value = "issueId") Long issueId,
             @PathVariable(value = "labelId") Long labelId) {
-        return OK(issueService.addLabelToIssue(issueId, labelId));
+        return OK(issueService.attachLabel(issueId, labelId));
     }
 
     @DeleteMapping("{issueId}/labels/{labelId}")
-    public ApiResult<Boolean> deleteLabelToIssue(
+    public ApiResult<Boolean> detachLabel(
             @PathVariable(value = "issueId") Long issueId,
             @PathVariable(value = "labelId") Long labelId) {
-        issueService.deleteLabelToIssue(issueId, labelId);
+        issueService.detachLabel(issueId, labelId);
         return OK(true);
     }
 
     @PostMapping("{issueId}/milestones/{milestoneId}")
-    public ApiResult<Boolean> saveMilestoneToIssue(
+    public ApiResult<Boolean> attachMilestone(
             @PathVariable Long issueId,
             @PathVariable Long milestoneId) {
-        issueService.changeMilestoneToIssue(issueId, milestoneId);
+        issueService.attachMilestone(issueId, milestoneId);
         return OK(true);
     }
 
     @DeleteMapping("{issueId}/milestones")
-    public ApiResult<Boolean> clearMilestoneToIssue(@PathVariable Long issueId) {
-        issueService.clearMilestoneToIssue(issueId);
+    public ApiResult<Boolean> detachMilestone(@PathVariable Long issueId) {
+        issueService.detachMilestone(issueId);
         return OK(true);
     }
 }

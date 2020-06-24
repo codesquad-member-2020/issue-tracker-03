@@ -160,7 +160,7 @@ public class IssueService {
     }
 
     @Transactional
-    public IssueLabelResponse addLabelToIssue(Long issueId, Long labelId) {
+    public IssueLabelResponse attachLabel(Long issueId, Long labelId) {
         Issue issue = findIssueById(issueId);
         Label label = findLabelById(labelId);
         IssueLabel issueLabel = IssueLabel.builder()
@@ -172,14 +172,14 @@ public class IssueService {
     }
 
     @Transactional
-    public void deleteLabelToIssue(Long issueId, Long labelId) {
+    public void detachLabel(Long issueId, Long labelId) {
         Issue issue = findIssueById(issueId);
         Label label = findLabelById(labelId);
         issueLabelRepository.deleteByIssueAndLabel(issue, label);
     }
 
     @Transactional
-    public void changeMilestoneToIssue(Long issueId, Long milestoneId) {
+    public void attachMilestone(Long issueId, Long milestoneId) {
         Issue issue = findIssueById(issueId);
         Milestone milestone = findMilestoneById(milestoneId);
         issue.deleteMilestone();
@@ -188,7 +188,7 @@ public class IssueService {
     }
 
     @Transactional
-    public void clearMilestoneToIssue(Long issueId) {
+    public void detachMilestone(Long issueId) {
         Issue issue = findIssueById(issueId);
         issue.deleteMilestone();
         issueRepository.save(issue);
