@@ -1,7 +1,7 @@
 package com.codesquad.issue.global.security;
 
 import com.codesquad.issue.domain.account.response.AccountResponse;
-import com.codesquad.issue.global.error.exception.UserNotFoundException;
+import com.codesquad.issue.global.error.exception.UnauthorizedException;
 import com.codesquad.issue.global.utils.JwtUtils;
 import com.codesquad.issue.service.AccountService;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class BasicInterceptor extends HandlerInterceptorAdapter {
             Cookie[] cookies = request.getCookies();
 
             if (cookies == null || cookies.length < 1) {
-                throw new UserNotFoundException();
+                throw new UnauthorizedException("인증되지 않은 요청입니다.");
             }
 
             String token = Arrays.stream(cookies)
@@ -41,7 +41,6 @@ public class BasicInterceptor extends HandlerInterceptorAdapter {
             log.debug("accountResponse : {}", accountResponse.getUserId());
 
             return accountService.isUserExist(accountResponse);
-
         }
         return true;
     }
