@@ -1,18 +1,22 @@
 package com.codesquad.issue.domain.issue;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
-import java.util.Arrays;
-import java.util.List;
+import com.codesquad.issue.domain.milestone.Milestone;
+import com.codesquad.issue.domain.milestone.MilestoneRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class IssueTest {
@@ -24,6 +28,9 @@ class IssueTest {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private MilestoneRepository milestoneRepository;
 
     @Test
     @DisplayName("기본 이슈 생성")
@@ -130,5 +137,48 @@ class IssueTest {
         List<Issue> issueList = issueRepository.findAllByIsOpenFalseOrderByCreatedTimeAtDesc();
         log.debug("issueList : {}", issueList);
         assertThat(issueList.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("마일스톤 부착")
+    void addMilestoneToIssue() {
+        Issue i1 = Issue.builder()
+                .title("1")
+                .build();
+
+        Milestone milestone = Milestone.builder()
+                .name("마일스톤")
+                .description("마일스톤입니다.")
+                .dueDate(LocalDate.now())
+                .build();
+
+        Issue savedIssue = issueRepository.save(i1);
+        Milestone savedMilestone = milestoneRepository.save(milestone);
+
+        savedIssue.addMilestone(savedMilestone);
+
+        assertThat(savedIssue.getMilestone()).isEqualTo(savedMilestone);
+    }
+
+    @Test
+    @DisplayName("마일스톤 clear")
+    void clearMilestoneToIssue() {
+        Issue i1 = Issue.builder()
+                .title("1")
+                .build();
+
+        Milestone milestone = Milestone.builder()
+                .name("마일스톤")
+                .description("마일스톤입니다.")
+                .dueDate(LocalDate.now())
+                .build();
+
+        Issue savedIssue = issueRepository.save(i1);
+        Milestone savedMilestone = milestoneRepository.save(milestone);
+        savedIssue.addMilestone(savedMilestone);
+
+        savedIssue.deleteMilestone();
+
+        assertThat(savedIssue.getMilestone()).isNull();
     }
 }
