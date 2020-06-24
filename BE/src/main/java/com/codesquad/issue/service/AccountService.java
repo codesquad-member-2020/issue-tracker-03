@@ -37,7 +37,7 @@ public class AccountService {
                     .avatarUrl(request.getAvatarUrl())
                     .build());
         }
-        return new AccountResponse(account.getName(), account.getAvatarUrl());
+        return new AccountResponse(account.getLogin(), account.getAvatarUrl());
     }
 
     @Transactional
@@ -48,5 +48,9 @@ public class AccountService {
     public Account findByUserId(String login) {
         return accountRepository.findByLogin(login)
                 .orElseThrow(UserNotFoundException::new);
+    }
+
+    public boolean isUserExist(AccountResponse accountResponse) {
+        return accountRepository.findByLogin(accountResponse.getUserId()).isPresent();
     }
 }
