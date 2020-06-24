@@ -2,6 +2,7 @@ package com.codesquad.issue.domain.milestone;
 
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.milestone.request.MilestoneModifyRequest;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,16 +18,14 @@ public class Milestone extends BaseTimeEntity implements AbstractMilestone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
+    
     private String name;
 
     private String description;
 
     @Column(columnDefinition = "DATE")
     private LocalDate dueDate;
-
-    @Column(nullable = false)
+    
     private boolean isOpen;
 
     @Builder
@@ -45,6 +44,16 @@ public class Milestone extends BaseTimeEntity implements AbstractMilestone {
 
     public void changeOpenOrClose() {
         this.isOpen = !isOpen;
+    }
+
+    public MilestoneResponse toResponse() {
+        return MilestoneResponse.builder()
+                .id(id)
+                .name(name)
+                .description(description)
+                .dueDate(dueDate)
+                .isOpen(isOpen)
+                .build();
     }
 
     @Override

@@ -5,10 +5,14 @@ import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
+import com.codesquad.issue.domain.milestone.Milestone;
+import com.codesquad.issue.domain.milestone.NullMilestone;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +22,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.codesquad.issue.domain.milestone.Milestone;
-import com.codesquad.issue.domain.milestone.NullMilestone;
-import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,7 +48,7 @@ public class Issue extends BaseTimeEntity {
     @OneToMany(mappedBy = "issue", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<IssueLabel> issueLabels = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
 
@@ -77,6 +77,14 @@ public class Issue extends BaseTimeEntity {
     }
 
     public IssueResponse toResponse() {
+        if (milestone == null) {
+            return issueResponseBuild(MilestoneResponse.nilMilestoneResponse());
+        }
+        return issueResponseBuild(milestone.toResponse());
+
+    }
+
+    private IssueResponse issueResponseBuild(MilestoneResponse milestone) {
         return IssueResponse.builder()
                 .id(id)
                 .title(title)
