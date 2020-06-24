@@ -18,17 +18,20 @@ const ContentsSection = styled.section`
 `;
 const SideSection = styled.section`
   flex-grow: 3;
+  padding-left: 15px;
 `;
 
 const IssueDetailsContainer = ({ issueId }) => {
   const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
+  const [title, setTitle] = useState(null);
+
   const { data, loading, error } = useSelector(state => state.issueList.issue[issueId] || reducerUtils.initial());
 
   useEffect(() => {
-    if (data) return;
+    if (data) return setTitle(data.title);
     dispatch(getIssue(issueId));
-  }, [data, issueId, dispatch]);
+  }, [data, issueId, title, dispatch]);
 
   if (loading && !data) return <div>로딩중...</div>;
   if (error) return <div>에러 발생!</div>;
@@ -49,6 +52,7 @@ const IssueDetailsContainer = ({ issueId }) => {
       <TitleSection>
         <IssueDetailesTitle
           issue={data}
+          title={title}
           onClickEdit={onClickEdit}
           onClickSave={onClickSave}
           onClickClose={onClickClose}

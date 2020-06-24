@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import SubmitButton from '@Components/Common/Button/SubmitButton';
+import CancelButton from '@Components/Common/Button/CancelButton';
 
 const Wrap = styled.div`
   padding-bottom: 30px;
@@ -26,9 +28,10 @@ const TitleEditWrap = styled.div`
     justify-content: space-between;
   }
   input {
-    width: calc(100% - 100px);
-    height: 40px;
+    width: calc(100% - 150px);
+    height: 30px;
     padding: 0 10px;
+    margin-bottom: 9px;
   }
 `;
 const HeaderDescription = styled.div`
@@ -43,7 +46,7 @@ const Title = ({ title, id, onClickEdit }) => {
       <h1>
         {title} <span>#{id}</span>
       </h1>
-      <button onClick={onClickEdit}>Edit</button>
+      <SubmitButton onButtonClick={onClickEdit} buttonText="Edit" buttonEnabled />
     </TitleWrap>
   );
 };
@@ -61,16 +64,16 @@ const TitleEdit = ({ title = '', onClickSave, onClickClose }) => {
       <form onSubmit={onClickTest}>
         <input type="text" defaultValue={inputTitle} autoFocus onChange={onChange} />
         <div>
-          <button type="submit">Save</button>
-          <button onClick={onClickClose}>Cancel</button>
+          <SubmitButton buttonText="Save" buttonEnabled />
+          <CancelButton onButtonClick={onClickClose} buttonText="Cancel" buttonEnabled />
         </div>
       </form>
     </TitleEditWrap>
   );
 };
 
-const IssueDetailesTitle = ({ issue, onClickEdit, onClickSave, onClickClose, isEdit }) => {
-  const { id, title, open, author, createdAt } = issue;
+const IssueDetailesTitle = ({ issue, title, onClickEdit, onClickSave, onClickClose, isEdit }) => {
+  const { id, open, author, createdAt } = issue;
   return (
     <Wrap>
       {isEdit ? (

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import SubmitButton from '@Components/Common/Button/SubmitButton';
+import CancelButton from '@Components/Common/Button/CancelButton';
 
 const Wrap = styled.div`
   display: flex;
@@ -75,16 +77,10 @@ const CommentForm = ({ author }) => {
       <FormWrap>
         <FormHead />
         <FormBody>
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            placeholder="Leave a comment"
-          ></textarea>
+          <textarea name="" id="" cols="30" rows="10" placeholder="Leave a comment"></textarea>
           <div>
-            <button>Close issue</button>
-            <button type="submit">Comment</button>
+            <CancelButton buttonText="Close" buttonEnabled />
+            <SubmitButton buttonText="submit" buttonEnabled />
           </div>
         </FormBody>
       </FormWrap>
