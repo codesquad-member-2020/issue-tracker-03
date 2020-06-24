@@ -55,6 +55,7 @@ public class LabelService {
 
     @Transactional
     public void delete(Long labelId) {
+        issueLabelRepository.deleteAllByLabelId(labelId);
         labelRepository.deleteById(labelId);
     }
 }
