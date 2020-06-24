@@ -1,13 +1,8 @@
 package com.codesquad.issue.domain.milestone;
 
-import com.codesquad.issue.domain.account.Account;
-import com.codesquad.issue.domain.account.AccountRepository;
-import com.codesquad.issue.domain.issue.Issue;
-import com.codesquad.issue.domain.issue.IssueRepository;
-import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.codesquad.issue.global.error.exception.NotFoundException;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,7 +57,7 @@ class MilestoneRepositoryTest {
                 .build();
         milestoneRepository.save(milestone);
         Milestone savedMilestone = milestoneRepository.findById(milestone.getId())
-                .orElseThrow(MilestoneNotFoundException::new);
+                .orElseThrow(NotFoundException::new);
         assertThat(savedMilestone.getName()).isEqualTo(milestone.getName());
     }
 
