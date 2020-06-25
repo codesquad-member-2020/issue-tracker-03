@@ -166,7 +166,7 @@ const MilestoneCreateContainer = () => {
         <SubmitButton
           onButtonClick={onClickCreateMilestoneHandler}
           buttonText="Create milestone"
-          buttonEnabled={true}
+          buttonEnabled={loginStateInfo}
         ></SubmitButton>
       </ButtonWrap>
     </>
