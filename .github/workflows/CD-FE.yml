@@ -36,7 +36,7 @@ jobs:
         run: unset CI && npm run build
      
       - name: zip 생성
-        run: zip -qq -r ./build-fe.zip .
+        run: zip -qq -r ./build/build-fe.zip .
         shell: bash
 
       - name: AWS 설정
