@@ -28,8 +28,7 @@ public class BasicInterceptor extends HandlerInterceptorAdapter {
         if (request.getMethod().equals(HttpMethod.POST.name()) ||
                 request.getMethod().equals(HttpMethod.PUT.name()) ||
                 request.getMethod().equals(HttpMethod.DELETE.name()) ||
-                request.getMethod().equals(HttpMethod.PATCH.name()) ||
-                request.getMethod().equals(HttpMethod.OPTIONS.name())
+                request.getMethod().equals(HttpMethod.PATCH.name())
         ) {
             Cookie[] cookies = request.getCookies();
 
