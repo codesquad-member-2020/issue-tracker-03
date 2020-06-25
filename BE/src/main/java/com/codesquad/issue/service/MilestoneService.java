@@ -34,6 +34,7 @@ public class MilestoneService {
                 .id(savedMilestone.getId())
                 .name(savedMilestone.getName())
                 .dueDate(savedMilestone.getDueDate())
+                .description(savedMilestone.getDescription())
                 .build();
     }
 

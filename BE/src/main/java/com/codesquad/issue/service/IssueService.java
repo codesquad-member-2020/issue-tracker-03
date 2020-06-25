@@ -120,6 +120,7 @@ public class IssueService {
                         .id(milestone.getId())
                         .name(milestone.getName())
                         .dueDate(milestone.getDueDate())
+                        .description(milestone.getDescription())
                         .build())
                 .build();
     }
