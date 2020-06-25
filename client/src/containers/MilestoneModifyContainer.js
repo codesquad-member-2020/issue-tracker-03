@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { getMilestone } from '../modules/milestoneList';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MarkdownIt from "markdown-it";
@@ -10,6 +11,8 @@ import "react-markdown-editor-lite/lib/index.css";
 import TitleText from "@Components/Common/Text/TitleText";
 import ContentInput from "@Components/Common/Input/ContentInput";
 import SubmitButton from "@Components/Common/Button/SubmitButton";
+import CancelButton from "@Components/Common/Button/CancelButton";
+import { reducerUtils } from '../libs/asyncUtils';
 import * as milestoneAPI from "$API/milestoneList";
 
 const TitleWrap = styled.div`
@@ -69,26 +72,44 @@ const ContentsEditorWrap = styled.div`
 
 const ButtonWrap = styled.div`
   padding: 7px 10px;
+
+  button + button {
+    margin-left: 10px;
+  }
 `;
 
 const mdParser = new MarkdownIt();
 
 const MilestoneModifyContainer = ({ milestoneId }) => {
-  const date = new Date();
+  const dispatch = useDispatch();
+  //const date = new Date();
   const history = useHistory();
+  const [date, setDate] = useState(new Date());
   const [dueDate, setDueDate] = useState(date);
-  const [cvtDueDate, setCvtDueDate] = useState(
-    date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1 < 10
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1) +
-      "-" +
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
-  );
+  const [cvtDueDate, setCvtDueDate] = useState('')
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { loginStateInfo } = useSelector(({ login }) => login);
+
+  const { data, loading, error } = useSelector(state => state.milestoneList.milestone[milestoneId] || reducerUtils.initial());
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.name);
+      setCvtDueDate(data.dueDate);
+      const dateArray = data.dueDate.split('-');
+      setDueDate(new Date(parseInt(dateArray[0], 10), parseInt(dateArray[1], 10),parseInt(dateArray[2], 10)))
+      setDescription(data.description);
+
+      return;
+    }
+
+    dispatch(getMilestone(milestoneId));
+  }, [dispatch, data, milestoneId]);
+
+  if (loading && !data) return <div>로딩중...</div>;
+  if (error) return <div>에러 발생!</div>;
+  if (!data) return null;
 
   const onTitleChangeHandler = (text) => {
     setTitle(text);
@@ -111,11 +132,8 @@ const MilestoneModifyContainer = ({ milestoneId }) => {
     );
   };
 
-  const onClickCreateMilestoneHandler = () => {
+  const onClickSaveChangesHandler = () => {
     if (!title) alert("타이틀을 입력해주세요");
-    console.log(dueDate);
-    console.log(cvtDueDate);
-
     (async () => {
       const body = {
         name: title,
@@ -123,12 +141,16 @@ const MilestoneModifyContainer = ({ milestoneId }) => {
         dueDate: dueDate,
       };
 
-      let response = await milestoneAPI.createMilestone(body);
+      let response = await milestoneAPI.modifyMilestone(body);
 
       if (response.success) history.push("/milestone-list/");
       else alert("요청이 처리되지 않았습니다.");
     })();
   };
+
+  const onClickCancelButtonHandler = () => {
+    history.push("/milestone-list/");
+  }
 
   return (
     <>
@@ -159,10 +181,11 @@ const MilestoneModifyContainer = ({ milestoneId }) => {
         />
       </ContentsEditorWrap>
       <ButtonWrap>
+        <CancelButton onButtonClick={onClickCancelButtonHandler}></CancelButton>
         <SubmitButton
-          onButtonClick={onClickCreateMilestoneHandler}
-          buttonText="Create milestone"
-          buttonEnabled={true}
+          onButtonClick={onClickSaveChangesHandler}
+          buttonText="Save changes"
+          buttonEnabled={loginStateInfo}
         ></SubmitButton>
       </ButtonWrap>
     </>
