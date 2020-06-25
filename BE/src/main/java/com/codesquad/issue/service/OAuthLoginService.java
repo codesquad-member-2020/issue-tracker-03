@@ -1,12 +1,16 @@
 package com.codesquad.issue.service;
 
+import com.codesquad.issue.domain.account.GithubAccount;
+import com.codesquad.issue.global.error.exception.NotFoundException;
 import com.codesquad.issue.global.github.GithubAccessToken;
 import com.codesquad.issue.global.github.GithubOAuth;
-import com.codesquad.issue.domain.account.GithubAccount;
-import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,11 +23,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -77,7 +76,7 @@ public class OAuthLoginService {
         GithubAccount githubAccount = Optional
                 .ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
                         new HttpEntity<>(headers), GithubAccount.class).getBody())
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("github account를 찾을 수 없습니다."));
         log.debug("github before: {}", githubAccount);
         if (githubAccount.getEmail() == null) {
             githubAccount.setEmail(getEmailByToken(headers));

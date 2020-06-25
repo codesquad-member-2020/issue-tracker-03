@@ -3,15 +3,16 @@ package com.codesquad.issue.global.error;
 import static com.codesquad.issue.global.api.ApiResult.ERROR;
 
 import com.codesquad.issue.global.api.ApiResult;
-import com.codesquad.issue.global.error.exception.CommentNotFoundException;
-import com.codesquad.issue.global.error.exception.IssueNotFoundException;
+import com.codesquad.issue.global.error.exception.NotFoundException;
+import com.codesquad.issue.global.error.exception.ServiceRuntimeException;
+import com.codesquad.issue.global.error.exception.UnauthorizedException;
 import java.util.Arrays;
-import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
-import com.codesquad.issue.global.error.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,6 +33,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ERROR(message, status), headers, status);
     }
 
+    @ExceptionHandler(value = {
+            IllegalStateException.class, IllegalArgumentException.class,
+            TypeMismatchException.class, HttpMessageNotReadableException.class
+    })
+    public ResponseEntity<?> handleBadRequestException(Exception e) {
+        log.debug("Bad request exception occurred: {}", e.getMessage(), e);
+        return newResponse(e, HttpStatus.BAD_REQUEST);
+    }
+
     //@Validation Exception handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleConstraintViolationException(MethodArgumentNotValidException e) {
@@ -42,34 +52,23 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ServiceRuntimeException.class)
+    public ResponseEntity<?> handleServiceRuntimeException(ServiceRuntimeException e) {
+        if (e instanceof NotFoundException) {
+            return newResponse(e, HttpStatus.NOT_FOUND);
+        }
+        if (e instanceof UnauthorizedException) {
+            return newResponse(e, HttpStatus.UNAUTHORIZED);
+        }
+
+        log.warn("Unexpected service exception occurred: {}", e.getMessage(), e);
+        return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     //예상하지 못했던 오류
     @ExceptionHandler({Exception.class, RuntimeException.class})
     public ResponseEntity<?> handleException(Exception e) {
         log.error("Unexpected exception occurred: {}", e.getMessage(), e);
         return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> userNotFoundExceptionHandler(UserNotFoundException e) {
-        log.error("Handle UserNotFoundException: ", e);
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(IssueNotFoundException.class)
-    public ResponseEntity<String> issueNotFoundExceptionHandler(IssueNotFoundException e) {
-        log.error("Handle IssueNotFoundException: ", e);
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(CommentNotFoundException.class)
-    public ResponseEntity<String> commentNotFoundExceptionHandler(CommentNotFoundException e) {
-        log.error("Handle CommentNotFoundException: ", e);
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(MilestoneNotFoundException.class)
-    public ResponseEntity<String> mileStoneNotFoundExceptionHandler(MilestoneNotFoundException e) {
-        log.error("Handle MilestoneNotFoundException: ", e);
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

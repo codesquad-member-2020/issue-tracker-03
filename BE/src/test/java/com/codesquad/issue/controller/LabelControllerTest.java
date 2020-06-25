@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codesquad.issue.domain.label.request.LabelCreateRequest;
+import com.codesquad.issue.service.AccountService;
 import com.codesquad.issue.service.LabelService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +26,9 @@ class LabelControllerTest {
 
     @MockBean
     LabelService labelService;
+
+    @MockBean
+    AccountService accountService;
 
     @Test
     @DisplayName("잘못된 라벨 생성 요청")
