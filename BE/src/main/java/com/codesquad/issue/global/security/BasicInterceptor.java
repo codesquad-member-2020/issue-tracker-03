@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -24,7 +25,12 @@ public class BasicInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) {
         log.debug("HTTP : {}", request.getMethod());
-        if (request.getMethod().equals("POST")) {
+        if (request.getMethod().equals(HttpMethod.POST.name()) ||
+                request.getMethod().equals(HttpMethod.PUT.name()) ||
+                request.getMethod().equals(HttpMethod.DELETE.name()) ||
+                request.getMethod().equals(HttpMethod.PATCH.name()) ||
+                request.getMethod().equals(HttpMethod.OPTIONS.name())
+        ) {
             Cookie[] cookies = request.getCookies();
 
             if (cookies == null || cookies.length < 1) {
