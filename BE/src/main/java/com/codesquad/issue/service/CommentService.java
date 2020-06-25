@@ -1,5 +1,9 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.ACCOUNT_NOT_FOUND;
+import static com.codesquad.issue.global.error.exception.ErrorCode.COMMENT_NOT_FOUND;
+import static com.codesquad.issue.global.error.exception.ErrorCode.ISSUE_NOT_FOUND;
+
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.account.response.AccountResponse;
@@ -27,13 +31,14 @@ public class CommentService {
 
     private final AccountRepository accountRepository;
 
+
     @Transactional
     public CommentResponse save(CommentCreateRequest request) {
         Issue issue = issueRepository.findById(request.getIssueId()).orElseThrow(
-                () -> new NotFoundException(request.getAuthorId() + "에 해당하는 이슈가 없습니다."));
+                () -> new NotFoundException(ISSUE_NOT_FOUND.getMessage(request.getIssueId())));
 
         Account author = accountRepository.findByLogin(request.getAuthorId()).orElseThrow(
-                () -> new NotFoundException(request.getAuthorId() + "에 해당하는 이슈가 없습니다."));
+                () -> new NotFoundException(ACCOUNT_NOT_FOUND.getMessage(request.getAuthorId())));
 
         Comment comment = Comment.builder()
                 .contents(request.getContents())
@@ -61,7 +66,8 @@ public class CommentService {
         String modifiedContent = commentModifyRequest.getContents();
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException(commentId+ "해당하는 댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException(
+                        COMMENT_NOT_FOUND.getMessage(commentModifyRequest.getCommentId())));
         comment.changeContents(modifiedContent);
 
         commentRepository.save(comment);

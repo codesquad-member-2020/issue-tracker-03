@@ -1,5 +1,7 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.ACCOUNT_NOT_FOUND;
+
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.AccountRepository;
 import com.codesquad.issue.domain.account.GithubAccount;
@@ -29,10 +31,10 @@ public class AccountService {
         Account account;
 
         try {
-            account = accountRepository.findByEmail(request.getEmail())
-                    .orElseThrow(() -> new NotFoundException(
-                            request.getEmail() + "에 해당하는 " + Account.class + "없습니다."));
+            account = accountRepository.findByEmail(request.getEmail()).orElseThrow(
+                    () -> new NotFoundException(ACCOUNT_NOT_FOUND.getMessage(request.getEmail())));
         } catch (NotFoundException e) {
+            log.debug(request.getEmail() + "에 해당하는 계정을 찾을 수 없어 새로 저장합니다.");
             account = save(AccountSaveDto.builder()
                     .email(request.getEmail())
                     .login(request.getLogin())
@@ -49,9 +51,8 @@ public class AccountService {
     }
 
     public Account findByUserId(String login) {
-        return accountRepository.findByLogin(login)
-                .orElseThrow(
-                        () -> new NotFoundException(login + "에 해당하는 " + Account.class + "없습니다"));
+        return accountRepository.findByLogin(login).orElseThrow(
+                () -> new NotFoundException(ACCOUNT_NOT_FOUND.getMessage(login)));
     }
 
     public boolean isUserExist(AccountResponse accountResponse) {

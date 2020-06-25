@@ -1,5 +1,9 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.ISSUE_NOT_FOUND;
+import static com.codesquad.issue.global.error.exception.ErrorCode.LABEL_NOT_FOUND;
+import static com.codesquad.issue.global.error.exception.ErrorCode.MILESTONE_NOT_FOUND;
+
 import com.codesquad.issue.domain.account.Account;
 import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.comment.Comment;
@@ -48,17 +52,17 @@ public class IssueService {
 
     private Issue findIssueById(Long issueId) {
         return issueRepository.findById(issueId)
-                .orElseThrow(() -> new NotFoundException(issueId + "에 해당하는 이슈가 없습니다."));
+                .orElseThrow(() -> new NotFoundException(ISSUE_NOT_FOUND.getMessage(issueId)));
     }
 
     private Label findLabelById(Long labelId) {
         return labelRepository.findById(labelId)
-                .orElseThrow(() -> new NotFoundException(labelId + "에 해당하는 라벨이 없습니다."));
+                .orElseThrow(() -> new NotFoundException(LABEL_NOT_FOUND.getMessage(labelId)));
     }
 
     private Milestone findMilestoneById(Long milestoneId) {
         return milestoneRepository.findById(milestoneId)
-                .orElseThrow(() -> new NotFoundException(milestoneId + "해당하는 마일스톤을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException(MILESTONE_NOT_FOUND.getMessage(milestoneId)));
     }
 
     public List<IssueResponse> findAll() {

@@ -1,5 +1,7 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.ACCOUNT_NOT_FOUND;
+
 import com.codesquad.issue.domain.account.GithubAccount;
 import com.codesquad.issue.global.error.exception.NotFoundException;
 import com.codesquad.issue.global.github.GithubAccessToken;
@@ -76,7 +78,8 @@ public class OAuthLoginService {
         GithubAccount githubAccount = Optional
                 .ofNullable(restTemplate.exchange(GITHUB_API, HttpMethod.GET,
                         new HttpEntity<>(headers), GithubAccount.class).getBody())
-                .orElseThrow(() -> new NotFoundException("github account를 찾을 수 없습니다."));
+                .orElseThrow(
+                        () -> new NotFoundException(ACCOUNT_NOT_FOUND.getMessage("github user")));
         log.debug("github before: {}", githubAccount);
         if (githubAccount.getEmail() == null) {
             githubAccount.setEmail(getEmailByToken(headers));
@@ -106,7 +109,8 @@ public class OAuthLoginService {
                 }
             }
         } catch (JsonProcessingException e) {
-            log.error("Json 형식이 잘못 되었어요.", e);
+            log.error("Json 형식이 잘못 되었습니다..", e);
+            throw new RuntimeException("Json 형식이 잘못되어 pasing하는데 실패했습니다");
         }
         return null;
     }

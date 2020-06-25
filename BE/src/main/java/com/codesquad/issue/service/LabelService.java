@@ -1,5 +1,7 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.LABEL_NOT_FOUND;
+
 import com.codesquad.issue.domain.issue.IssueLabelRepository;
 import com.codesquad.issue.domain.label.Label;
 import com.codesquad.issue.domain.label.LabelRepository;
@@ -31,7 +33,7 @@ public class LabelService {
 
     public LabelResponse findById(Long labelId) {
         Label label = labelRepository.findById(labelId)
-                .orElseThrow(() -> new NotFoundException(labelId + " 에 해당하는 라벨이 없습니다."));
+                .orElseThrow(() -> new NotFoundException(LABEL_NOT_FOUND.getMessage(labelId)));
         return label.toResponse();
     }
 
@@ -49,7 +51,7 @@ public class LabelService {
     @Transactional
     public void modify(LabelModifyRequest request) {
         Label label = labelRepository.findById(request.getLabelId()).orElseThrow(
-                () -> new NotFoundException(request.getLabelId() + " 에 해당하는 라벨이 없습니다."));
+                () -> new NotFoundException(LABEL_NOT_FOUND.getMessage(request.getLabelId())));
         label.change(request);
         labelRepository.save(label);
     }

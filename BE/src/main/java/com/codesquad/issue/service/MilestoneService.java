@@ -1,5 +1,7 @@
 package com.codesquad.issue.service;
 
+import static com.codesquad.issue.global.error.exception.ErrorCode.MILESTONE_NOT_FOUND;
+
 import com.codesquad.issue.domain.milestone.Milestone;
 import com.codesquad.issue.domain.milestone.MilestoneRepository;
 import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
@@ -21,6 +23,11 @@ public class MilestoneService {
         return new MilestoneCreateResponse(milestoneRepository.save(request.toEntity()).getId());
     }
 
+    private Milestone findMilestoneById(Long milestoneId) {
+        return milestoneRepository.findById(milestoneId).orElseThrow(
+                () -> new NotFoundException(MILESTONE_NOT_FOUND.getMessage(milestoneId)));
+    }
+
     @Transactional(readOnly = true)
     public MilestoneListResponse findAllMilestone() {
         return new MilestoneListResponse(milestoneRepository.findAll());
@@ -28,22 +35,19 @@ public class MilestoneService {
 
     @Transactional
     public void modify(Long id, MilestoneModifyRequest request) {
-        Milestone savedMilestone = milestoneRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id + "에 해당하는 마일스톤이 없습니다."));
+        Milestone savedMilestone = findMilestoneById(id);
         savedMilestone.modify(request);
         milestoneRepository.save(savedMilestone);
     }
 
     public void delete(Long id) {
-        Milestone savedMilestone = milestoneRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id + "에 해당하는 마일스톤이 없습니다."));
+        Milestone savedMilestone = findMilestoneById(id);
         milestoneRepository.delete(savedMilestone);
     }
 
     @Transactional
     public void changeIsOpen(Long id) {
-        Milestone savedMilestone = milestoneRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id + "에 해당하는 마일스톤이 없습니다."));
+        Milestone savedMilestone = findMilestoneById(id);
         savedMilestone.changeOpenOrClose();
         milestoneRepository.save(savedMilestone);
     }
