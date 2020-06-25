@@ -4,32 +4,11 @@ import styled from 'styled-components';
 
 const Wrap = styled.div`
   position: relative;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
 `;
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  span {
-    text-transform: capitalize;
-  }
-`;
+const Title = styled.div``;
 const List = styled.div`
-  overflow-y: auto;
   position: absolute;
-  width: 100%;
-  max-height: 300px;
-  border: 1px solid #eee;
-  box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
-  background: #fff;
   z-index: 2;
-  div {
-    padding: 10px 15px;
-    & + div {
-      border-top: 1px solid #eee;
-    }
-  }
 `;
 const Mask = styled.div`
   position: fixed;
