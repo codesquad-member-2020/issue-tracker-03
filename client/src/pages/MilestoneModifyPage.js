@@ -1,7 +1,8 @@
 import React from 'react';
+import MilestoneModifyContainer from '../containers/MilestoneModifyContainer';
 
 const MilestoneModifyPage = ({match}) => {
-  return <div>MilestoneModifyPage {match.params.milestoneId}</div>;
+  return <MilestoneModifyContainer milestoneId={match.params.milestoneId}></MilestoneModifyContainer>;
 };
 
 export default MilestoneModifyPage;

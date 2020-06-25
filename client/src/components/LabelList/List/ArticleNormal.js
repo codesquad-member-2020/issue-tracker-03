@@ -63,19 +63,21 @@ const Button = styled.button`
 `;
 
 const ArticleNormal = ({
+  id,
   index,
   labelName,
   labelDescription,
   labelColor,
   onEditButtonClick,
-  onDeleteButtonClick
+  onDeleteButtonClick,
+  changeEnabled
 }) => {
   const onEditButtonClickHandler = (e) => {
     if (onEditButtonClick) onEditButtonClick(index);
   };
 
   const onDeleteButtonClickHandler = (e) => {
-    if (onDeleteButtonClick) onDeleteButtonClick(index);
+    if (onDeleteButtonClick) onDeleteButtonClick(id);
   };
 
   return (
@@ -86,10 +88,12 @@ const ArticleNormal = ({
       <DescriptionWrap>
         <Description>{labelDescription}</Description>
       </DescriptionWrap>
+      {changeEnabled &&
       <ButtonsWrap>
         <Button onClick={onEditButtonClickHandler}>Edit</Button>
         <Button onClick={onDeleteButtonClickHandler}>Delete</Button>
       </ButtonsWrap>
+      }
     </ArticleWrap>
   );
 };

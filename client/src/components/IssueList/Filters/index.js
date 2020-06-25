@@ -1,10 +1,15 @@
 import React from 'react';
 import Filter from './Filter';
+import Counter from './Counter'
 
-const Filters = () => {
+const Filters = ({ isOpen, openButtonClick, closedButtonClick }) => {
   return (
     <div>
-      <Filter />
+      <Counter
+        isOpen={isOpen}
+        openButtonClick={openButtonClick}
+        closedButtonClick={closedButtonClick}
+      />
     </div>
   );
 };

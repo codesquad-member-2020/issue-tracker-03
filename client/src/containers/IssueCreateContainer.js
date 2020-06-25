@@ -53,15 +53,25 @@ const IssueCreatecontainer = () => {
 
   const onSubmitButtonClickHandler = () => {
     (async () => {
+      if (!title) {
+        alert("제목을 입력해주세요.");
+        return;
+      }
+
       const body = {
         title: title,
         contents: contents,
+        userId: "dev-angelo"
       };
 
       let response = await issueCreateAPI.createIssue(body);
-      const issueId = response.response.issueId;
-      
-      history.push("/issue-detail/" + issueId);
+      console.log("createIssue:", response);
+
+      if (response.success) {
+        const issueId = response.issueId;
+        history.push("/issue-detail/" + issueId);
+      }
+      else alert("생성 요청이 처리되지 못했습니다.")
     })();
   }
 
@@ -76,7 +86,6 @@ const IssueCreatecontainer = () => {
           submitButtonEnabled={loginStateInfo}
         />
       </ContentsWrap>
-      <SideBarWrap></SideBarWrap>
     </IssueCreateContainerWrap>
   );
 };
