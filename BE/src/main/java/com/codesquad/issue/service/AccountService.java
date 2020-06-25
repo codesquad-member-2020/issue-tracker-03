@@ -37,7 +37,7 @@ public class AccountService {
                     .avatarUrl(request.getAvatarUrl())
                     .build());
         }
-        return new AccountResponse(account.getName(), account.getAvatarUrl());
+        return new AccountResponse(account.getLogin(), account.getAvatarUrl());
     }
 
     @Transactional
