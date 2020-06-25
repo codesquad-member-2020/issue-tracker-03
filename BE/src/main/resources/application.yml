@@ -1,0 +1,83 @@
+spring:
+  profiles:
+    active: local
+  flyway:
+    clean-on-validation-error: true
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,beans
+        include: "*"
+        
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
+  flyway:
+    user: root
+    password: root
+    url: jdbc:mysql://localhost:3306/issue?useUnicode=yes&serverTimezone=UTC&characterEncoding=UTF-8
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    web: debug
+    com.codesquad.issue: debug
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+host: http://localhost:8080
+github:
+  uri: https://github.com/login/oauth/access_token
+  clientId: e475671da6e0d9156c91
+  clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8
+    username: sunny
+    password: sunny127
+  flyway:
+    url: jdbc:mysql://codesquad-rds.clvb9ieebpxy.ap-northeast-2.rds.amazonaws.com/codesquad?characterEncoding=UTF-8
+    user: sunny
+    password: sunny127
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    web: debug
+    com.codesquad.issue: debug
+
+host: http://15.164.138.255
+github:
+  uri: https://github.com/login/oauth/access_token
+  clientId: 4946b46078dcaa5adfa6
+  clientSecret: 144c1939474d892d8b6f74c06304139d616dcf99

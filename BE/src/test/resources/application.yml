@@ -1,0 +1,32 @@
+spring:
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+host: http://localhost:8080
+github:
+  uri: https://github.com/login/oauth/access_token
+  clientId: e475671da6e0d9156c91
+  clientSecret: 3cc11749c4247bb0e46a05dbca3fe0f6f605e34f
+
+logging:
+  level:
+    com.codesquad.issue: debug
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
