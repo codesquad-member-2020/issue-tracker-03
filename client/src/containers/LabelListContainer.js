@@ -68,7 +68,10 @@ const IssueCreatecontainer = () => {
       let response = await labelAPI.modifyLabel(id, contents);
       console.log("Edit:", response);
 
-      if (response.success) dispatch(getLabelList());
+      if (response.success) {
+        dispatch(getLabelList());
+        setExpandedList(new Map(expandedList.set(index, false)))
+      }
       else alert("변경 요청이 처리되지 못했습니다.")
     })();
 
