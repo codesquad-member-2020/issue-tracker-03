@@ -141,7 +141,7 @@ const MilestoneModifyContainer = ({ milestoneId }) => {
         dueDate: dueDate,
       };
 
-      let response = await milestoneAPI.modifyMilestone(body);
+      let response = await milestoneAPI.modifyMilestone(milestoneId, body);
 
       if (response.success) history.push("/milestone-list/");
       else alert("요청이 처리되지 않았습니다.");
