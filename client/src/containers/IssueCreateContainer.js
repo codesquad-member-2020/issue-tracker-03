@@ -70,7 +70,7 @@ const IssueCreatecontainer = () => {
       console.log("createIssue:", response);
 
       if (response.success) {
-        const issueId = response.issueId;
+        const issueId = response.response.id;
         history.push("/issue-detail/" + issueId);
       }
       else alert("생성 요청이 처리되지 못했습니다.")
