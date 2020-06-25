@@ -1,7 +1,12 @@
 import React from 'react';
+import MilestoneCreateContainer from '../containers/MilestoneCreateContainer';
 
 const MilestoneCreatePage = () => {
-  return <div>MilestoneCreatePage</div>;
+  return (
+    <>
+      <MilestoneCreateContainer />
+    </>
+  );
 };
 
 export default MilestoneCreatePage;

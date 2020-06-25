@@ -12,19 +12,20 @@ import List from '@Components/IssueList/List';
 import Filters from '@Components/IssueList/Filters';
 import ButtonPanel from '@Components/Common/ButtonPanel'
 
-const IssueListContainer = () => {
+const IssueListContainer = ({ query }) => {
   const history = useHistory();
   const { data, loading, error } = useSelector(
     state => state.issueList.issueList,
   );
 
   const { checkbox } = useSelector(state => state.issueList);
+  const { loginStateInfo } = useSelector(({ login }) => login);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIssueList());
-  }, [dispatch]);
+    dispatch(getIssueList(query));
+  }, [dispatch, query]);
 
   if (loading && !data) return <div>로딩중...</div>;
   if (error) return <div>에러 발생!</div>;
@@ -47,17 +48,29 @@ const IssueListContainer = () => {
     history.push('/label-list')
   }
 
+  const onOpenButtonClickHandler = () => {
+    history.push('?q=is:open')
+  }
+
+  const onClosedButtonClickHandler = () => {
+    console.log("Wefwefewf");
+    history.push('?q=is:closed')
+  }
+
   return (
     <>
-        <ButtonPanel
-          onSubmitButtonClick={onNewIssueButtonClickHandler}
-          submitButtonText="New issue"
-          submitButtonEnabled={true}
-          onMilestoneButtonClick={onMilestoneButtonClickHandler}
-          onLabelButtonClick={onLabelButtonClickHandler}
-        />
-      <Search />
-      <Filters />
+      <ButtonPanel
+        onSubmitButtonClick={onNewIssueButtonClickHandler}
+        submitButtonText="New issue"
+        submitButtonEnabled={loginStateInfo}
+        onMilestoneButtonClick={onMilestoneButtonClickHandler}
+        onLabelButtonClick={onLabelButtonClickHandler}
+      />
+      <Filters
+        isOpen={!(query === '?q=is:closed')}
+        openButtonClick={onOpenButtonClickHandler}
+        closedButtonClick={onClosedButtonClickHandler}
+      />
       <List
         list={list}
         onCheckboxClick={onCheckboxClickHandler}
