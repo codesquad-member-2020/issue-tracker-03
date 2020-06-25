@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Milestone extends BaseTimeEntity {
+public class Milestone extends BaseTimeEntity implements AbstractMilestone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +45,10 @@ public class Milestone extends BaseTimeEntity {
 
     public void changeOpenOrClose() {
         this.isOpen = !isOpen;
+    }
+
+    @Override
+    public boolean isNil() {
+        return false;
     }
 }

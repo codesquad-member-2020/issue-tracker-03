@@ -2,7 +2,7 @@ package com.codesquad.issue.domain.issue.response;
 
 import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
-import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
+import com.codesquad.issue.domain.milestone.Milestone;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +29,5 @@ public class IssueResponse {
 
     private final LocalDateTime modifiedTimeAt;
 
-    private final MilestoneResponse milestone;
+    private final Milestone milestone;
 }

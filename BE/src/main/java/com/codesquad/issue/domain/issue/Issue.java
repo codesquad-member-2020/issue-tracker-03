@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.codesquad.issue.domain.milestone.Milestone;
+import com.codesquad.issue.domain.milestone.NullMilestone;
 import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,10 +53,11 @@ public class Issue extends BaseTimeEntity {
     private Milestone milestone;
 
     @Builder
-    private Issue(String title, Account author) {
+    private Issue(String title, Account author, Milestone milestone) {
         this.title = title;
         this.isOpen = true;
         this.author = author;
+        this.milestone = Optional.ofNullable(milestone).orElse(NullMilestone.of());
     }
 
     public void changeOpenOrClose() {
@@ -74,25 +76,7 @@ public class Issue extends BaseTimeEntity {
         this.milestone = null;
     }
 
-    // 마일스톤 null처리를 위한 분기점 처리
     public IssueResponse toResponse() {
-        if (milestone == null) {
-            return IssueResponse.builder()
-                    .id(id)
-                    .title(title)
-                    .isOpen(isOpen)
-                    .author(AccountResponse.builder()
-                            .userId(author.getLogin())
-                            .avatarUrl(author.getAvatarUrl())
-                            .build())
-                    .labels(issueLabels.stream().map(
-                            issueLabel -> issueLabel.toLabelResponse())
-                            .collect(Collectors.toList()))
-                    .createdTimeAt(getCreatedTimeAt())
-                    .modifiedTimeAt(getModifiedTimeAt())
-                    .build();
-        }
-
         return IssueResponse.builder()
                 .id(id)
                 .title(title)
@@ -104,11 +88,7 @@ public class Issue extends BaseTimeEntity {
                 .labels(issueLabels.stream().map(
                         issueLabel -> issueLabel.toLabelResponse())
                         .collect(Collectors.toList()))
-                .milestone(MilestoneResponse.builder()
-                        .id(milestone.getId())
-                        .name(milestone.getName())
-                        .dueDate(milestone.getDueDate())
-                        .build())
+                .milestone(milestone)
                 .createdTimeAt(getCreatedTimeAt())
                 .modifiedTimeAt(getModifiedTimeAt())
                 .build();
