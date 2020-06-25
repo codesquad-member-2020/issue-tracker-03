@@ -31,7 +31,7 @@ public class AccountService {
         try {
             account = accountRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new NotFoundException(
-                            request.getEmail() + "에 해당하는 " + Account.class + "없습니"));
+                            request.getEmail() + "에 해당하는 " + Account.class + "없습니다."));
         } catch (NotFoundException e) {
             account = save(AccountSaveDto.builder()
                     .email(request.getEmail())
