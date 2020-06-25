@@ -138,7 +138,7 @@ const MilestoneModifyContainer = ({ milestoneId }) => {
       const body = {
         name: title,
         description: description,
-        dueDate: dueDate,
+        dueDate: cvtDueDate,
       };
 
       let response = await milestoneAPI.modifyMilestone(milestoneId, body);
