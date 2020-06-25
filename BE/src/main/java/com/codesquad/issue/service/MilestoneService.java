@@ -6,6 +6,7 @@ import com.codesquad.issue.domain.milestone.request.MilestoneCreateRequest;
 import com.codesquad.issue.domain.milestone.request.MilestoneModifyRequest;
 import com.codesquad.issue.domain.milestone.response.MilestoneCreateResponse;
 import com.codesquad.issue.domain.milestone.response.MilestoneListResponse;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,16 @@ public class MilestoneService {
     @Transactional(readOnly = true)
     public MilestoneListResponse findAllMilestone() {
         return new MilestoneListResponse(milestoneRepository.findAll());
+    }
+
+    @Transactional(readOnly = true)
+    public MilestoneResponse findById(Long id) {
+        Milestone savedMilestone = milestoneRepository.findById(id).orElseThrow(MilestoneNotFoundException::new);
+        return MilestoneResponse.builder()
+                .id(savedMilestone.getId())
+                .name(savedMilestone.getName())
+                .dueDate(savedMilestone.getDueDate())
+                .build();
     }
 
     @Transactional
