@@ -69,6 +69,7 @@ const MilestoneListContainer = () => {
       <List
         milestoneList={milestoneList}
         onDeleteButtonClick={onDeleteButtonClickHandler}
+        isLogin={loginStateInfo}
       ></List>
     </>
   );
