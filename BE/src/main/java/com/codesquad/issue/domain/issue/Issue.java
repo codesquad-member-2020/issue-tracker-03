@@ -5,10 +5,13 @@ import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.commmon.BaseTimeEntity;
 import com.codesquad.issue.domain.issue.request.IssueModifyRequest;
 import com.codesquad.issue.domain.issue.response.IssueResponse;
+import com.codesquad.issue.domain.milestone.Milestone;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.codesquad.issue.domain.milestone.Milestone;
-import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,7 +47,7 @@ public class Issue extends BaseTimeEntity {
     @OneToMany(mappedBy = "issue", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<IssueLabel> issueLabels = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
 
@@ -74,25 +74,18 @@ public class Issue extends BaseTimeEntity {
         this.milestone = null;
     }
 
-    // 마일스톤 null처리를 위한 분기점 처리
     public IssueResponse toResponse() {
-        if (milestone == null) {
-            return IssueResponse.builder()
-                    .id(id)
-                    .title(title)
-                    .isOpen(isOpen)
-                    .author(AccountResponse.builder()
-                            .userId(author.getLogin())
-                            .avatarUrl(author.getAvatarUrl())
-                            .build())
-                    .labels(issueLabels.stream().map(
-                            issueLabel -> issueLabel.toLabelResponse())
-                            .collect(Collectors.toList()))
-                    .createdTimeAt(getCreatedTimeAt())
-                    .modifiedTimeAt(getModifiedTimeAt())
-                    .build();
-        }
 
+        Optional<Milestone> optionalMilestone = Optional.ofNullable(milestone);
+
+        if (!optionalMilestone.isPresent()) {
+            return issueResponseBuild(MilestoneResponse.nilMilestoneResponse());
+        }
+        return issueResponseBuild(milestone.toResponse());
+
+    }
+
+    private IssueResponse issueResponseBuild(MilestoneResponse milestone) {
         return IssueResponse.builder()
                 .id(id)
                 .title(title)
@@ -104,11 +97,7 @@ public class Issue extends BaseTimeEntity {
                 .labels(issueLabels.stream().map(
                         issueLabel -> issueLabel.toLabelResponse())
                         .collect(Collectors.toList()))
-                .milestone(MilestoneResponse.builder()
-                        .id(milestone.getId())
-                        .name(milestone.getName())
-                        .dueDate(milestone.getDueDate())
-                        .build())
+                .milestone(milestone)
                 .createdTimeAt(getCreatedTimeAt())
                 .modifiedTimeAt(getModifiedTimeAt())
                 .build();

@@ -3,10 +3,9 @@ package com.codesquad.issue.domain.issue.response;
 import com.codesquad.issue.domain.account.response.AccountResponse;
 import com.codesquad.issue.domain.comment.response.CommentResponse;
 import com.codesquad.issue.domain.label.response.LabelResponse;
+import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import com.codesquad.issue.domain.milestone.response.MilestoneResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

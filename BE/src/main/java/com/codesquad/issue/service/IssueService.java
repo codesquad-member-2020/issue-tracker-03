@@ -19,6 +19,7 @@ import com.codesquad.issue.global.error.exception.IssueNotFoundException;
 import com.codesquad.issue.global.error.exception.LabelNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.codesquad.issue.global.error.exception.MilestoneNotFoundException;
@@ -59,6 +60,24 @@ public class IssueService {
                 .orElseThrow(MilestoneNotFoundException::new);
     }
 
+    private IssueDetailResponse issueDetailResponseWithNilMileStoneResponse(Issue issue,
+            List<CommentResponse> commentResponses, List<LabelResponse> labels) {
+        return IssueDetailResponse.builder()
+                .id(issue.getId())
+                .title(issue.getTitle())
+                .isOpen(issue.isOpen())
+                .author(AccountResponse.builder()
+                        .userId(issue.getAuthor().getLogin())
+                        .avatarUrl(issue.getAuthor().getAvatarUrl())
+                        .build())
+                .createdTimeAt(issue.getCreatedTimeAt())
+                .modifiedTimeAt(issue.getModifiedTimeAt())
+                .comments(commentResponses)
+                .labels(labels)
+                .milestone(MilestoneResponse.nilMilestoneResponse())
+                .build();
+    }
+
     public List<IssueResponse> findAll() {
         List<Issue> issues = issueRepository.findAllByIsOpenTrueOrderByCreatedTimeAtDesc();
         return issues.stream().map(issue -> issue.toResponse()).collect(
@@ -77,18 +96,18 @@ public class IssueService {
 
     public IssueDetailResponse findById(Long id) {
         Issue issue = findIssueById(id);
-        Milestone milestone = issue.getMilestone();
         List<IssueLabel> issueLabels = issueLabelRepository.findAllByIssue(issue);
         List<LabelResponse> labels = issueLabels.stream()
                 .map(issueLabel -> issueLabel.toLabelResponse()).collect(
                         Collectors.toList());
 
         List<Comment> comments = commentRepository.findAllByIssue(issue);
-        List<CommentResponse> responses = comments.stream().map(comment -> comment.toResponse())
+        List<CommentResponse> commentResponses = comments.stream()
+                .map(comment -> comment.toResponse())
                 .collect(Collectors.toList());
+        Optional<Milestone> milestone = Optional.ofNullable(issue.getMilestone());
 
-        // 마일스톤 null처리를 위한 분기점 처리
-        if (milestone == null) {
+        if (milestone.isPresent()) {
             return IssueDetailResponse.builder()
                     .id(issue.getId())
                     .title(issue.getTitle())
@@ -99,29 +118,12 @@ public class IssueService {
                             .build())
                     .createdTimeAt(issue.getCreatedTimeAt())
                     .modifiedTimeAt(issue.getModifiedTimeAt())
-                    .comments(responses)
+                    .comments(commentResponses)
                     .labels(labels)
+                    .milestone(milestone.get().toResponse())
                     .build();
         }
-
-        return IssueDetailResponse.builder()
-                .id(issue.getId())
-                .title(issue.getTitle())
-                .isOpen(issue.isOpen())
-                .author(AccountResponse.builder()
-                        .userId(issue.getAuthor().getLogin())
-                        .avatarUrl(issue.getAuthor().getAvatarUrl())
-                        .build())
-                .createdTimeAt(issue.getCreatedTimeAt())
-                .modifiedTimeAt(issue.getModifiedTimeAt())
-                .comments(responses)
-                .labels(labels)
-                .milestone(MilestoneResponse.builder()
-                        .id(milestone.getId())
-                        .name(milestone.getName())
-                        .dueDate(milestone.getDueDate())
-                        .build())
-                .build();
+        return issueDetailResponseWithNilMileStoneResponse(issue, commentResponses, labels);
     }
 
     @Transactional

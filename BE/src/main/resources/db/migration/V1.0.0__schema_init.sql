@@ -18,7 +18,7 @@ CREATE TABLE account
 CREATE TABLE milestone
 (
     id               BIGINT AUTO_INCREMENT,
-    name             VARCHAR(500) NOT NULL,
+    name             VARCHAR(500),
     description      VARCHAR(500),
     due_date         Date,
     created_time_at  TIMESTAMP DEFAULT NOW(),
@@ -35,7 +35,7 @@ CREATE TABLE issue
     created_time_at  TIMESTAMP DEFAULT NOW(),
     modified_time_at TIMESTAMP DEFAULT NOW(),
     account_id       BIGINT,
-    milestone_id     BIGINT UNIQUE,
+    milestone_id     BIGINT,
     PRIMARY KEY (id),
     CONSTRAINT issue_has_account_id FOREIGN KEY (account_id) REFERENCES account (id),
     CONSTRAINT issue_has_milestone_id FOREIGN KEY (milestone_id) REFERENCES milestone (id)
