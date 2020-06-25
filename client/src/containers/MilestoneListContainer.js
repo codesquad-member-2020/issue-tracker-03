@@ -54,6 +54,10 @@ const MilestoneListContainer = () => {
     })();
   }
 
+  const onEditButtonClickHandler = (id) => {
+    history.push('/milestone-modify/' + id);
+  }
+
   return (
     <>
       <ButtonPanelWrap>
@@ -69,6 +73,8 @@ const MilestoneListContainer = () => {
       <List
         milestoneList={milestoneList}
         onDeleteButtonClick={onDeleteButtonClickHandler}
+        isLogin={loginStateInfo}
+        onEditButtonClick={onEditButtonClickHandler}
       ></List>
     </>
   );

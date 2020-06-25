@@ -28,6 +28,7 @@ export const getMilestone = createPromiseThunkById(
 
 const initialState = {
   milestoneList: reducerUtils.initial(),
+  milestone: {}
 };
 
 export default function milestoneList(state = initialState, action) {

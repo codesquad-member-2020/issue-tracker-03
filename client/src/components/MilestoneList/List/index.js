@@ -5,6 +5,8 @@ import Article from "@Components/MilestoneList/List/Article";
 const List = ({
   milestoneList,
   onDeleteButtonClick,
+  isLogin,
+  onEditButtonClick
 }) => {
   return (
     <>
@@ -18,6 +20,8 @@ const List = ({
             title={article.name}
             dueDate={article.dueDate}
             onDeleteButtonClick={onDeleteButtonClick}
+            onEditButtonClick={onEditButtonClick}
+            isLogin={isLogin}
           />
         ))}
     </>

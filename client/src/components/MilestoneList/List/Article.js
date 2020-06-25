@@ -122,10 +122,16 @@ const Article = ({
   dueDate,
   description,
   isOpen,
-  onDeleteButtonClick
+  onDeleteButtonClick,
+  isLogin,
+  onEditButtonClick
 }) => {
   const onDeleteButtonClickHandler = (e) => {
     if (onDeleteButtonClick) onDeleteButtonClick(id);
+  };
+
+  const onEditButtonClickHandler = (e) => {
+    if (onEditButtonClick) onEditButtonClick(id);
   };
 
   return (
@@ -137,11 +143,13 @@ const Article = ({
           <Description>{description}</Description>
         </LeftSide>
         <RightSide>
+          {isLogin &&
           <ButtonsWrap>
-            <Button>Edit</Button>
+            <Button onClick={onEditButtonClickHandler}>Edit</Button>
             <Button>Close</Button>
             <Button color="#cb2431" onClick={onDeleteButtonClickHandler}>Delete</Button>
           </ButtonsWrap>
+          }
         </RightSide>
       </ArticleWrap>
     </>

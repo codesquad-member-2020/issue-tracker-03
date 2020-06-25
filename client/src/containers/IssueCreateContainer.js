@@ -61,8 +61,10 @@ const IssueCreatecontainer = () => {
       const body = {
         title: title,
         contents: contents,
-        userId: "dev-angelo"
+        userId: loginStateInfo.userId
       };
+
+      console.log("body: ", body);
 
       let response = await issueCreateAPI.createIssue(body);
       console.log("createIssue:", response);
