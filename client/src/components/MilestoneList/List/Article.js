@@ -116,35 +116,31 @@ const Button = styled.button`
 `;
 
 const Article = ({
+  id,
+  index,
   title,
   dueDate,
   description,
-  openCount,
-  closeCount,
-  isOpen
+  isOpen,
+  onDeleteButtonClick
 }) => {
+  const onDeleteButtonClickHandler = (e) => {
+    if (onDeleteButtonClick) onDeleteButtonClick(id);
+  };
 
   return (
     <>
       <ArticleWrap>
         <LeftSide>
-          <Title>Title</Title>
-          <DueDate>DueDate</DueDate>
-          <Description>이번 배포를 위한</Description>
+          <Title>{title}</Title>
+          <DueDate>Due by {dueDate}</DueDate>
+          <Description>{description}</Description>
         </LeftSide>
         <RightSide>
-          <TotalArea>
-            <CompleteArea openCount={2} closeCount={1}></CompleteArea>
-          </TotalArea>
-          <InformationWrap>
-            <CompleteRate>{Math.floor((1 / 3) * 100)}% complete</CompleteRate>
-            <OpenCount>2 open</OpenCount>
-            <CloseCount>1 closed</CloseCount>
-          </InformationWrap>
           <ButtonsWrap>
             <Button>Edit</Button>
             <Button>Close</Button>
-            <Button color="#cb2431">Delete</Button>
+            <Button color="#cb2431" onClick={onDeleteButtonClickHandler}>Delete</Button>
           </ButtonsWrap>
         </RightSide>
       </ArticleWrap>

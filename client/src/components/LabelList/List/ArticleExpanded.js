@@ -68,6 +68,7 @@ const ButtonWrap = styled.div`
 `;
 
 const ArticleExpanded = ({
+  id,
   index,
   labelName,
   labelNamePlaceHolder,
@@ -101,13 +102,13 @@ const ArticleExpanded = ({
       description: description,
       color: color,
     };
-    if (onSaveButtonClick) onSaveButtonClick(index, contents);
+    if (onSaveButtonClick) onSaveButtonClick(index, id, contents);
   };
 
   return (
     <ArticleExpandedWrap>
       <NameWrap>
-        <Name color={color}>{labelName}</Name>
+        <Name color={color}>{labelName ? labelName : name}</Name>
       </NameWrap>
       <ContentWrap>
         <TitleWrap>

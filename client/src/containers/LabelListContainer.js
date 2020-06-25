@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  getLabelList,
+  getLabelList
 } from '../modules/labelList';
+import * as labelAPI from '$API/labelList';
 import styled from 'styled-components';
 import List from '@Components/LabelList/List/index'
 import Counter from '@Components/LabelList/Counter/index'
@@ -48,23 +49,43 @@ const IssueCreatecontainer = () => {
     setExpandedList(new Map(expandedList.set(index, true)))
   }
 
-  const onDeleteButtonClickHandler = (index) => {
-    console.log("onDeleteButtonClickHandler", index);
+  const onDeleteButtonClickHandler = (id) => {
+    (async () => {
+      let response = await labelAPI.deleteLabel(id);
+      console.log("Delete:", response);
+
+      if (response.success) dispatch(getLabelList());
+      else alert("삭제 요청이 처리되지 못했습니다.")
+    })();
   }
 
-  const onCancelButtonClickHandler = (index) => {
-    setExpandedList(new Map(expandedList.set(index, false)))
+  const onCancelButtonClickHandler = (id) => {
+    setExpandedList(new Map(expandedList.set(id, false)))
   }
 
-  const onSaveButtonClickHandler = (index, contents) => {
-    console.log("onSaveButtonClickHandler", index, contents);
+  const onSaveButtonClickHandler = (index, id, contents) => {
+    (async () => {
+      let response = await labelAPI.modifyLabel(id, contents);
+      console.log("Edit:", response);
+
+      if (response.success) dispatch(getLabelList());
+      else alert("변경 요청이 처리되지 못했습니다.")
+    })();
+
   }
 
   const onCancelCreateNewLabelHandler = () => {
     setNewLabelTabVisible(false);
   }
 
-  const onCreateNewLabelHandler = () => {
+  const onCreateNewLabelHandler = (index, id, contents) => {
+    (async () => {
+      let response = await labelAPI.createLabel(contents);
+      console.log("New label:", response);
+      
+      if (response.success) dispatch(getLabelList());
+      else alert("생성 요청이 처리되지 못했습니다.")
+    })();
   }
 
   if (loading && !data) return <div>로딩중...</div>;
@@ -79,7 +100,7 @@ const IssueCreatecontainer = () => {
         <ButtonPanel
           onSubmitButtonClick={onNewLabelButtonClickHandler}
           submitButtonText="New label"
-          submitButtonEnabled={true}
+          submitButtonEnabled={loginStateInfo}
           onMilestoneButtonClick={onMilestoneButtonClickHandler}
           labelButtonSelected={true}
         />
@@ -89,6 +110,7 @@ const IssueCreatecontainer = () => {
           onCancelButtonClick={onCancelCreateNewLabelHandler}
           onSaveButtonClick={onCreateNewLabelHandler}
           submitText="Create label"
+          changeEnabled={loginStateInfo}
         />
       )}
       <Counter count={labelList.length} />

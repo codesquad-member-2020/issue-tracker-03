@@ -3,12 +3,18 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import styled from 'styled-components';
+import defaultProfileImage from '../../libs/images/default_profile.jpg';
 
 const mdParser = new MarkdownIt();
 
 const Avatar = styled.div`
+  overflow: hidden;
   width: 40px;
   height: 40px;
+  border-radius: 5px;
+  img {
+    max-width: 100%;
+  }
 `;
 const CommentWrap = styled.div`
   position: relative;
@@ -79,10 +85,15 @@ const Comment = ({ contents, author, createdAt }) => {
       html: true,
     },
   });
+
   return (
     <Wrap>
       <Avatar>
-        <img src={author.avatarURL} alt={author.userId} />
+        {!author.avatarURL ? (
+          <img src={defaultProfileImage} alt={author.userId} />
+        ) : (
+          <img src={author.avatarURL} alt={author.userId} />
+        )}
       </Avatar>
       <CommentWrap>
         <CommentHead>
@@ -90,11 +101,7 @@ const Comment = ({ contents, author, createdAt }) => {
           commented {createdAt}
         </CommentHead>
         <CommentBody>
-          <MdEditor
-            value={contents}
-            renderHTML={text => mdParser.render(text)}
-            config={config}
-          />
+          <MdEditor value={contents} renderHTML={text => mdParser.render(text)} config={config} />
         </CommentBody>
       </CommentWrap>
     </Wrap>

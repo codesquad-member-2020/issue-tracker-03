@@ -13,7 +13,6 @@ const List = ({
   changeEnabled,
   submitText
 }) => {
-  console.log(expandedList.get(0));
   return (
     <div>
       {labelList.map((article, index) => {
@@ -22,11 +21,13 @@ const List = ({
             <ArticleNormal
               key={index}
               index={index}
+              id={article.id}
               labelName={article.name}
               labelColor={article.color}
               labelDescription={article.description}
               onEditButtonClick={onEditButtonClick}
               onDeleteButtonClick={onDeleteButtonClick}
+              changeEnabled={changeEnabled}
             />
           );
         else
@@ -34,6 +35,7 @@ const List = ({
             <ArticleExpanded
               key={index}
               index={index}
+              id={article.id}
               labelName={article.name}
               labelNamePlaceHolder="Label name"
               labelColor={article.color}
