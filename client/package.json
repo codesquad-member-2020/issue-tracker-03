@@ -50,7 +50,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-datepicker": "^3.0.0",
-    "react-dev-utils": "^10.2.1",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.13.1",
     "react-markdown-editor-lite": "^1.1.5",
     "react-redux": "^7.2.0",
